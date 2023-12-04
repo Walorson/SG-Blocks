@@ -1,5 +1,7 @@
+const workspace = document.getElementById("workspace");
 class Block {
     constructor(x, y) {
+        this.maxConnects = 1;
         this.connectTo = [];
         this.id = blocksList.length;
         this.x = x;
@@ -20,7 +22,7 @@ class Block {
         this.dragAndDrop();
     }
     createBlock() {
-        document.body.innerHTML += `<div class="block" id="${this.id}"></div>`;
+        workspace.innerHTML += `<div class="block" id="${this.id}"></div>`;
     }
     setPosition(x, y) {
         this.div.style.top = y + "px";
@@ -29,12 +31,15 @@ class Block {
     getID() {
         this.div = document.getElementById(this.id + "");
     }
-    execute() {
-        if (this.connectTo[0] != undefined) {
-            this.connectTo[0].execute();
+    execute() { setTimeout(() => { this.connectToExecute(); }, 500); }
+    connect() { }
+    connectToExecute() {
+        executeHistory.push(this);
+        for (let i = 0; i < this.connectTo.length; i++) {
+            if (executeHistory[executeHistory.length - 2] == this.connectTo[i])
+                continue;
+            this.connectTo[i].execute();
         }
-    }
-    connect() {
     }
     dragAndDrop() {
         let isdrag = false;
@@ -53,11 +58,11 @@ class Block {
             if (isdrag) {
                 let x = e.clientX + grabPointX;
                 let y = e.clientY + grabPointY;
+                this.x = x;
+                this.y = y;
                 this.div.style.top = y + "px";
                 this.div.style.left = x + "px";
             }
-
-            lineController.redrawLines();
         });
         window.addEventListener("mouseup", (e) => {
             if (e.button != 0)
@@ -72,7 +77,7 @@ class Start extends Block {
         this.init();
     }
     createBlock() {
-        document.body.innerHTML += `<div class="block start" id="${this.id}">Start</div>`;
+        workspace.innerHTML += `<div class="block start" id="${this.id}">Start</div>`;
     }
 }
 class End extends Block {
@@ -81,23 +86,25 @@ class End extends Block {
         this.init();
     }
     createBlock() {
-        document.body.innerHTML += `<div class="block end" id="${this.id}">End</div>`;
+        workspace.innerHTML += `<div class="block end" id="${this.id}">End</div>`;
+    }
+    execute() {
+        console.warn("END");
     }
 }
 class Output extends Block {
     constructor(x, y, message = "Hello World!") {
         super(x, y);
+        this.maxConnects = 2;
         this.message = message;
         this.init();
     }
     execute() {
         console.log(this.message);
-        if (this.connectTo[0] != undefined) {
-            this.connectTo[0].execute();
-        }
+        setTimeout(() => { this.connectToExecute(); }, 500);
     }
     createBlock() {
-        document.body.innerHTML += `<div class="block output" id="${this.id}">${this.message}</div>`;
+        workspace.innerHTML += `<div class="block output" id="${this.id}">${this.message}</div>`;
     }
 }
 const blocksList = [];

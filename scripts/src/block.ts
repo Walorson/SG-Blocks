@@ -1,8 +1,11 @@
+const workspace: HTMLElement = document.getElementById("workspace");
+
 class Block {
     id: number;
     x: number;
     y: number;
     div: HTMLElement;
+    maxConnects: number = 1;
     connectTo: Block[] = [];
 
     constructor(x: number, y: number) {
@@ -33,7 +36,7 @@ class Block {
     }
 
     createBlock(): void {
-        document.body.innerHTML += `<div class="block" id="${this.id}"></div>`;
+        workspace.innerHTML += `<div class="block" id="${this.id}"></div>`;
     }
 
     setPosition(x: number, y: number): void {
@@ -45,14 +48,17 @@ class Block {
         this.div = document.getElementById(this.id+"");
     }
     
-    execute(): void {
-        if(this.connectTo[0] != undefined) {
-            this.connectTo[0].execute();
-        }
-    }
+    execute(): void { setTimeout(() => { this.connectToExecute(); }, 500); }
 
-    connect(): void {
-        
+    connect(): void { }
+
+    connectToExecute(): void {
+        executeHistory.push(this);
+        for(let i=0; i<this.connectTo.length; i++)
+        {
+            if(executeHistory[executeHistory.length-2] == this.connectTo[i]) continue;
+            this.connectTo[i].execute();
+        }
     }
 
     dragAndDrop(): void 
@@ -76,9 +82,12 @@ class Block {
             {
                 let x: number = e.clientX + grabPointX;
                 let y: number = e.clientY + grabPointY;
+                this.x = x;
+                this.y = y;
                 this.div.style.top = y+"px";
                 this.div.style.left = x+"px";
             }
+            
         });
 
         window.addEventListener("mouseup", (e: MouseEvent) => {
@@ -96,7 +105,7 @@ class Start extends Block {
     }
 
     createBlock(): void {
-        document.body.innerHTML += `<div class="block start" id="${this.id}">Start</div>`;
+        workspace.innerHTML += `<div class="block start" id="${this.id}">Start</div>`;
     }
 }
 
@@ -107,12 +116,17 @@ class End extends Block {
     }
 
     createBlock(): void {
-        document.body.innerHTML += `<div class="block end" id="${this.id}">End</div>`;
+        workspace.innerHTML += `<div class="block end" id="${this.id}">End</div>`;
+    }
+
+    execute(): void {
+        console.warn("END");
     }
 }
 
 class Output extends Block {
     message: string;
+    maxConnects: number = 2;
     constructor(x: number, y: number, message: string = "Hello World!") {
         super(x, y);
         this.message = message;
@@ -122,13 +136,11 @@ class Output extends Block {
     execute(): void {
         console.log(this.message);
         
-        if(this.connectTo[0] != undefined) {
-            this.connectTo[0].execute();
-        }
+        setTimeout(() => { this.connectToExecute() }, 500);
     }
 
     createBlock(): void {
-        document.body.innerHTML += `<div class="block output" id="${this.id}">${this.message}</div>`;
+        workspace.innerHTML += `<div class="block output" id="${this.id}">${this.message}</div>`;
     }
 }
 

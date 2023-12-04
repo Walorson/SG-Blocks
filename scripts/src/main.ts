@@ -1,8 +1,17 @@
+let deleteLineMode: boolean = false;
+let executeHistory: Block[] = [];
+
+function findKeyByValue(object: Object, value: number): string {
+    return Object.keys(object).find((key) => object[key] == value);
+}
+
 new Start(700, 50);
 new Output(700, 350, "Siema");
 new End(700, 600);
 
-function run(): void
+function run(): string
 {
+    executeHistory = [];
     blocksList[0].execute();
+    return "START";
 }

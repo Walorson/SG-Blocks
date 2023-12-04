@@ -4,6 +4,7 @@ body {
     box-sizing: border-box;
     height: 100vh;
     font-family: monospace;
+    overflow: hidden;
 }
 .block {
     position: absolute;
