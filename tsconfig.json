@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "rootDir": "./scripts/src",
+        "outDir": "./scripts/dist",
+        "target": "ES2015",
+        "noImplicitAny": false,
+        "allowJs": true
+    }
+}
