@@ -2,9 +2,9 @@
 App inspired by Java Block but in online version :D
 ## Version: Alpha 1.1
 ## Controls
-Move Blocks - Left Click Mouse
-Connect - Right Click Mouse Drag from block to block
-Remove Connect - Hold CTRL and click on line
+* Move Blocks - Left Click Mouse
+* Connect - Right Click Mouse Drag from block to block
+* Remove Connect - Hold CTRL and click on line
 
 ## In console
 run() - to run algoritm
