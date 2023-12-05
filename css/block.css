@@ -1,0 +1,24 @@
+.block {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    background-color: yellow;
+    padding: 10px 20px;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    user-select: none;
+}
+.output {
+    font-style: italic;
+    font-size: 1.2rem;
+}
+.input {
+    background-color: rgb(255, 185, 54);
+}
+.condition {
+    padding: 15px 17px;
+    border-radius: 0;
+    background-color: rgb(255, 121, 26);
+}

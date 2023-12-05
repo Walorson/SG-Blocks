@@ -48,17 +48,21 @@ class Block {
         this.div = document.getElementById(this.id+"");
     }
     
-    execute(): void { setTimeout(() => { this.connectToExecute(); }, 500); }
+    execute(): void { this.connectToExecute(); }
 
     connect(): void { }
 
     connectToExecute(): void {
-        executeHistory.push(this);
-        for(let i=0; i<this.connectTo.length; i++)
+        setTimeout(() => 
         {
-            if(executeHistory[executeHistory.length-2] == this.connectTo[i]) continue;
-            this.connectTo[i].execute();
-        }
+            executeHistory.push(this);
+            for(let i=0; i<this.connectTo.length; i++)
+            {
+                if(executeHistory[executeHistory.length-2] == this.connectTo[i]) continue;
+                this.connectTo[i].execute();
+            }
+
+        }, RUN_SPEED);
     }
 
     dragAndDrop(): void 
@@ -98,7 +102,7 @@ class Block {
     }
 }
 
-class Start extends Block {
+class StartBlock extends Block {
     constructor(x: number, y: number) {
         super(x, y);
         this.init();
@@ -109,7 +113,7 @@ class Start extends Block {
     }
 }
 
-class End extends Block {
+class EndBlock extends Block {
     constructor(x: number, y: number) {
         super(x, y);
         this.init();
@@ -124,23 +128,112 @@ class End extends Block {
     }
 }
 
-class Output extends Block {
+class OutputBlock extends Block {
     message: string;
+    isVariable: boolean;
     maxConnects: number = 2;
-    constructor(x: number, y: number, message: string = "Hello World!") {
+
+    constructor(x: number, y: number, message: string = "Hello World!", isVariable: boolean = false) {
         super(x, y);
         this.message = message;
+        this.isVariable = isVariable;
         this.init();
     }
 
     execute(): void {
-        console.log(this.message);
+        if(this.isVariable) {
+            console.log(globalVariables.get(this.message));
+        }
+        else {
+            console.log(this.message);
+        }
         
-        setTimeout(() => { this.connectToExecute() }, 500);
+        this.connectToExecute();
     }
 
     createBlock(): void {
-        workspace.innerHTML += `<div class="block output" id="${this.id}">${this.message}</div>`;
+        if(this.isVariable) {
+            workspace.innerHTML += `<div class="block output" id="${this.id}">Print: ${this.message}</div>`;
+        }
+        else {
+            workspace.innerHTML += `<div class="block output" id="${this.id}">${this.message}</div>`;
+        }
+    }
+}
+
+class InputBlock extends Block {
+    message: string;
+    variableName: string;
+    maxConnects: number = 2;
+
+    constructor(x: number, y: number, variableName: any, message: string = "Enter variable") {
+        super(x, y);
+        this.message = message;
+        this.variableName = variableName;
+
+        globalVariables.set(this.variableName, null);
+        this.init();
+    }
+
+    execute(): void {
+        const variable: any = prompt(this.message);
+        globalVariables.set(this.variableName, variable);
+
+        this.connectToExecute();
+    }
+
+    createBlock(): void {
+        workspace.innerHTML += `<div class="block input" id="${this.id}">Input: <b>${this.variableName}</b></div>`;
+    }
+}
+
+class ConditionBlock extends Block {
+    value1: any;
+    value2: any;
+    operator: string;
+    maxConnects: number = 3;
+    isValue1Variable: boolean;
+    isValue2Variable: boolean;
+    value1Name: string;
+    value2Name: string;
+    constructor(x: number, y: number, value1: any = 0, value2: any = 0, operator: string = "==", isValue1Variable: boolean = false, isValue2Variable: boolean = false) {
+        super(x, y);
+        this.value1 = value1;
+        this.value2 = value2;
+        this.operator = operator;
+        this.isValue1Variable = isValue1Variable;
+        this.isValue2Variable = isValue2Variable;
+
+        if(this.isValue1Variable) this.value1Name = this.value1;
+        if(this.isValue2Variable) this.value2Name = this.value2;
+
+        this.init()
+    }
+
+    connectToExecute(): void {
+        setTimeout(() => 
+        {
+            executeHistory.push(this);
+
+            if(this.isValue1Variable == true) this.value1 = globalVariables.get(this.value1Name);
+            if(this.isValue2Variable == true) this.value2 = globalVariables.get(this.value2Name);
+
+            if(this.connectTo[0] == undefined || this.connectTo[1] == undefined) return;
+            
+            switch(this.operator)
+            {
+                case "==":
+                    if(this.value1 == this.value2) this.connectTo[1].execute();
+                    else if(this.connectTo[2] != undefined) this.connectTo[2].execute();
+                break;
+            }
+
+
+        }, RUN_SPEED);
+    }
+
+    createBlock(): void {
+        workspace.innerHTML += `<div class="block condition" id="${this.id}">IF</div>`;
     }
 }
 

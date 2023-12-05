@@ -1,11 +1,10 @@
+const RUN_SPEED = 500; //in miliseconds
 let deleteLineMode = false;
 let executeHistory = [];
-function findKeyByValue(object, value) {
-    return Object.keys(object).find((key) => object[key] == value);
-}
-new Start(700, 50);
-new Output(700, 350, "Siema");
-new End(700, 600);
+let globalVariables = new Map();
+new StartBlock(700, 50);
+new OutputBlock(700, 350, "Siema");
+new EndBlock(700, 600);
 function run() {
     executeHistory = [];
     blocksList[0].execute();

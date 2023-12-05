@@ -6,15 +6,3 @@ body {
     font-family: monospace;
     overflow: hidden;
 }
-.block {
-    position: absolute;
-    top: 50px;
-    left: 50px;
-    background-color: yellow;
-    padding: 10px 20px;
-    border: 2px solid black;
-    border-radius: 10px;
-    font-size: 1.4rem;
-    cursor: pointer;
-    user-select: none;
-}

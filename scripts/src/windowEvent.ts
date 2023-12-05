@@ -30,16 +30,58 @@ window.addEventListener("load", () => {
             blockStart.connectTo.push(blockEnd);
             blockEnd.connectTo.push(blockStart);
 
-            lineController.drawLine({
+            if(blockEnd instanceof ConditionBlock || blockStart instanceof ConditionBlock)
+            {
+                let length: number;
+                if(blockEnd instanceof ConditionBlock) length = blockEnd.connectTo.length;
+                else length = blockStart.connectTo.length;
+
+                switch(length)
+                {
+                    case 2: lineController.drawLine({
         
-                left_node: blockStart.id,
-                right_node: blockEnd.id,
-                col : "black",
-                width:2,
-                gtype:"C"
-            
-            
-            })
+                        left_node: blockStart.id,
+                        right_node: blockEnd.id,
+                        col : "green",
+                        colOriginal: "green",
+                        width:3,
+                        gtype:"C"
+                    
+                    }); break;
+                    case 3: lineController.drawLine({
+        
+                        left_node: blockStart.id,
+                        right_node: blockEnd.id,
+                        col : "orange",
+                        colOriginal: "orange",
+                        width:3,
+                        gtype:"C"
+                    
+                    }); break;
+                    default: lineController.drawLine({
+        
+                        left_node: blockStart.id,
+                        right_node: blockEnd.id,
+                        col : "black",
+                        colOriginal: "black",
+                        width:2,
+                        gtype:"C"
+                    
+                    }); break;
+                }
+            }
+            else {
+                lineController.drawLine({
+        
+                    left_node: blockStart.id,
+                    right_node: blockEnd.id,
+                    col : "black",
+                    colOriginal: "black",
+                    width:2,
+                    gtype:"C"
+                
+                })
+            }
         }
         
         connectStart = false;
@@ -56,7 +98,7 @@ window.addEventListener("load", () => {
         deleteLineMode = false;
         for(let i=0; i<_lines.length; i++)
         {
-            _lines[i].col = "black";
+            _lines[i].col = _lines[i].colOriginal;
         }
         lineController.redrawLines();
     });
@@ -80,7 +122,7 @@ window.addEventListener("load", () => {
                     lineHoverID = i;
                 }
                 else {
-                    _lines[i].col = "black";
+                    _lines[i].col = _lines[i].colOriginal;
                     lineHoverID = null;
                 }
             }
