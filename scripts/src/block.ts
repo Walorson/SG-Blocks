@@ -33,6 +33,7 @@ class Block {
         this.getID();
         this.connect();
         this.dragAndDrop();
+        this.properties();
     }
 
     createBlock(): void {
@@ -100,6 +101,10 @@ class Block {
             isdrag = false;
         })
     }
+
+    properties(): void {
+        
+    }
 }
 
 class StartBlock extends Block {
@@ -158,6 +163,21 @@ class OutputBlock extends Block {
         else {
             workspace.innerHTML += `<div class="block output" id="${this.id}">${this.message}</div>`;
         }
+    }
+
+    properties(): void {
+        this.div.addEventListener("mousedown",() => {
+            properties.innerHTML = `
+                <p>Message: <input type="text" value="${this.message}" class="property${this.id}"></p>
+            `;
+
+            const property: any = properties.querySelectorAll(".property"+this.id);
+
+            property[0].oninput = () => {
+                this.message = property[0].value;
+                this.div.textContent = this.message;
+            };
+        });
     }
 }
 

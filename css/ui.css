@@ -1,0 +1,10 @@
+.ui {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: absolute;
+    top: 15px; left:15px;
+}
+button:hover {
+    cursor: pointer;
+}
