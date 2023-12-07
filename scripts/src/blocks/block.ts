@@ -59,9 +59,22 @@ class Block {
         setTimeout(() => 
         {
             executeHistory.push(this);
+
+            if(this.connectTo.length <= 0) {
+                runStatus = false;
+                buttons.run.removeAttribute("disabled");
+                return;
+            }
+
             for(let i=0; i<this.connectTo.length; i++)
             {
-                if(executeHistory[executeHistory.length-2] == this.connectTo[i]) continue;
+                if(executeHistory[executeHistory.length-2] == this.connectTo[i]) {
+                    if(this.connectTo.length <= 1) {
+                        runStatus = false;
+                        buttons.run.removeAttribute("disabled");
+                    }
+                    continue;
+                }
                 this.connectTo[i].execute();
             }
 

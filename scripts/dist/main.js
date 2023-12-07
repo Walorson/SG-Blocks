@@ -11,6 +11,7 @@ function run() {
         return;
     runStatus = true;
     executeHistory = [];
+    buttons.run.setAttribute("disabled", ";");
     blocksList[0].execute();
     console.log("");
     console.warn("START");

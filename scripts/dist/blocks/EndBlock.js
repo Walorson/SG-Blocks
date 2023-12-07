@@ -9,6 +9,7 @@ class EndBlock extends Block {
     execute() {
         console.warn("END");
         runStatus = false;
+        buttons.run.removeAttribute("disabled");
     }
     delete() { }
 }
