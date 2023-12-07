@@ -1,4 +1,4 @@
-const RUN_SPEED = 500; //in miliseconds
+let runSpeed = 500; //in miliseconds
 let deleteLineMode = false;
 let executeHistory = [];
 let globalVariables = new Map();
@@ -25,4 +25,9 @@ function createSelectVariables(id = "property0") {
     });
     select += "</select>";
     return select;
+}
+function fakeCursorToRealCursor(e) {
+    const cursor = document.getElementById("cursor");
+    cursor.style.top = e.clientY + "px";
+    cursor.style.left = e.clientX + "px";
 }

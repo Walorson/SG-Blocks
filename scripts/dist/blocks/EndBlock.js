@@ -9,4 +9,5 @@ class EndBlock extends Block {
     execute() {
         console.warn("END");
     }
+    delete() { }
 }

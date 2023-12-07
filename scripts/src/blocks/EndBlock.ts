@@ -11,4 +11,6 @@ class EndBlock extends Block {
     execute(): void {
         console.warn("END");
     }
+
+    delete(): void {}    
 }

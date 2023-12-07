@@ -256,7 +256,7 @@ f = 0;
         	_me.redrawLines();
 			//_me.Blines();
 		 //  _me.Listlines();
-
+		 
 
 		})
 
@@ -275,3 +275,7 @@ f = 0;
 		return this;
 	};
 
+window.addEventListener("resize",() => {
+	_canvas.width = document.body.clientWidth;
+	 _canvas.height = document.body.clientHeight; 
+});

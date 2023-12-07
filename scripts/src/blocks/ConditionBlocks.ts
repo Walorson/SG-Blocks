@@ -63,7 +63,7 @@ class ConditionBlock extends Block {
             if(result == true) this.connectTo[1].execute();
             else if(this.connectTo[2] != undefined) this.connectTo[2].execute();
 
-        }, RUN_SPEED);
+        }, runSpeed);
     }
 
     createBlock(): void {

@@ -65,7 +65,7 @@ class Block {
                 this.connectTo[i].execute();
             }
 
-        }, RUN_SPEED);
+        }, runSpeed);
     }
 
     dragAndDrop(): void 
@@ -131,6 +131,8 @@ class Block {
 
                 workspace.removeChild(this.div);
                 delete blocksList[this.id];
+
+                propertiesWindow.innerHTML = '';
             }
         });
 

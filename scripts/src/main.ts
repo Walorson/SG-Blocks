@@ -1,4 +1,4 @@
-const RUN_SPEED: number = 500; //in miliseconds
+let runSpeed: number = 500; //in miliseconds
 let deleteLineMode: boolean = false;
 let executeHistory: Block[] = [];
 let globalVariables: Map<string, any> = new Map();
@@ -35,4 +35,11 @@ function createSelectVariables(id: string = "property0"): string
     select += "</select>";
 
     return select;
+}
+
+function fakeCursorToRealCursor(e: MouseEvent)
+{
+    const cursor: HTMLElement = document.getElementById("cursor");
+    cursor.style.top = e.clientY+"px";
+    cursor.style.left = e.clientX+"px";
 }

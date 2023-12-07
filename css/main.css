@@ -6,3 +6,8 @@ body {
     font-family: monospace;
     overflow: hidden;
 }
+.cursor {
+    position: absolute;
+    height: 0;
+    width: 0;
+}

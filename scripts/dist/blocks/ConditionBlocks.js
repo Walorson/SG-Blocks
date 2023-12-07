@@ -53,7 +53,7 @@ class ConditionBlock extends Block {
                 this.connectTo[1].execute();
             else if (this.connectTo[2] != undefined)
                 this.connectTo[2].execute();
-        }, RUN_SPEED);
+        }, runSpeed);
     }
     createBlock() {
         workspace.innerHTML += `<div class="block condition" id="${this.id}">IF</div>`;

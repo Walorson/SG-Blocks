@@ -44,7 +44,7 @@ class Block {
                     continue;
                 this.connectTo[i].execute();
             }
-        }, RUN_SPEED);
+        }, runSpeed);
     }
     dragAndDrop() {
         let isdrag = false;
@@ -95,6 +95,7 @@ class Block {
                 }
                 workspace.removeChild(this.div);
                 delete blocksList[this.id];
+                propertiesWindow.innerHTML = '';
             }
         });
         this.div.addEventListener("mouseleave", () => {

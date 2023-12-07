@@ -3,10 +3,76 @@ let removeLine: any;
 window.addEventListener("load", () => {
     let connectStart: boolean = false;
     let blockStart: Block;
+    let lineHoverID: number = null;
     let lineController: any = connect();
 
 
     window.addEventListener("mousedown", (e: MouseEvent) => 
+    {
+        connectBegin(e);
+        removeLine(lineHoverID);
+    });
+
+    window.addEventListener("mouseup", (e: MouseEvent) => 
+    {
+        connectEnd(e);
+    });
+
+    window.addEventListener("mousemove", (e: MouseEvent) => 
+    {
+        fakeCursorToRealCursor(e);
+
+        if(deleteLineMode == true) showDeletePossibilities(e);
+        else document.body.style.cursor = "default";
+
+        lineController.redrawLines();
+    });
+
+    window.addEventListener("contextmenu", (e: MouseEvent) => 
+    {
+        e.preventDefault();
+    });
+
+    window.addEventListener("keydown",(e: KeyboardEvent) => 
+    {
+        if(e.ctrlKey) deleteLineMode = true;
+    });
+
+    window.addEventListener("keyup", (e: KeyboardEvent) => 
+    {
+        deleteLineMode = false;
+        for(let i=0; i<_lines.length; i++)
+        {
+            _lines[i].col = _lines[i].colOriginal;
+        }
+        lineController.redrawLines();
+    });
+
+    removeLine = (id: number) =>
+    {
+        if(id == null || deleteLineMode == false) return;
+
+        const left_node: Block = blocksList[_lines[id].left_node];
+        const right_node: Block = blocksList[_lines[id].right_node]
+
+        const leftPos: number = left_node.connectTo.indexOf(right_node);
+        const rightPos: number = right_node.connectTo.indexOf(left_node);
+
+        delete left_node.connectTo[leftPos];
+        delete right_node.connectTo[rightPos];
+
+        delete _lines[id];
+        _lines = _lines.filter(item => item != undefined);
+
+        left_node.connectTo = left_node.connectTo.filter((item: Block) => item != undefined);
+        right_node.connectTo = right_node.connectTo.filter((item: Block) => item != undefined);
+        
+
+        _ctx.clearRect(0, 0,  10000, 4300);
+        lineController.redrawLines();
+    }
+
+    function connectBegin(e: MouseEvent): void
     {
         if(e.button != 2) return;
 
@@ -17,14 +83,28 @@ window.addEventListener("load", () => {
         {
             blockStart = blocksList[id];
             connectStart = true;
-        }
-        
-    });
 
-    window.addEventListener("mouseup", (e: MouseEvent) => 
+            lineController.drawLine({
+        
+                left_node: blockStart.id,
+                right_node: "cursor",
+                col : "black",
+                colOriginal: "black",
+                width:2,
+                gtype:"C"
+            
+            });
+        }
+    }
+
+    function connectEnd(e: MouseEvent)
     {
         if(connectStart == false || e.button != 2) return;
         
+        delete _lines[_lines.length-1];
+        _lines = _lines.filter(line => line != undefined);
+        _ctx.clearRect(0, 0,  10000, 4300);	
+
         const connected = Number(document.elementFromPoint(e.clientX, e.clientY).getAttribute("id"));
 
         if(isNaN(connected) == false && blocksList[connected].connectTo.length < blocksList[connected].maxConnects)
@@ -88,32 +168,15 @@ window.addEventListener("load", () => {
         }
         
         connectStart = false;
-    });
+    }
 
-    window.addEventListener("contextmenu", (e: MouseEvent) => {
-        e.preventDefault();
-    });
-
-    window.addEventListener("keydown",(e: KeyboardEvent) => {
-        if(e.ctrlKey) deleteLineMode = true;
-    });
-    window.addEventListener("keyup", (e: KeyboardEvent) => {
-        deleteLineMode = false;
-        for(let i=0; i<_lines.length; i++)
-        {
-            _lines[i].col = _lines[i].colOriginal;
-        }
-        lineController.redrawLines();
-    });
-
-    let lineHoverID: number = null;
-    window.addEventListener("mousemove", (e: MouseEvent) => {
-        if(deleteLineMode == true)
-        {
+    function showDeletePossibilities(e: MouseEvent)
+    {
             const id = document.elementFromPoint(e.clientX, e.clientY).getAttribute("id");
             if(isNaN(Number(id)) == false)
             {
-                for(let i=0; i<_lines.length; i++) {
+                for(let i=0; i<_lines.length; i++) 
+                {
                     _lines[i].col = _lines[i].colOriginal;
                 }
 
@@ -122,7 +185,8 @@ window.addEventListener("load", () => {
                 return;
             }
 
-            for(let i=0; i<_lines.length; i++) { 
+            for(let i=0; i<_lines.length; i++) 
+            { 
 
                 if((e.clientX >= blocksList[_lines[i].left_node].x + 20 && e.clientX <= blocksList[_lines[i].right_node].x + 80 &&
                     e.clientY >= blocksList[_lines[i].left_node].y + 20 && e.clientY <= blocksList[_lines[i].right_node].y + 50) ||
@@ -132,47 +196,29 @@ window.addEventListener("load", () => {
                     e.clientY >= blocksList[_lines[i].right_node].y + 20 && e.clientY <= blocksList[_lines[i].left_node].y + 50)||
                     (e.clientX >= blocksList[_lines[i].right_node].x + 20 && e.clientX <= blocksList[_lines[i].left_node].x + 80 &&
                         e.clientY >= blocksList[_lines[i].left_node].y + 20 && e.clientY <= blocksList[_lines[i].right_node].y + 50)
-                    ) {
+                    ) 
+                {
                     _lines[i].col = "red";
                     lineHoverID = i;
+                    document.body.style.cursor = "crosshair";
                 }
-                else {
+                else 
+                {
                     _lines[i].col = _lines[i].colOriginal;
                     lineHoverID = null;
                 }
             }
-        }
-        for(let i=0; i<_lines.length; i++) {
-            if(_lines[i].col == "red") lineHoverID = i;
-        }
-        lineController.redrawLines();
-    });
 
-    window.addEventListener("mousedown", (e:MouseEvent) => {
-        removeLine(lineHoverID)
-    });
-
-    removeLine = (id: number) =>
-    {
-        if(id == null || deleteLineMode == false) return;
-
-        const left_node: Block = blocksList[_lines[id].left_node];
-        const right_node: Block = blocksList[_lines[id].right_node]
-
-        const leftPos: number = left_node.connectTo.indexOf(right_node);
-        const rightPos: number = right_node.connectTo.indexOf(left_node);
-
-        delete left_node.connectTo[leftPos];
-        delete right_node.connectTo[rightPos];
-
-        delete _lines[id];
-        _lines = _lines.filter(item => item != undefined);
-
-        left_node.connectTo = left_node.connectTo.filter((item: Block) => item != undefined);
-        right_node.connectTo = right_node.connectTo.filter((item: Block) => item != undefined);
+            for(let i=0; i<_lines.length; i++) 
+            {
+                if(_lines[i].col == "red") lineHoverID = i;
+            }
         
-
-        _ctx.clearRect(0, 0,  10000, 4300);
-        lineController.redrawLines();
     }
+
+    window.addEventListener("resize", () => {
+        _canvas.width = document.body.clientWidth;
+        _canvas.height = document.body.clientHeight;
+        lineController.redrawLines();
+    });
 });

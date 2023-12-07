@@ -187,3 +187,7 @@ var connect = function () {
     };
     return this;
 };
+window.addEventListener("resize", () => {
+    _canvas.width = document.body.clientWidth;
+    _canvas.height = document.body.clientHeight;
+});
