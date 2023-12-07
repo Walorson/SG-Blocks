@@ -110,6 +110,8 @@ window.addEventListener("load", () => {
         if(isNaN(connected) == false && blocksList[connected].connectTo.length < blocksList[connected].maxConnects)
         {
             const blockEnd = blocksList[connected];
+            if(blockEnd == blockStart) return;
+
             blockStart.connectTo.push(blockEnd);
             blockEnd.connectTo.push(blockStart);
 

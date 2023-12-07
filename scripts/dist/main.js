@@ -1,4 +1,5 @@
 let runSpeed = 500; //in miliseconds
+let runStatus = false;
 let deleteLineMode = false;
 let executeHistory = [];
 let globalVariables = new Map();
@@ -6,22 +7,27 @@ new StartBlock(700, 50);
 new OutputBlock(700, 350, "Siema");
 new EndBlock(700, 600);
 function run() {
+    if (runStatus == true)
+        return;
+    runStatus = true;
     executeHistory = [];
     blocksList[0].execute();
-    return "START";
+    console.log("");
+    console.warn("START");
 }
 function globalVariablesUpdate() {
     globalVariables.clear();
     for (let i = 0; i < blocksList.length; i++) {
-        if (blocksList[i] instanceof InputBlock) {
+        if (blocksList[i] instanceof InputBlock || blocksList[i] instanceof OperationBlock) {
             globalVariables.set(blocksList[i].variableName, null);
         }
     }
 }
-function createSelectVariables(id = "property0") {
+function createSelectVariables(id = "property0", exclude = undefined) {
     let select = `<select id='${id}'><option>---</option>`;
     globalVariables.forEach((variable, key) => {
-        select += `<option>${key}</option>`;
+        if (!(exclude != undefined && exclude == key))
+            select += `<option>${key}</option>`;
     });
     select += "</select>";
     return select;

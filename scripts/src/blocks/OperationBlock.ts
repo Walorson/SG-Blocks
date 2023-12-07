@@ -1,98 +1,93 @@
-class ConditionBlock extends Block {
-    value1: any;
-    value2: any;
+class OperationBlock extends Block {
+    value1: number;
+    value2: number;
     operator: string;
-    maxConnects: number = 3;
     isValue1Variable: boolean;
     isValue2Variable: boolean;
+    variableName: string;
     value1Name: string;
     value2Name: string;
-    constructor(x: number, y: number, value1: any = 0, value2: any = 0, operator: string = "==", isValue1Variable: boolean = false, isValue2Variable: boolean = false) {
+    maxConnects: number = 2;
+
+    constructor(x: number, y: number, value1: number = 0, value2: number = 0, operator: string = "+") {
         super(x, y);
         this.value1 = value1;
         this.value2 = value2;
         this.operator = operator;
-        this.isValue1Variable = isValue1Variable;
-        this.isValue2Variable = isValue2Variable;
+        this.variableName = "a"+this.id;
 
-        if(this.isValue1Variable) this.value1Name = this.value1;
-        if(this.isValue2Variable) this.value2Name = this.value2;
-
-        this.init()
-    }
-
-    connectToExecute(): void {
-        setTimeout(() => 
-        {
-            executeHistory.push(this);
-
-            if(this.isValue1Variable == true) this.value1 = globalVariables.get(this.value1Name);
-            if(this.isValue2Variable == true) this.value2 = globalVariables.get(this.value2Name);
-
-            if(this.connectTo[0] == undefined || this.connectTo[1] == undefined) return;
-            
-            let result: boolean = false;
-
-            switch(this.operator)
-            {
-                case "==":
-                    if(this.value1 == this.value2) result = true;
-                break;
-
-                case "!=":
-                    if(this.value1 != this.value2) result = true;
-                break;
-
-                case ">":
-                    if(this.value1 > this.value2) result = true;
-                break;
-
-                case ">":
-                    if(this.value1 < this.value2) result = true;
-                break;
-
-                case "<=":
-                    if(this.value1 <= this.value2) result = true;
-                break;
-
-                case ">=":
-                    if(this.value1 >= this.value2) result = true;
-                break;
-            }
-
-            if(result == true) this.connectTo[1].execute();
-            else if(this.connectTo[2] != undefined) this.connectTo[2].execute();
-
-        }, runSpeed);
+        this.init();
     }
 
     createBlock(): void {
-        workspace.innerHTML += `<div class="block condition" id="${this.id}">IF</div>`;
+        workspace.innerHTML += `<div class="block input" id="${this.id}">Operation: <i>${this.value1}${this.operator}${this.value2}</i></div>`;
+    }
+
+    updateDiv(): void
+    {
+        if(this.isValue1Variable == true && this.isValue2Variable == true)
+        {
+            this.div.innerHTML = `Operation: <i><b>${this.value1Name}</b>${this.operator}<b>${this.value2Name}</b></i>`;
+        }
+        else if(this.isValue1Variable == true)
+        {
+            this.div.innerHTML = `Operation: <i><b>${this.value1Name}</b>${this.operator}${this.value2}</i>`;
+        }
+        else if(this.isValue2Variable == true)
+        {
+            this.div.innerHTML = `Operation: <i>${this.value1}${this.operator}<b>${this.value2Name}</b></i>`;
+        }
+        else
+        {
+            this.div.innerHTML = `Operation: <i>${this.value1}${this.operator}${this.value2}</i>`;
+        }
+    }
+
+    execute(): void {
+        if(this.isValue1Variable) this.value1 = Number(globalVariables.get(this.value1Name));
+        if(this.isValue2Variable) this.value2 = Number(globalVariables.get(this.value2Name));
+
+        let result: number;
+        switch(this.operator)
+        {
+            case "+": result = this.value1 + this.value2; break;
+            case "-": result = this.value1 - this.value2; break;
+            case "*": result = this.value1 * this.value2; break;
+            case "/": result = this.value1 / this.value2; break;
+        }
+
+        globalVariables.set(this.variableName, result);
+
+        this.connectToExecute();
     }
 
     properties(): void {
+    
         this.div.addEventListener("mousedown", () => {
             propertiesWindow.innerHTML = `
                 <p>Value 1: <span class="value"><input type="text" value="${this.value1}" class="property${this.id}"></span></p>
                 <p><label><input type="checkbox" class="property${this.id}">Variable<label></p>
                 <p>Value 2: <span class="value"><input type="text" value="${this.value2}" class="property${this.id}"></span></p>
                 <p><label><input type="checkbox" class="property${this.id}">Variable<label></p>
-                <p>Operator: <select class="property${this.id}">
-                                <option>==</option>
-                                <option>!=</option>
-                                <option>></option>
-                                <option><</option>
-                                <option>>=</option>
-                                <option><=</option>
-                            </select></p>
+                <p>Operation: 
+                    <select class="property${this.id}">
+                        <option>+</option>
+                        <option>-</option>
+                        <option>*</option>
+                        <option>/</option>
+                    </select>
+                </p>
+                <p>Save to variable: <input type="text" value="${this.variableName}" class="property${this.id}"></p>
             `;
 
             let property: any = propertiesWindow.querySelectorAll(".property"+this.id);
             const value: any = propertiesWindow.querySelectorAll(".value");
-
+            
             property[0].oninput = () => {
-                this.value1 = property[0].value;
+                this.value1 = Number(property[0].value);
+                this.updateDiv();
             }
+
             property[1].onchange = () => {
                 if(property[1].checked)
                 {
@@ -108,8 +103,9 @@ class ConditionBlock extends Block {
                         else
                         {
                             this.isValue1Variable = false;
-                            this.value1 = null;
+                            this.value1 = 0;
                         }
+                        this.updateDiv();
                     }
                 }
                 else
@@ -121,9 +117,11 @@ class ConditionBlock extends Block {
                     }
                 }
             }
+
             property[2].oninput = () => {
-                this.value2 = property[2].value;
-            }
+                this.value2 = Number(property[2].value);
+                this.updateDiv();
+            };
 
             property[3].onchange = () => {
                 if(property[3].checked)
@@ -140,8 +138,9 @@ class ConditionBlock extends Block {
                         else
                         {
                             this.isValue2Variable = false;
-                            this.value2 = null;
+                            this.value2 = 0;
                         }
+                        this.updateDiv();
                     }
                 }
                 else
@@ -154,10 +153,15 @@ class ConditionBlock extends Block {
                 }
             }
 
-            property[4].oninput = () => {
+            property[4].onchange = () => {
                 this.operator = property[4].value;
+                this.updateDiv();
             }
             property[4].value = this.operator;
+
+            property[5].oninput = () => {
+                this.variableName = property[5].value;
+            }
 
             if(this.isValue1Variable == true) 
             {
@@ -167,6 +171,20 @@ class ConditionBlock extends Block {
                 let property0: any = document.getElementById("property0");
                 property0.value = this.value1Name;
 
+                property0.oninput = () => {
+                    if(property.value != "---")
+                    {
+                        this.isValue1Variable = true;
+                        this.value1Name = property0.value;
+                    }
+                    else
+                    {
+                        this.isValue1Variable = false;
+                        this.value1 = 0;
+                    }
+                    this.updateDiv();
+                }
+
             }
             if(this.isValue2Variable == true) 
             {
@@ -175,9 +193,21 @@ class ConditionBlock extends Block {
 
                 let property1: any = document.getElementById("property1");
                 property1.value = this.value1Name;
-            };
 
+                property1.oninput = () => {
+                    if(property.value != "---")
+                    {
+                        this.isValue1Variable = true;
+                        this.value1Name = property1.value;
+                    }
+                    else
+                    {
+                        this.isValue1Variable = false;
+                        this.value1 = 0;
+                    }
+                    this.updateDiv();
+                }
+            };
         });
     }
-    
 }

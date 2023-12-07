@@ -16,6 +16,7 @@ class InputBlock extends Block {
         const variable: any = prompt(this.message);
         globalVariables.set(this.variableName, variable);
 
+        console.log("Input: "+variable);
         this.connectToExecute();
     }
 
@@ -41,7 +42,6 @@ class InputBlock extends Block {
 
             property[1].oninput = () => {
                 this.message = property[1].value;
-                this.div.textContent = this.message;
             };
 
         });

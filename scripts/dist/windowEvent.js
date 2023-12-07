@@ -76,6 +76,8 @@ window.addEventListener("load", () => {
         const connected = Number(document.elementFromPoint(e.clientX, e.clientY).getAttribute("id"));
         if (isNaN(connected) == false && blocksList[connected].connectTo.length < blocksList[connected].maxConnects) {
             const blockEnd = blocksList[connected];
+            if (blockEnd == blockStart)
+                return;
             blockStart.connectTo.push(blockEnd);
             blockEnd.connectTo.push(blockStart);
             if (blockEnd instanceof ConditionBlock || blockStart instanceof ConditionBlock) {

@@ -16,7 +16,15 @@ class OutputBlock extends Block {
         this.connectToExecute();
     }
     createBlock() {
-        workspace.innerHTML += `<div class="block output" id="${this.id}">${this.message}</div>`;
+        workspace.innerHTML += `<div class="block output" id="${this.id}">Print: ${this.message}</div>`;
+    }
+    updateDiv() {
+        if (this.variable != undefined) {
+            this.div.innerHTML = `Print: ${this.message}<b>${this.variable}</b>`;
+        }
+        else {
+            this.div.innerHTML = "Print: " + this.message;
+        }
     }
     properties() {
         this.div.addEventListener("mousedown", () => {
@@ -30,16 +38,16 @@ class OutputBlock extends Block {
             const property = propertiesWindow.querySelectorAll(".property" + this.id);
             property[0].oninput = () => {
                 this.message = property[0].value;
-                this.div.textContent = this.message;
+                this.updateDiv();
             };
             property[1].oninput = () => {
-                console.log(property[1].value);
                 if (property[1].value != "---") {
                     this.isVariable = true;
                     this.variable = property[1].value;
                 }
                 else
                     this.isVariable = false;
+                this.updateDiv();
             };
             if (this.isVariable == true)
                 property[1].value = this.variable;

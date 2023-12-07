@@ -10,6 +10,7 @@ class EndBlock extends Block {
 
     execute(): void {
         console.warn("END");
+        runStatus = false;
     }
 
     delete(): void {}    
