@@ -1,14 +1,15 @@
 # SG-Blocks
 App inspired by Java Block but in online version :D
-## Version: Alpha 1.1
+## Version: Alpha 1.2
 https://walorson.github.io/SG-Blocks/
 ## Controls
 * Move Blocks - Left Click Mouse
 * Connect - Right Click Mouse Drag from block to block
 * Remove Connect - Hold CTRL and click on line
+* Remove Block - Hold CTRL and click on block
 
 ## In console
-run() - to run algoritm
+* **run()** - to run algoritm
 ### new OutputBlock(x, y, message, isVariable)
 * x - x position
 * y - y postion
