@@ -1,3 +1,5 @@
+let removeLine: any;
+
 window.addEventListener("load", () => {
     let connectStart: boolean = false;
     let blockStart: Block;
@@ -16,6 +18,7 @@ window.addEventListener("load", () => {
             blockStart = blocksList[id];
             connectStart = true;
         }
+        
     });
 
     window.addEventListener("mouseup", (e: MouseEvent) => 
@@ -107,6 +110,18 @@ window.addEventListener("load", () => {
     window.addEventListener("mousemove", (e: MouseEvent) => {
         if(deleteLineMode == true)
         {
+            const id = document.elementFromPoint(e.clientX, e.clientY).getAttribute("id");
+            if(isNaN(Number(id)) == false)
+            {
+                for(let i=0; i<_lines.length; i++) {
+                    _lines[i].col = _lines[i].colOriginal;
+                }
+
+                lineHoverID = null;
+                lineController.redrawLines();
+                return;
+            }
+
             for(let i=0; i<_lines.length; i++) { 
 
                 if((e.clientX >= blocksList[_lines[i].left_node].x + 20 && e.clientX <= blocksList[_lines[i].right_node].x + 80 &&
@@ -134,10 +149,15 @@ window.addEventListener("load", () => {
     });
 
     window.addEventListener("mousedown", (e:MouseEvent) => {
-        if(lineHoverID == null || deleteLineMode == false) return;
+        removeLine(lineHoverID)
+    });
 
-        const left_node: Block = blocksList[_lines[lineHoverID].left_node];
-        const right_node: Block = blocksList[_lines[lineHoverID].right_node]
+    removeLine = (id: number) =>
+    {
+        if(id == null || deleteLineMode == false) return;
+
+        const left_node: Block = blocksList[_lines[id].left_node];
+        const right_node: Block = blocksList[_lines[id].right_node]
 
         const leftPos: number = left_node.connectTo.indexOf(right_node);
         const rightPos: number = right_node.connectTo.indexOf(left_node);
@@ -145,13 +165,14 @@ window.addEventListener("load", () => {
         delete left_node.connectTo[leftPos];
         delete right_node.connectTo[rightPos];
 
-        delete _lines[lineHoverID];
+        delete _lines[id];
         _lines = _lines.filter(item => item != undefined);
 
         left_node.connectTo = left_node.connectTo.filter((item: Block) => item != undefined);
         right_node.connectTo = right_node.connectTo.filter((item: Block) => item != undefined);
         
 
-        _ctx.clearRect(0, 0,  10000, 4300);	
-    });
+        _ctx.clearRect(0, 0,  10000, 4300);
+        lineController.redrawLines();
+    }
 });

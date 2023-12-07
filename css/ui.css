@@ -4,7 +4,19 @@
     gap: 5px;
     position: absolute;
     top: 15px; left:15px;
+    width: 200px;
+}
+.title {
+    letter-spacing: 5px;
+    margin: 0;
+    margin-bottom: 10px;
+    border: 2px dashed black;
+    padding: 10px;
 }
 button:hover {
     cursor: pointer;
+}
+input[type=text]
+{
+    width: 110px;
 }

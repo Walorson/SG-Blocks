@@ -1,5 +1,5 @@
 const ui: HTMLElement = document.getElementById("ui");
-const properties: HTMLElement = document.getElementById("properties");
+const propertiesWindow: HTMLElement = document.getElementById("properties");
 
 const buttons = {
     output: document.getElementById("output-block-button"),
@@ -16,8 +16,3 @@ buttons.input.addEventListener("click", () => {
 buttons.condition.addEventListener("click", () => {
     new ConditionBlock(250, 50);
 })
-
-function clearProperties(): void
-{
-    properties.innerHTML = '';
-}
