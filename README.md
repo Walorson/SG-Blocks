@@ -1,6 +1,7 @@
 # SG-Blocks
 App inspired by Java Block but in online version :D
 ## Version: Alpha 1.1
+https://walorson.github.io/SG-Blocks/
 ## Controls
 * Move Blocks - Left Click Mouse
 * Connect - Right Click Mouse Drag from block to block
