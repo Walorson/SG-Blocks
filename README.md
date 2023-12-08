@@ -1,6 +1,5 @@
 # SG-Blocks
 App inspired by Java Block but in online version :D
-<<<<<<< HEAD
  ***E(x)plory momento***
 ## Version: Alpha 1.3.2
 https://walorson.github.io/SG-Blocks/
