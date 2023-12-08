@@ -11,5 +11,4 @@ class EndBlock extends Block {
         runStatus = false;
         buttons.run.removeAttribute("disabled");
     }
-    delete() { }
 }

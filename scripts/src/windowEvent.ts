@@ -35,7 +35,10 @@ window.addEventListener("load", () => {
 
     window.addEventListener("keydown",(e: KeyboardEvent) => 
     {
-        if(e.ctrlKey) deleteLineMode = true;
+        if(e.ctrlKey) {
+            deleteLineMode = true;
+            _canvas.style.cursor = "crosshair";
+        }
     });
 
     window.addEventListener("keyup", (e: KeyboardEvent) => 
@@ -45,6 +48,11 @@ window.addEventListener("load", () => {
         {
             _lines[i].col = _lines[i].colOriginal;
         }
+        _canvas.style.cursor = "default";
+        document.querySelectorAll(".block").forEach((block: HTMLElement) => {
+            block.style.cursor = "";
+            block.style.border = "";
+        });
         lineController.redrawLines();
     });
 
@@ -177,6 +185,8 @@ window.addEventListener("load", () => {
             const id = document.elementFromPoint(e.clientX, e.clientY).getAttribute("id");
             if(isNaN(Number(id)) == false)
             {
+                blocksList[id].style.cursor = "crosshair";
+
                 for(let i=0; i<_lines.length; i++) 
                 {
                     _lines[i].col = _lines[i].colOriginal;
@@ -202,7 +212,6 @@ window.addEventListener("load", () => {
                 {
                     _lines[i].col = "red";
                     lineHoverID = i;
-                    document.body.style.cursor = "crosshair";
                 }
                 else 
                 {

@@ -1,18 +1,20 @@
-class EndBlock extends Block {
-    constructor(x: number, y: number) {
+class EndBlock extends Block 
+{
+    constructor(x: number, y: number) 
+    {
         super(x, y);
         this.init();
     }
 
-    createBlock(): void {
+    createBlock(): void 
+    {
         workspace.innerHTML += `<div class="block end" id="${this.id}">End</div>`;
     }
 
-    execute(): void {
+    execute(): void 
+    {
         console.warn("END");
         runStatus = false;
         buttons.run.removeAttribute("disabled");
-    }
-
-    delete(): void {}    
+    }   
 }

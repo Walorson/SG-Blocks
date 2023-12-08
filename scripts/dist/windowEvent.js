@@ -23,14 +23,21 @@ window.addEventListener("load", () => {
         e.preventDefault();
     });
     window.addEventListener("keydown", (e) => {
-        if (e.ctrlKey)
+        if (e.ctrlKey) {
             deleteLineMode = true;
+            _canvas.style.cursor = "crosshair";
+        }
     });
     window.addEventListener("keyup", (e) => {
         deleteLineMode = false;
         for (let i = 0; i < _lines.length; i++) {
             _lines[i].col = _lines[i].colOriginal;
         }
+        _canvas.style.cursor = "default";
+        document.querySelectorAll(".block").forEach((block) => {
+            block.style.cursor = "";
+            block.style.border = "";
+        });
         lineController.redrawLines();
     });
     removeLine = (id) => {
@@ -135,6 +142,7 @@ window.addEventListener("load", () => {
     function showDeletePossibilities(e) {
         const id = document.elementFromPoint(e.clientX, e.clientY).getAttribute("id");
         if (isNaN(Number(id)) == false) {
+            blocksList[id].style.cursor = "crosshair";
             for (let i = 0; i < _lines.length; i++) {
                 _lines[i].col = _lines[i].colOriginal;
             }
@@ -153,7 +161,6 @@ window.addEventListener("load", () => {
                     e.clientY >= blocksList[_lines[i].left_node].y + 20 && e.clientY <= blocksList[_lines[i].right_node].y + 50)) {
                 _lines[i].col = "red";
                 lineHoverID = i;
-                document.body.style.cursor = "crosshair";
             }
             else {
                 _lines[i].col = _lines[i].colOriginal;

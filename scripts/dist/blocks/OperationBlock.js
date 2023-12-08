@@ -1,48 +1,49 @@
 class OperationBlock extends Block {
-    constructor(x, y, value1 = 0, value2 = 0, operator = "+") {
+    constructor(x, y) {
         super(x, y);
+        this.value = [0, 0];
+        this.operator = '+';
+        this.isValueVariable = [false, false];
+        this.valueName = [];
         this.maxConnects = 2;
-        this.value1 = value1;
-        this.value2 = value2;
-        this.operator = operator;
         this.variableName = "a" + this.id;
         this.init();
     }
     createBlock() {
-        workspace.innerHTML += `<div class="block input" id="${this.id}">Operation: <i>${this.value1}${this.operator}${this.value2}</i></div>`;
+        workspace.innerHTML += `<div class="block input" id="${this.id}">Operation: <i>${this.value[0]}${this.operator}${this.value[1]}</i></div>`;
     }
     updateDiv() {
-        if (this.isValue1Variable == true && this.isValue2Variable == true) {
-            this.div.innerHTML = `Operation: <i><b>${this.value1Name}</b>${this.operator}<b>${this.value2Name}</b></i>`;
+        if (this.isValueVariable[0] == true && this.isValueVariable[1] == true) {
+            this.div.innerHTML = `Operation: <i><b>${this.valueName[0]}</b>${this.operator}<b>${this.valueName[1]}</b></i>`;
         }
-        else if (this.isValue1Variable == true) {
-            this.div.innerHTML = `Operation: <i><b>${this.value1Name}</b>${this.operator}${this.value2}</i>`;
+        else if (this.isValueVariable[0] == true) {
+            this.div.innerHTML = `Operation: <i><b>${this.valueName[0]}</b>${this.operator}${this.value[1]}</i>`;
         }
-        else if (this.isValue2Variable == true) {
-            this.div.innerHTML = `Operation: <i>${this.value1}${this.operator}<b>${this.value2Name}</b></i>`;
+        else if (this.isValueVariable[1] == true) {
+            this.div.innerHTML = `Operation: <i>${this.value[0]}${this.operator}<b>${this.valueName[1]}</b></i>`;
         }
         else {
-            this.div.innerHTML = `Operation: <i>${this.value1}${this.operator}${this.value2}</i>`;
+            this.div.innerHTML = `Operation: <i>${this.value[0]}${this.operator}${this.value[1]}</i>`;
         }
     }
     execute() {
-        if (this.isValue1Variable)
-            this.value1 = Number(globalVariables.get(this.value1Name));
-        if (this.isValue2Variable)
-            this.value2 = Number(globalVariables.get(this.value2Name));
+        for (let i = 0; i < this.isValueVariable.length; i++) {
+            if (this.isValueVariable[i])
+                this.value[i] = Number(globalVariables.get(this.valueName[i]));
+        }
         let result;
         switch (this.operator) {
             case "+":
-                result = this.value1 + this.value2;
+                result = this.value[0] + this.value[1];
                 break;
             case "-":
-                result = this.value1 - this.value2;
+                result = this.value[0] - this.value[1];
                 break;
             case "*":
-                result = this.value1 * this.value2;
+                result = this.value[0] * this.value[1];
                 break;
             case "/":
-                result = this.value1 / this.value2;
+                result = this.value[0] / this.value[1];
                 break;
         }
         globalVariables.set(this.variableName, result);
@@ -51,9 +52,9 @@ class OperationBlock extends Block {
     properties() {
         this.div.addEventListener("mousedown", () => {
             propertiesWindow.innerHTML = `
-                <p>Value 1: <span class="value"><input type="text" value="${this.value1}" class="property${this.id}"></span></p>
+                <p>Value 1: <span class="value"><input type="text" value="${this.value[0]}" class="property${this.id}"></span></p>
                 <p><label><input type="checkbox" class="property${this.id}">Variable<label></p>
-                <p>Value 2: <span class="value"><input type="text" value="${this.value2}" class="property${this.id}"></span></p>
+                <p>Value 2: <span class="value"><input type="text" value="${this.value[1]}" class="property${this.id}"></span></p>
                 <p><label><input type="checkbox" class="property${this.id}">Variable<label></p>
                 <p>Operation: 
                     <select class="property${this.id}">
@@ -68,60 +69,39 @@ class OperationBlock extends Block {
             let property = propertiesWindow.querySelectorAll(".property" + this.id);
             const value = propertiesWindow.querySelectorAll(".value");
             property[0].oninput = () => {
-                this.value1 = Number(property[0].value);
+                this.value[0] = Number(property[0].value);
                 this.updateDiv();
             };
-            property[1].onchange = () => {
-                if (property[1].checked) {
-                    value[0].innerHTML = createSelectVariables("property0");
-                    const property = document.getElementById("property0");
-                    property.oninput = () => {
-                        if (property.value != "---") {
-                            this.isValue1Variable = true;
-                            this.value1Name = property.value;
-                        }
-                        else {
-                            this.isValue1Variable = false;
-                            this.value1 = 0;
-                        }
-                        this.updateDiv();
-                    };
-                }
-                else {
-                    value[0].innerHTML = `<input type="text" value="${this.value1}" id="property0">`;
-                    const property = document.getElementById("property0");
-                    property.oninput = () => {
-                        this.value1 = property.value;
-                    };
-                }
-            };
+            for (let i = 0; i < this.isValueVariable.length; i++) {
+                const id = 2 * i + 1;
+                property[id].onchange = () => {
+                    if (property[id].checked) {
+                        value[i].innerHTML = createSelectVariables("property" + i);
+                        const property = document.getElementById("property" + i);
+                        property.oninput = () => {
+                            if (property.value != "---") {
+                                this.isValueVariable[i] = true;
+                                this.valueName[i] = property.value;
+                            }
+                            else {
+                                this.isValueVariable[i] = false;
+                                this.value[i] = 0;
+                            }
+                            this.updateDiv();
+                        };
+                    }
+                    else {
+                        value[i].innerHTML = `<input type="text" value="${this.value[i]}" id="property${i}">`;
+                        const property = document.getElementById("property" + i);
+                        property.oninput = () => {
+                            this.value[i] = property.value;
+                        };
+                    }
+                };
+            }
             property[2].oninput = () => {
-                this.value2 = Number(property[2].value);
+                this.value[1] = Number(property[2].value);
                 this.updateDiv();
-            };
-            property[3].onchange = () => {
-                if (property[3].checked) {
-                    value[1].innerHTML = createSelectVariables("property1");
-                    const property = document.getElementById("property1");
-                    property.oninput = () => {
-                        if (property.value != "---") {
-                            this.isValue2Variable = true;
-                            this.value2Name = property.value;
-                        }
-                        else {
-                            this.isValue2Variable = false;
-                            this.value2 = 0;
-                        }
-                        this.updateDiv();
-                    };
-                }
-                else {
-                    value[1].innerHTML = `<input type="text" value="${this.value2}" id="property1">`;
-                    const property = document.getElementById("property1");
-                    property.oninput = () => {
-                        this.value2 = property.value;
-                    };
-                }
             };
             property[4].onchange = () => {
                 this.operator = property[4].value;
@@ -131,41 +111,25 @@ class OperationBlock extends Block {
             property[5].oninput = () => {
                 this.variableName = property[5].value;
             };
-            if (this.isValue1Variable == true) {
-                property[1].checked = true;
-                value[0].innerHTML = createSelectVariables("property0");
-                let property0 = document.getElementById("property0");
-                property0.value = this.value1Name;
-                property0.oninput = () => {
-                    if (property.value != "---") {
-                        this.isValue1Variable = true;
-                        this.value1Name = property0.value;
-                    }
-                    else {
-                        this.isValue1Variable = false;
-                        this.value1 = 0;
-                    }
-                    this.updateDiv();
-                };
+            for (let i = 0; i < this.isValueVariable.length; i++) {
+                if (this.isValueVariable[i] == true) {
+                    property[2 * i + 1].checked = true;
+                    value[i].innerHTML = createSelectVariables("property" + i);
+                    let property0 = document.getElementById("property" + i);
+                    property0.value = this.valueName[i];
+                    property0.oninput = () => {
+                        if (property.value != "---") {
+                            this.isValueVariable[i] = true;
+                            this.valueName[i] = property0.value;
+                        }
+                        else {
+                            this.isValueVariable[i] = false;
+                            this.value[i] = 0;
+                        }
+                        this.updateDiv();
+                    };
+                }
             }
-            if (this.isValue2Variable == true) {
-                property[3].checked = true;
-                value[1].innerHTML = createSelectVariables("property1");
-                let property1 = document.getElementById("property1");
-                property1.value = this.value1Name;
-                property1.oninput = () => {
-                    if (property.value != "---") {
-                        this.isValue1Variable = true;
-                        this.value1Name = property1.value;
-                    }
-                    else {
-                        this.isValue1Variable = false;
-                        this.value1 = 0;
-                    }
-                    this.updateDiv();
-                };
-            }
-            ;
         });
     }
 }

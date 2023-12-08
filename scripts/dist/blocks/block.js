@@ -61,8 +61,13 @@ class Block {
         let grabPointX;
         let grabPointY;
         this.div.addEventListener("mousedown", (e) => {
+            if (e.button == 2) {
+                document.querySelectorAll(".block").forEach((block) => block.style.cursor = 'cell');
+                _canvas.style.cursor = 'cell';
+            }
             if (e.button != 0)
                 return;
+            this.div.style.cursor = "grabbing";
             isdrag = true;
             grabPointY = this.div.getBoundingClientRect().top - e.clientY;
             grabPointX = this.div.getBoundingClientRect().left - e.clientX;
@@ -81,6 +86,8 @@ class Block {
             }
         });
         window.addEventListener("mouseup", (e) => {
+            document.querySelectorAll(".block").forEach((block) => block.style.cursor = 'grab');
+            _canvas.style.cursor = 'default';
             if (e.button != 0)
                 return;
             isdrag = false;
@@ -90,6 +97,7 @@ class Block {
         this.div.addEventListener("mousemove", () => {
             if (deleteLineMode == true) {
                 this.div.style.border = "2px solid red";
+                this.div.style.cursor = "crosshair";
             }
         });
         this.div.addEventListener("click", () => {
@@ -107,9 +115,6 @@ class Block {
                 delete blocksList[this.id];
                 propertiesWindow.innerHTML = '';
             }
-        });
-        this.div.addEventListener("mouseleave", () => {
-            this.div.style.border = "";
         });
     }
     properties() { }
