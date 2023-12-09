@@ -1,7 +1,7 @@
 # SG-Blocks
 App inspired by Java Block but in online version :D
  ***E(x)plory momento***
-## Version: Alpha 1.3.2
+## Version: Alpha 1.3.3
 https://walorson.github.io/SG-Blocks/
 
 ## Controls
@@ -14,6 +14,8 @@ https://walorson.github.io/SG-Blocks/
 * **run()** - to run algoritm (Or just click the button)
 
 ## Change log
+### Alpha 1.3.3
+* Bug fixes *again*
 ### Alpha 1.3.2 - Cursor Update
 * Bug Fixes
 * Add a lot of different cursor behaviour
