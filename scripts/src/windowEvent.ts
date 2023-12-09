@@ -185,8 +185,6 @@ window.addEventListener("load", () => {
             const id = document.elementFromPoint(e.clientX, e.clientY).getAttribute("id");
             if(isNaN(Number(id)) == false)
             {
-                blocksList[id].style.cursor = "crosshair";
-
                 for(let i=0; i<_lines.length; i++) 
                 {
                     _lines[i].col = _lines[i].colOriginal;

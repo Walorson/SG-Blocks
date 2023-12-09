@@ -116,6 +116,9 @@ class Block {
                 propertiesWindow.innerHTML = '';
             }
         });
+        this.div.addEventListener("mouseleave", () => {
+            this.div.style.border = "";
+        });
     }
     properties() { }
 }
