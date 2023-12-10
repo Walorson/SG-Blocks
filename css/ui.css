@@ -13,12 +13,52 @@
     border: 2px dashed black;
     padding: 10px;
 }
+#properties {
+    font-size: 12pt;
+}
+button {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bolder;
+    background-color: white;
+    color: black;
+    padding: 8px 0;
+    border: 2px dotted black;
+    border-radius: 8px;
+    transition-duration: 30ms;
+}
 button:hover {
     cursor: pointer;
+    background-color: #aaaaaa;
+    letter-spacing: 2px;
+    transition-duration: 30ms;
 }
 input[type=text]
 {
     width: 110px;
+    border: 1px dashed black;
+    border-radius: 5px;
+    padding: 3px;
+}
+input[type=text]:focus {
+    border: 1px solid black;
+    font-size: 13pt;
+}
+input[type=checkbox] {
+    width: 15px;
+    height: 15px;
+}
+select {
+    background-color: white;
+    border: black dashed 1px;
+    border-radius: 5px;
+    font-size: 13pt;
+}
+select:hover {
+    background-color: #dddddd;
+}
+select:focus {
+    background-color: #eeeeee;
+    border: black solid 2px;
 }
 #run-button
 {
