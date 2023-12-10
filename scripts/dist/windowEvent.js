@@ -60,18 +60,24 @@ window.addEventListener("load", () => {
         if (e.button != 2)
             return;
         e.preventDefault();
-        const id = document.elementFromPoint(e.clientX, e.clientY).getAttribute("id");
-        if (isNaN(Number(id)) == false && blocksList[id].connectTo.length < blocksList[id].maxConnects) {
-            blockStart = blocksList[id];
-            connectStart = true;
-            lineController.drawLine({
-                left_node: blockStart.id,
-                right_node: "cursor",
-                col: "black",
-                colOriginal: "black",
-                width: 2,
-                gtype: "C"
-            });
+        let block = document.elementFromPoint(e.clientX, e.clientY);
+        if (block.tagName == 'B' || block.tagName == 'I') {
+            block = block.parentElement;
+        }
+        let id = Number(block.getAttribute("id"));
+        if (isNaN(id) == false && block.tagName == "DIV") {
+            if (blocksList[id].connectTo.length < blocksList[id].maxConnects) {
+                blockStart = blocksList[id];
+                connectStart = true;
+                lineController.drawLine({
+                    left_node: blockStart.id,
+                    right_node: "cursor",
+                    col: "black",
+                    colOriginal: "black",
+                    width: 2,
+                    gtype: "C"
+                });
+            }
         }
     }
     function connectEnd(e) {
