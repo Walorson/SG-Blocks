@@ -1,6 +1,6 @@
 # SG-Blocks
 App inspired by Java Block but in online version :D
- ***E(x)plory momento***
+ ***E(x)plory momento (memento  mori)***
 ## Version: Alpha 1.3.3
 https://walorson.github.io/SG-Blocks/
 
