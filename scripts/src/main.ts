@@ -5,12 +5,13 @@ let executeHistory: Block[] = [];
 let globalVariables: Map<string, any> = new Map();
 
 new StartBlock(700, 50);
-new OutputBlock(700, 350, "Siema");
+new OutputBlock(650, 350, "Hello!");
 new EndBlock(700, 600);
 
 function run(): void
 {
     if(runStatus == true) return;
+    globalVariablesUpdate();
 
     runStatus = true;
     executeHistory = [];

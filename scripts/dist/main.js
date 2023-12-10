@@ -4,11 +4,12 @@ let deleteLineMode = false;
 let executeHistory = [];
 let globalVariables = new Map();
 new StartBlock(700, 50);
-new OutputBlock(700, 350, "Siema");
+new OutputBlock(650, 350, "Hello!");
 new EndBlock(700, 600);
 function run() {
     if (runStatus == true)
         return;
+    globalVariablesUpdate();
     runStatus = true;
     executeHistory = [];
     buttons.run.setAttribute("disabled", ";");

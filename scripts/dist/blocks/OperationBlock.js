@@ -32,6 +32,8 @@ class OperationBlock extends Block {
                 this.value[i] = Number(globalVariables.get(this.valueName[i]));
         }
         let result;
+        this.value[0] = Number(this.value[0]);
+        this.value[1] = Number(this.value[1]);
         switch (this.operator) {
             case "+":
                 result = this.value[0] + this.value[1];
@@ -44,6 +46,9 @@ class OperationBlock extends Block {
                 break;
             case "/":
                 result = this.value[0] / this.value[1];
+                break;
+            case "%":
+                result = this.value[0] % this.value[1];
                 break;
         }
         globalVariables.set(this.variableName, result);
@@ -62,6 +67,7 @@ class OperationBlock extends Block {
                         <option>-</option>
                         <option>*</option>
                         <option>/</option>
+                        <option>%</option>
                     </select>
                 </p>
                 <p>Save to variable: <input type="text" value="${this.variableName}" class="property${this.id}"></p>
@@ -69,7 +75,7 @@ class OperationBlock extends Block {
             let property = propertiesWindow.querySelectorAll(".property" + this.id);
             const value = propertiesWindow.querySelectorAll(".value");
             property[0].oninput = () => {
-                this.value[0] = Number(property[0].value);
+                this.value[0] = property[0].value;
                 this.updateDiv();
             };
             for (let i = 0; i < this.isValueVariable.length; i++) {
@@ -85,22 +91,24 @@ class OperationBlock extends Block {
                             }
                             else {
                                 this.isValueVariable[i] = false;
-                                this.value[i] = 0;
                             }
                             this.updateDiv();
                         };
                     }
                     else {
+                        this.isValueVariable[i] = false;
                         value[i].innerHTML = `<input type="text" value="${this.value[i]}" id="property${i}">`;
                         const property = document.getElementById("property" + i);
                         property.oninput = () => {
                             this.value[i] = property.value;
+                            this.updateDiv();
                         };
+                        this.updateDiv();
                     }
                 };
             }
             property[2].oninput = () => {
-                this.value[1] = Number(property[2].value);
+                this.value[1] = property[2].value;
                 this.updateDiv();
             };
             property[4].onchange = () => {

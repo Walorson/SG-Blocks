@@ -19,11 +19,16 @@ class OutputBlock extends Block {
         workspace.innerHTML += `<div class="block output" id="${this.id}">Print: ${this.message}</div>`;
     }
     updateDiv() {
+        let messageShort = this.message;
+        if (this.message.length > 18) {
+            messageShort = this.message.slice(0, 18);
+            messageShort += "... ";
+        }
         if (this.variable != undefined) {
-            this.div.innerHTML = `Print: ${this.message}<b>${this.variable}</b>`;
+            this.div.innerHTML = `Print: ${messageShort}<b>${this.variable}</b>`;
         }
         else {
-            this.div.innerHTML = "Print: " + this.message;
+            this.div.innerHTML = "Print: " + messageShort;
         }
     }
     properties() {
@@ -45,8 +50,10 @@ class OutputBlock extends Block {
                     this.isVariable = true;
                     this.variable = property[1].value;
                 }
-                else
+                else {
                     this.isVariable = false;
+                    this.variable = undefined;
+                }
                 this.updateDiv();
             };
             if (this.isVariable == true)
