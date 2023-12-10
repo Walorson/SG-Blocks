@@ -14,6 +14,10 @@ https://walorson.github.io/SG-Blocks/
 * **run()** - to run algoritm (Or just click the button)
 
 ## Change log
+### Alpha 1.3.4
+* Operation Block fixed
+* Line drag fixed
+* Output Block fixed
 ### Alpha 1.3.3
 * Bug fixes *again*
 ### Alpha 1.3.2 - Cursor Update
