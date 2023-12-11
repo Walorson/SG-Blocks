@@ -19,6 +19,7 @@
     <script src="scripts/dist/blocks/InputBlock.js" defer></script>
     <script src="scripts/dist/blocks/ConditionBlocks.js" defer></script>
     <script src="scripts/dist/blocks/OperationBlock.js" defer></script>
+    <script src="scripts/dist/blocks/EmptyBlock.js" defer></script>
     <script src="scripts/dist/windowEvent.js" defer></script>
     <script src="scripts/dist/ui.js" defer></script>
     <script src="scripts/dist/main.js" defer></script>
@@ -32,18 +33,16 @@
         <button id="condition-block-button">Condition Block</button>
         <button id="operation-block-button">Operation Block</button>
         <button id="end-block-button">End Block</button>
+        <button id="empty-block-button">Empty Block</button>
         <h1>Properties</h1>
         <div id="properties"></div>
     </div>
     <button id="run-button">Run</button>
     <div id="controls">
-        <h1>Controls</h1>
-        <p>
-            <b>Move Blocks</b> - Left Click Mouse<br>
-            <b>Connect</b> - Right Click Mouse Drag from block to block<br>
-            <b>Remove Connect</b> - Hold CTRL and click on line<br>
-            <b>Remove Block</b> - Hold CTRL and click on block<br>
-        </p>
+        <h1>Sterowanie</h1>
+        <p><b>Przeciągnie</b> - Przytrzymać lewy przycisk myszy</p>
+        <p><b>Łączenie</b> - Przytrzymać prawy przycisk myszy i przeciągnąć na wybrany blok</p>
+        <p><b>Usuwanie</b> - Przytrzymać CTRL i kliknąć na wybrany blok albo łączenie</p>
     </div>
     <div class="workspace" id="workspace"></div>
 </body>

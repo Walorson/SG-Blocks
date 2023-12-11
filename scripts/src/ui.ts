@@ -6,6 +6,7 @@ const buttons = {
     input: document.getElementById("input-block-button"),
     condition: document.getElementById("condition-block-button"),
     operation: document.getElementById("operation-block-button"),
+    empty: document.getElementById("empty-block-button"),
     end: document.getElementById("end-block-button"),
     run: document.getElementById("run-button")
 }
@@ -21,6 +22,9 @@ buttons.condition.addEventListener("click", () => {
 })
 buttons.operation.addEventListener("click",() => {
     new OperationBlock(250, 50);
+});
+buttons.empty.addEventListener("click", () => {
+    new EmptyBlock(250, 50);
 });
 buttons.end.addEventListener("click", () => {
     new EndBlock(250, 50);

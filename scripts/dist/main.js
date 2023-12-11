@@ -39,3 +39,7 @@ function fakeCursorToRealCursor(e) {
     cursor.style.top = e.clientY + "px";
     cursor.style.left = e.clientX + "px";
 }
+function endRun() {
+    runStatus = false;
+    buttons.run.removeAttribute("disabled");
+}

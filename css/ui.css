@@ -30,13 +30,17 @@ button {
     padding: 8px 0;
     border: 2px dotted black;
     border-radius: 8px;
-    transition-duration: 30ms;
+    transition: 0.12s;
 }
 button:hover {
     cursor: pointer;
-    background-color: #aaaaaa;
+    background-color: #cecece;
     letter-spacing: 2px;
-    transition-duration: 30ms;
+}
+button:disabled {
+    background-color: #aaa;
+    letter-spacing: 0;
+    cursor: default;
 }
 input[type=text]
 {
@@ -73,4 +77,13 @@ select:focus {
     bottom: 15px;
     width: 200px;
     height: 40px;
+}
+#controls {
+    text-align: justify;
+    background-color: #dedede;
+    padding: 15px;
+    border-radius: 5px;
+}
+#controls h1 {
+    margin: 0;
 }
