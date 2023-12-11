@@ -16,6 +16,11 @@
 #properties {
     font-size: 12pt;
 }
+#controls {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
 button {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: bolder;
