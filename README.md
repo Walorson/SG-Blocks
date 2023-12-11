@@ -16,6 +16,7 @@ https://walorson.github.io/SG-Blocks/
 
 ## Change log
 ### Alpha 1.3.5
+* Empty Block added
 * Condition Block fixed
 * Add instruction (in polish language!!!)
 * css improvement
