@@ -15,9 +15,11 @@ class OutputBlock extends Block {
     execute(): void {
         if(this.isVariable) {
             console.log(this.message + globalVariables.get(this.variable));
+            alert(this.message + globalVariables.get(this.variable));
         }
         else {
             console.log(this.message);
+            alert(this.message);
         }
         
         this.connectToExecute();
