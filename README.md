@@ -12,6 +12,7 @@ https://walorson.github.io/SG-Blocks/
 
 ## In console
 * **run()** - to run algoritm (Or just click the button)
+* **endRun()** - manually stop the run. Use if run would be bugged
 
 ## Change log
 ### Alpha 1.3.5
