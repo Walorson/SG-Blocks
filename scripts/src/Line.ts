@@ -180,14 +180,10 @@ this.kruskalize =function (_cl = "rgb(0,0,0,0.08)")  {
 						 if (_left_node == null || _right_node == null) {return;}
 						 clientrectleft = _left_node.getBoundingClientRect();
 						 clientrectright = _right_node.getBoundingClientRect();
-						//  leftnodeoffsetx = clientrectleft.left +document.documentElement.scrollLeft;
-						//  leftnodeoffsety = clientrectleft.top +document.documentElement.scrollTop;
-						//  rightnodeoffsetx = clientrectright.left +document.documentElement.scrollLeft;
-						//  rightnodeoffsety = clientrectright.top +document.documentElement.scrollTop;
-						 leftnodeoffsetx = clientrectleft.left;
-						 leftnodeoffsety = clientrectleft.top;
-						 rightnodeoffsetx = clientrectright.left;
-						 rightnodeoffsety = clientrectright.top;
+						 leftnodeoffsetx = clientrectleft.left +document.documentElement.scrollLeft;
+						 leftnodeoffsety = clientrectleft.top +document.documentElement.scrollTop;
+						 rightnodeoffsetx = clientrectright.left +document.documentElement.scrollLeft;
+						 rightnodeoffsety = clientrectright.top +document.documentElement.scrollTop;
 
 						 dax = (rightnodeoffsetx+ _right_node.offsetHeight/2) - (leftnodeoffsetx+ _left_node.offsetWidth/2);
 						 day = (rightnodeoffsety+ _right_node.offsetHeight/2) - (leftnodeoffsety+ _left_node.offsetHeight/2);
