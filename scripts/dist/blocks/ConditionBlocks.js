@@ -22,6 +22,10 @@ class ConditionBlock extends Block {
             if (this.connectTo[0] == undefined || this.connectTo[1] == undefined)
                 return;
             let result = false;
+            if (isNaN(Number(this.value[0])) == false)
+                this.value[0] = Number(this.value[0]);
+            if (isNaN(Number(this.value[1])) == false)
+                this.value[1] = Number(this.value[1]);
             switch (this.operator) {
                 case "==":
                     if (this.value[0] == this.value[1])
@@ -35,7 +39,7 @@ class ConditionBlock extends Block {
                     if (this.value[0] > this.value[1])
                         result = true;
                     break;
-                case ">":
+                case "<":
                     if (this.value[0] < this.value[1])
                         result = true;
                     break;
@@ -52,6 +56,8 @@ class ConditionBlock extends Block {
                 this.connectTo[1].execute();
             else if (this.connectTo[2] != undefined)
                 this.connectTo[2].execute();
+            else
+                endRun();
         }, 1);
     }
     createBlock() {
@@ -91,11 +97,11 @@ class ConditionBlock extends Block {
                             }
                             else {
                                 this.isValueVariable[i] = false;
-                                this.value[i] = null;
                             }
                         };
                     }
                     else {
+                        this.isValueVariable[i] = false;
                         value[i].innerHTML = `<input type="text" value="${this.value[i]}" id="property${i}">`;
                         const property = document.getElementById("property" + i);
                         property.oninput = () => {
@@ -124,7 +130,7 @@ class ConditionBlock extends Block {
                         }
                         else {
                             this.isValueVariable[i] = false;
-                            this.value[i] = null;
+                            this.value[i] = 0;
                         }
                     };
                 }

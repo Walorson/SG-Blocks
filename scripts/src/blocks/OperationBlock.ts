@@ -149,14 +149,14 @@ class OperationBlock extends Block {
                     property[2*i+1].checked = true; 
                     value[i].innerHTML = createSelectVariables("property"+i);
 
-                    let property0: any = document.getElementById("property"+i);
-                    property0.value = this.valueName[i];
+                    let propertyX: any = document.getElementById("property"+i);
+                    propertyX.value = this.valueName[i];
 
-                    property0.oninput = () => {
+                    propertyX.oninput = () => {
                         if(property.value != "---")
                         {
                             this.isValueVariable[i] = true;
-                            this.valueName[i] = property0.value;
+                            this.valueName[i] = propertyX.value;
                         }
                         else
                         {
