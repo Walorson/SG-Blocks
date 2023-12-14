@@ -9,8 +9,14 @@ class InputBlock extends Block {
     }
     execute() {
         const variable = prompt(this.message);
-        globalVariables.set(this.variableName, variable);
-        console.log("Input: " + variable);
+        if (!isNaN(Number(variable))) {
+            globalVariables.set(this.variableName, Number(variable));
+            console.log("Input as number: " + variable);
+        }
+        else {
+            globalVariables.set(this.variableName, variable);
+            console.log("Input: " + variable);
+        }
         this.connectToExecute();
     }
     createBlock() {
