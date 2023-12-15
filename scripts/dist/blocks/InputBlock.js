@@ -1,17 +1,19 @@
 class InputBlock extends Block {
     constructor(x, y, variableName, message = "Enter variable") {
         super(x, y);
-        this.maxConnects = 2;
         this.message = message;
         this.variableName = variableName;
         globalVariables.set(this.variableName, null);
         this.init();
     }
     execute() {
-        const variable = prompt(this.message);
-        globalVariables.set(this.variableName, variable);
-        console.log("Input: " + variable);
-        this.connectToExecute();
+        this.setActive();
+        setTimeout(() => {
+            const variable = prompt(this.message);
+            globalVariables.set(this.variableName, variable);
+            console.log("Input: " + variable);
+            this.connectToExecute();
+        }, runSpeed / 5);
     }
     createBlock() {
         workspace.innerHTML += `<div class="block input" id="${this.id}">Input: <b>${this.variableName}</b></div>`;

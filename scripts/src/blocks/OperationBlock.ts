@@ -4,7 +4,6 @@ class OperationBlock extends Block {
     isValueVariable: boolean[] = [false, false];
     variableName: string;
     valueName: string[] = [];
-    maxConnects: number = 2;
 
     constructor(x: number, y: number) {
         super(x, y);
@@ -38,6 +37,8 @@ class OperationBlock extends Block {
     }
 
     execute(): void {
+        this.setActive();
+
         for(let i=0; i<this.isValueVariable.length; i++)
         {
             if(this.isValueVariable[i]) this.value[i] = Number(globalVariables.get(this.valueName[i]));

@@ -5,7 +5,6 @@ class OperationBlock extends Block {
         this.operator = '+';
         this.isValueVariable = [false, false];
         this.valueName = [];
-        this.maxConnects = 2;
         this.variableName = "a" + this.id;
         this.init();
     }
@@ -27,6 +26,7 @@ class OperationBlock extends Block {
         }
     }
     execute() {
+        this.setActive();
         for (let i = 0; i < this.isValueVariable.length; i++) {
             if (this.isValueVariable[i])
                 this.value[i] = Number(globalVariables.get(this.valueName[i]));

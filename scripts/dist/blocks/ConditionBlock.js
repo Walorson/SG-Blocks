@@ -3,7 +3,6 @@ class ConditionBlock extends Block {
         super(x, y);
         this.value = [0, 0];
         this.operator = "==";
-        this.maxConnects = 3;
         this.isValueVariable = [false, false];
         this.valueName = [];
         for (let i = 0; i < this.isValueVariable.length; i++) {
@@ -15,12 +14,11 @@ class ConditionBlock extends Block {
     connectToExecute() {
         setTimeout(() => {
             executeHistory.push(this);
+            this.unsetActive();
             for (let i = 0; i < this.isValueVariable.length; i++) {
                 if (this.isValueVariable[i] == true)
                     this.value[i] = globalVariables.get(this.valueName[i]);
             }
-            if (this.connectTo[0] == undefined || this.connectTo[1] == undefined)
-                return;
             let result = false;
             if (isNaN(Number(this.value[0])) == false)
                 this.value[0] = Number(this.value[0]);
@@ -52,16 +50,16 @@ class ConditionBlock extends Block {
                         result = true;
                     break;
             }
-            if (result == true)
-                this.connectTo[1].execute();
-            else if (this.connectTo[2] != undefined)
-                this.connectTo[2].execute();
+            if (result == true && this.connectToTRUE != undefined)
+                this.connectToTRUE.execute();
+            else if (result == false && this.connectToFALSE != undefined)
+                this.connectToFALSE.execute();
             else
                 endRun();
-        }, 1);
+        }, runSpeed);
     }
     createBlock() {
-        workspace.innerHTML += `<div class="block condition" id="${this.id}">IF</div>`;
+        workspace.innerHTML += `<div class="block condition" id="${this.id}" title="Z - Linia prawda\nX - Linia Fałsz">IF</div>`;
     }
     properties() {
         this.div.addEventListener("mousedown", () => {

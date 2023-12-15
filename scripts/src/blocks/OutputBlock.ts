@@ -2,7 +2,6 @@ class OutputBlock extends Block {
     message: string;
     isVariable: boolean;
     variable: any;
-    maxConnects: number = 2;
 
     constructor(x: number, y: number, message: string = "Hello World!", isVariable: boolean = false) {
         super(x, y);
@@ -13,16 +12,20 @@ class OutputBlock extends Block {
     }
 
     execute(): void {
-        if(this.isVariable) {
-            console.log(this.message + globalVariables.get(this.variable));
-            alert(this.message + globalVariables.get(this.variable));
-        }
-        else {
-            console.log(this.message);
-            alert(this.message);
-        }
-        
-        this.connectToExecute();
+        this.setActive();
+       
+        setTimeout(() => {
+            if(this.isVariable) {
+                console.log(this.message + globalVariables.get(this.variable));
+                alert(this.message + globalVariables.get(this.variable));
+            }
+            else {
+                console.log(this.message);
+                alert(this.message);
+            }
+
+            this.connectToExecute();
+        }, runSpeed/5);
     }
 
     createBlock(): void {

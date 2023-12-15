@@ -8,6 +8,6 @@ class EmptyBlock extends Block
         this.init();
     }
     createBlock(): void {
-        workspace.innerHTML += `<div class="block empty" id="${this.id}">...</div>`;
+        workspace.innerHTML += `<div class="block empty" id="${this.id}"></div>`;
     }
 }

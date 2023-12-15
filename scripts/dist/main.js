@@ -10,6 +10,7 @@ function run() {
     if (runStatus == true)
         return;
     globalVariablesUpdate();
+    blocksList.forEach((block) => { block.unsetActive(); });
     runStatus = true;
     executeHistory = [];
     buttons.run.setAttribute("disabled", ";");

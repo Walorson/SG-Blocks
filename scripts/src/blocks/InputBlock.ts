@@ -1,7 +1,6 @@
 class InputBlock extends Block {
     message: string;
     variableName: string;
-    maxConnects: number = 2;
 
     constructor(x: number, y: number, variableName: any, message: string = "Enter variable") {
         super(x, y);
@@ -13,11 +12,15 @@ class InputBlock extends Block {
     }
 
     execute(): void {
-        const variable: any = prompt(this.message);
-        globalVariables.set(this.variableName, variable);
+        this.setActive();
+        
+        setTimeout(() => {
+            const variable: any = prompt(this.message);
+            globalVariables.set(this.variableName, variable);
 
-        console.log("Input: "+variable);
-        this.connectToExecute();
+            console.log("Input: "+variable);
+            this.connectToExecute();
+        }, runSpeed/5);
     }
 
     createBlock(): void {
