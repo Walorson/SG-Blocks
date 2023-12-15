@@ -23,5 +23,11 @@
     background-color: rgb(255, 121, 26);
 }
 .empty {
-    padding: 5px 10px;
+    padding: 0;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+}
+.active {
+    box-shadow: 0px 0px 50px 5px rgba(5,138,14,0.86);
 }

@@ -12,6 +12,7 @@ function run(): void
 {
     if(runStatus == true) return;
     globalVariablesUpdate();
+    blocksList.forEach((block: Block) => { block.unsetActive(); });
 
     runStatus = true;
     executeHistory = [];

@@ -7,6 +7,7 @@ class EndBlock extends Block {
         workspace.innerHTML += `<div class="block end" id="${this.id}">End</div>`;
     }
     execute() {
+        this.setActive();
         console.warn("END");
         endRun();
     }

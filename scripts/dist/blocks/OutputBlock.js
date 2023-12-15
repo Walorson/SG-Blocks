@@ -1,21 +1,23 @@
 class OutputBlock extends Block {
     constructor(x, y, message = "Hello World!", isVariable = false) {
         super(x, y);
-        this.maxConnects = 2;
         this.message = message;
         this.isVariable = isVariable;
         this.init();
     }
     execute() {
-        if (this.isVariable) {
-            console.log(this.message + globalVariables.get(this.variable));
-            alert(this.message + globalVariables.get(this.variable));
-        }
-        else {
-            console.log(this.message);
-            alert(this.message);
-        }
-        this.connectToExecute();
+        this.setActive();
+        setTimeout(() => {
+            if (this.isVariable) {
+                console.log(this.message + globalVariables.get(this.variable));
+                alert(this.message + globalVariables.get(this.variable));
+            }
+            else {
+                console.log(this.message);
+                alert(this.message);
+            }
+            this.connectToExecute();
+        }, runSpeed / 5);
     }
     createBlock() {
         workspace.innerHTML += `<div class="block output" id="${this.id}">Print: ${this.message}</div>`;

@@ -13,6 +13,7 @@ class EndBlock extends Block
 
     execute(): void 
     {
+        this.setActive();
         console.warn("END");
         endRun();
     }   

@@ -5,6 +5,7 @@ window.addEventListener("load", () => {
     let blockStart: Block;
     let lineHoverID: number = null;
     let lineController: any = connect();
+    let keyPressed: string = null;
 
 
     window.addEventListener("mousedown", (e: MouseEvent) => 
@@ -39,6 +40,7 @@ window.addEventListener("load", () => {
             deleteLineMode = true;
             _canvas.style.cursor = "crosshair";
         }
+        keyPressed = e.key.toUpperCase();
     });
 
     window.addEventListener("keyup", (e: KeyboardEvent) => 
@@ -54,6 +56,8 @@ window.addEventListener("load", () => {
             block.style.border = "";
         });
         lineController.redrawLines();
+
+        keyPressed = null;
     });
 
     removeLine = (id: number) =>
@@ -68,6 +72,9 @@ window.addEventListener("load", () => {
 
         delete left_node.connectTo[leftPos];
         delete right_node.connectTo[rightPos];
+
+        if(_lines[id].colOriginal == 'green') blocksList[_lines[id].left_node].connectToTRUE = undefined;
+        else if(_lines[id].colOriginal == 'orange') blocksList[_lines[id].left_node].connectToFALSE = undefined;
 
         delete _lines[id];
         _lines = _lines.filter(item => item != undefined);
@@ -108,7 +115,7 @@ window.addEventListener("load", () => {
                     col : "black",
                     colOriginal: "black",
                     width:2,
-                    gtype:"C"
+                    gtype:"D"
                 
                 });
             }
@@ -132,47 +139,49 @@ window.addEventListener("load", () => {
             const blockEnd = blocksList[connected];
             if(blockEnd == blockStart) return;
 
-            blockStart.connectTo.push(blockEnd);
-            blockEnd.connectTo.push(blockStart);
-
-            if(blockEnd instanceof ConditionBlock || blockStart instanceof ConditionBlock)
-            {
-                let length: number;
-                if(blockEnd instanceof ConditionBlock) length = blockEnd.connectTo.length;
-                else length = blockStart.connectTo.length;
-
-                switch(length)
-                {
-                    case 2: lineController.drawLine({
+            if(blockStart instanceof ConditionBlock)
+            {   
+                if(keyPressed == 'Z' && blockStart.connectToTRUE == undefined) {
+                    lineController.drawLine({
         
                         left_node: blockStart.id,
                         right_node: blockEnd.id,
                         col : "green",
                         colOriginal: "green",
                         width:3,
-                        gtype:"C"
+                        gtype:"D"
                     
-                    }); break;
-                    case 3: lineController.drawLine({
+                    });
+
+                    blockStart.connectToTRUE = blockEnd;
+                }
+                else if(keyPressed == 'X' && blockStart.connectToFALSE == undefined) {
+                    lineController.drawLine({
         
                         left_node: blockStart.id,
                         right_node: blockEnd.id,
                         col : "orange",
                         colOriginal: "orange",
                         width:3,
-                        gtype:"C"
+                        gtype:"D"
                     
-                    }); break;
-                    default: lineController.drawLine({
+                    }); 
+
+                    blockStart.connectToFALSE = blockEnd;
+                }
+                else {
+                    lineController.drawLine({
         
                         left_node: blockStart.id,
                         right_node: blockEnd.id,
                         col : "black",
                         colOriginal: "black",
                         width:2,
-                        gtype:"C"
+                        gtype:"D"
                     
-                    }); break;
+                    });
+
+                    blockStart.connectTo.push(blockEnd);
                 }
             }
             else {
@@ -183,9 +192,11 @@ window.addEventListener("load", () => {
                     col : "black",
                     colOriginal: "black",
                     width:2,
-                    gtype:"C"
+                    gtype:"D"
                 
-                })
+                });
+
+                blockStart.connectTo.push(blockEnd);
             }
         }
         

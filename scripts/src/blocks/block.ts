@@ -6,7 +6,7 @@ class Block {
     x: number;
     y: number;
     div: HTMLElement;
-    maxConnects: number = 1;
+    maxConnects: number = 10;
     connectTo: Block[] = [];
 
     constructor(x: number, y: number) {
@@ -32,7 +32,6 @@ class Block {
     update(): void 
     {
         this.getID();
-        this.connect();
         this.dragAndDrop();
         this.properties();
         this.delete();
@@ -51,9 +50,7 @@ class Block {
         this.div = document.getElementById(this.id+"");
     }
     
-    execute(): void { this.connectToExecute(); }
-
-    connect(): void { }
+    execute(): void { this.div.classList.add("active"); this.connectToExecute(); }
 
     connectToExecute(): void {
         setTimeout(() => 
@@ -68,15 +65,10 @@ class Block {
 
             for(let i=0; i<this.connectTo.length; i++)
             {
-                if(executeHistory[executeHistory.length-2] == this.connectTo[i]) {
-                    if(this.connectTo.length <= 1) {
-                        runStatus = false;
-                        buttons.run.removeAttribute("disabled");
-                    }
-                    continue;
-                }
                 this.connectTo[i].execute();
             }
+
+            this.unsetActive();
 
         }, runSpeed);
     }
@@ -137,18 +129,14 @@ class Block {
         this.div.addEventListener("click", () => {
             if(deleteLineMode == true)
             {
-                const connectToLength: number = this.connectTo.length;
-                for(let i=0; i<connectToLength; i++)
+                for(let j=0; j<_lines.length; j++)
                 {
-                    for(let j=0; j<_lines.length; j++)
+                    if(_lines[j].left_node == this.id || _lines[j].right_node == this.id) 
                     {
-                        if(_lines[j].left_node == this.id || _lines[j].right_node == this.id) 
-                        {
-                            removeLine(j);
-                            break;
-                        }
-                    } 
-                }
+                        removeLine(j);
+                        j=-1;
+                    }
+                } 
 
                 workspace.removeChild(this.div);
                 delete blocksList[this.id];
@@ -163,4 +151,11 @@ class Block {
     }
 
     properties(): void {}
+
+    setActive(): void {
+        this.div.classList.add("active");
+    }
+    unsetActive(): void {
+        this.div.classList.remove("active");
+    }
 }

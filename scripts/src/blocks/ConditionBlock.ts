@@ -1,9 +1,10 @@
 class ConditionBlock extends Block {
     value: any[] = [0,0]
     operator: string = "==";
-    maxConnects: number = 3;
     isValueVariable: boolean[] = [false, false];
     valueName: string[] = [];
+    connectToTRUE: Block;
+    connectToFALSE: Block;
     constructor(x: number, y: number) {
         super(x, y);
 
@@ -19,13 +20,12 @@ class ConditionBlock extends Block {
         setTimeout(() => 
         {
             executeHistory.push(this);
+            this.unsetActive();
 
             for(let i=0; i<this.isValueVariable.length; i++)
             {
                 if(this.isValueVariable[i] == true) this.value[i] = globalVariables.get(this.valueName[i]);
             }
-
-            if(this.connectTo[0] == undefined || this.connectTo[1] == undefined) return;
             
             let result: boolean = false;
 
@@ -62,15 +62,15 @@ class ConditionBlock extends Block {
                 break;
             }
 
-            if(result == true) this.connectTo[1].execute();
-            else if(this.connectTo[2] != undefined) this.connectTo[2].execute();
+            if(result == true && this.connectToTRUE != undefined) this.connectToTRUE.execute();
+            else if(result == false && this.connectToFALSE != undefined) this.connectToFALSE.execute();
             else endRun();
 
-        }, 1);
+        }, runSpeed);
     }
 
     createBlock(): void {
-        workspace.innerHTML += `<div class="block condition" id="${this.id}">IF</div>`;
+        workspace.innerHTML += `<div class="block condition" id="${this.id}" title="Z - Linia prawda\nX - Linia Fałsz">IF</div>`;
     }
 
     properties(): void {
