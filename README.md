@@ -1,7 +1,7 @@
 # SG-Blocks
 App inspired by Java Block but in online version :D
  ***E(x)plory momento (memento  mori)***
-## Version: Alpha 1.3.3
+## Version: Alpha 1.3.5 - official e(x)plory version
 https://walorson.github.io/SG-Blocks/
 
 ## Controls
@@ -12,8 +12,14 @@ https://walorson.github.io/SG-Blocks/
 
 ## In console
 * **run()** - to run algoritm (Or just click the button)
+* **endRun()** - manually stop the run. Use if run would be bugged
 
 ## Change log
+### Alpha 1.3.5
+* Empty Block added
+* Condition Block fixed
+* Add instruction (in polish language!!!)
+* css improvement
 ### Alpha 1.3.4
 * Operation Block fixed
 * Line drag fixed

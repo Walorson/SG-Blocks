@@ -16,9 +16,15 @@ class InputBlock extends Block {
         
         setTimeout(() => {
             const variable: any = prompt(this.message);
-            globalVariables.set(this.variableName, variable);
+            if(!isNaN(Number(variable))) {
+              globalVariables.set(this.variableName, Number(variable));
+              console.log("Input as number: "+variable);
+            } 
+            else {
+                globalVariables.set(this.variableName, variable);
+                console.log("Input: "+variable);
+            }
 
-            console.log("Input: "+variable);
             this.connectToExecute();
         }, runSpeed/5);
     }
