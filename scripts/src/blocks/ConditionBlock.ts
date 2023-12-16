@@ -64,6 +64,13 @@ class ConditionBlock extends Block {
 
             if(result == true && this.connectToTRUE != undefined) this.connectToTRUE.execute();
             else if(result == false && this.connectToFALSE != undefined) this.connectToFALSE.execute();
+            else if(this.connectToTRUE == undefined && this.connectToFALSE == undefined)
+            {
+                for(let i=0; i<this.connectTo.length; i++)
+                {
+                    this.connectTo[i].execute();
+                }
+            }
             else endRun();
 
         }, runSpeed);

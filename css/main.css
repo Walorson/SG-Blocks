@@ -11,3 +11,9 @@ body {
     height: 0;
     width: 0;
 }
+.select {
+    display: block;
+    position: absolute;
+    top: 0; left: 0;
+    border: 2px dashed black;
+}
