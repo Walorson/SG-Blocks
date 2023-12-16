@@ -10,18 +10,22 @@ window.addEventListener("load", () => {
 
     window.addEventListener("mousedown", (e: MouseEvent) => 
     {
+        unselectAllBlocks();
         connectBegin(e);
+        selectBegin(e);
         removeLine(lineHoverID);
     });
 
     window.addEventListener("mouseup", (e: MouseEvent) => 
     {
+        if(selectStart == true) selectEnd(e);
         connectEnd(e);
     });
 
     window.addEventListener("mousemove", (e: MouseEvent) => 
     {
         fakeCursorToRealCursor(e);
+        if(selectStart == true) selectResize(e);
 
         if(deleteLineMode == true) showDeletePossibilities(e);
         else document.body.style.cursor = "default";
@@ -139,6 +143,12 @@ window.addEventListener("load", () => {
             const blockEnd = blocksList[connected];
             if(blockEnd == blockStart) return;
 
+            let isBlockRepeat: Boolean = false;
+            blockStart.connectTo.forEach((block: Block) => {
+                if(block == blockEnd) isBlockRepeat = true;
+            });
+            if(isBlockRepeat == true) return;
+
             if(blockStart instanceof ConditionBlock)
             {   
                 if(keyPressed == 'Z' && blockStart.connectToTRUE == undefined) {
@@ -246,6 +256,78 @@ window.addEventListener("load", () => {
                 if(_lines[i].col == "red") lineHoverID = i;
             }
         
+    }
+
+    let selectStartX: number;
+    let selectStartY: number;
+    let selectWidth: number;
+    let selectHeight: number;
+    let selectStart: boolean = false;
+    function selectBegin(e: MouseEvent): void {
+        const clickedElement = e.target as HTMLElement;
+        if(clickedElement.tagName != 'CANVAS' || e.button != 0) return;
+
+        selectStart = true;
+
+        const select: HTMLElement = document.createElement("div");
+        select.classList.add("select");
+        select.setAttribute("id","select");
+        workspace.appendChild(select);
+
+        selectStartX = e.clientX;
+        selectStartY = e.clientY;
+
+        select.style.top = selectStartY+"px";
+        select.style.left = selectStartX+"px";
+    }
+
+    function selectResize(e: MouseEvent): void {
+        const select: HTMLElement = document.getElementById("select");
+        
+        selectWidth = e.clientX - selectStartX;
+        selectHeight = e.clientY - selectStartY;
+
+        select.style.height = Math.abs(selectHeight)+"px";
+        select.style.width = Math.abs(selectWidth)+"px";
+
+        if(selectWidth < 0)
+        {
+            select.style.left = e.clientX+"px";
+        }
+        if(selectHeight < 0)
+        {
+            select.style.top = e.clientY+"px";
+        }
+    }
+
+    function selectEnd(e: MouseEvent): void {
+        const select: HTMLElement = document.getElementById("select");
+
+        workspace.removeChild(select);
+
+        selectStart = false;
+
+        blocksList.forEach((block: Block) => {
+           if(block.x > selectStartX && block.x < selectStartX + selectWidth && block.y > selectStartY && block.y < selectStartY + selectHeight)
+           {
+                block.div.classList.add("selected");
+           }
+        });
+
+        selectStartX = null;
+        selectStartY = null;
+        selectWidth = null;
+        selectHeight = null;
+    }
+
+    function unselectAllBlocks(): void
+    {
+        blocksList.forEach((block: Block) => {
+            if(block.div.classList.contains("selected"))
+            {
+                block.div.classList.remove("selected");
+            }
+        });
     }
 
     window.addEventListener("resize", () => {
