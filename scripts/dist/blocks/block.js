@@ -53,6 +53,21 @@ class Block {
         let grabPointX;
         let grabPointY;
         this.div.addEventListener("mousedown", (e) => {
+            mouseDown(e);
+        });
+        window.addEventListener("mousedown", (e) => {
+            const elementClicked = e.target;
+            if (this.div.classList.contains("selected") && elementClicked.classList.contains("block")) {
+                mouseDown(e);
+            }
+        });
+        window.addEventListener("mousemove", (e) => {
+            mouseMove(e);
+        });
+        window.addEventListener("mouseup", (e) => {
+            mouseUp(e);
+        });
+        const mouseDown = (e) => {
             if (e.button == 2) {
                 document.querySelectorAll(".block").forEach((block) => block.style.cursor = 'cell');
                 _canvas.style.cursor = 'cell';
@@ -64,8 +79,8 @@ class Block {
             grabPointY = this.div.getBoundingClientRect().top - e.clientY;
             grabPointX = this.div.getBoundingClientRect().left - e.clientX;
             globalVariablesUpdate();
-        });
-        window.addEventListener("mousemove", (e) => {
+        };
+        const mouseMove = (e) => {
             if (e.button != 0)
                 return;
             if (isdrag) {
@@ -76,14 +91,14 @@ class Block {
                 this.div.style.top = y + "px";
                 this.div.style.left = x + "px";
             }
-        });
-        window.addEventListener("mouseup", (e) => {
+        };
+        const mouseUp = (e) => {
             document.querySelectorAll(".block").forEach((block) => block.style.cursor = 'grab');
             _canvas.style.cursor = 'default';
             if (e.button != 0)
                 return;
             isdrag = false;
-        });
+        };
     }
     delete() {
         this.div.addEventListener("mousemove", () => {
