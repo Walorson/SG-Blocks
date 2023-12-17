@@ -87,3 +87,9 @@ select:focus {
 #controls h1 {
     margin: 0;
 }
+.exit {
+    position: absolute;
+    top: 11px;
+    right: 15px;
+    cursor: pointer;
+}

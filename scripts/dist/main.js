@@ -44,3 +44,6 @@ function endRun() {
     runStatus = false;
     buttons.run.removeAttribute("disabled");
 }
+document.getElementById("exit").addEventListener("click", () => {
+    document.getElementById("controls").remove();
+});
