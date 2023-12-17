@@ -6,7 +6,9 @@ window.addEventListener("load", () => {
     let lineController = connect();
     let keyPressed = null;
     window.addEventListener("mousedown", (e) => {
-        unselectAllBlocks();
+        const elementClicked = e.target;
+        if (elementClicked.tagName == 'CANVAS')
+            unselectAllBlocks();
         connectBegin(e);
         selectBegin(e);
         removeLine(lineHoverID);

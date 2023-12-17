@@ -10,7 +10,9 @@ window.addEventListener("load", () => {
 
     window.addEventListener("mousedown", (e: MouseEvent) => 
     {
-        unselectAllBlocks();
+        const elementClicked = e.target as HTMLElement;
+
+        if(elementClicked.tagName == 'CANVAS') unselectAllBlocks();
         connectBegin(e);
         selectBegin(e);
         removeLine(lineHoverID);

@@ -80,6 +80,28 @@ class Block {
         let grabPointY: number;
 
         this.div.addEventListener("mousedown", (e: MouseEvent) => {
+            mouseDown(e);
+        });
+
+        window.addEventListener("mousedown", (e: MouseEvent) => {
+            const elementClicked = e.target as HTMLElement;
+
+            if(this.div.classList.contains("selected") && elementClicked.classList.contains("block"))    
+            {
+                mouseDown(e);
+            }
+        })
+
+        window.addEventListener("mousemove", (e: MouseEvent) => {
+            mouseMove(e);
+        });
+
+        window.addEventListener("mouseup", (e: MouseEvent) => {
+            mouseUp(e);
+        })
+
+        const mouseDown = (e: MouseEvent): void =>
+        {
             if(e.button == 2) {
                 document.querySelectorAll(".block").forEach((block: HTMLElement) => block.style.cursor = 'cell');
                 _canvas.style.cursor = 'cell';
@@ -92,9 +114,10 @@ class Block {
             grabPointX = this.div.getBoundingClientRect().left - e.clientX;
 
             globalVariablesUpdate();
-        });
+        }
 
-        window.addEventListener("mousemove", (e: MouseEvent) => {
+        const mouseMove = (e: MouseEvent): void =>
+        {
             if(e.button != 0) return;
 
             if(isdrag)
@@ -106,16 +129,16 @@ class Block {
                 this.div.style.top = y+"px";
                 this.div.style.left = x+"px";
             }
-            
-        });
+        }
 
-        window.addEventListener("mouseup", (e: MouseEvent) => {
+        const mouseUp = (e: MouseEvent): void =>
+        {
             document.querySelectorAll(".block").forEach((block: HTMLElement) => block.style.cursor = 'grab');
             _canvas.style.cursor = 'default';
             if(e.button != 0) return;
 
             isdrag = false;
-        })
+        }
     }
 
     delete(): void {
