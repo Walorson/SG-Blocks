@@ -181,4 +181,9 @@ class Block {
     unsetActive(): void {
         this.div.classList.remove("active");
     }
-}
+    setSelected(): void {
+        this.div.classList.add("selected");
+    }
+    unsetSelected(): void {
+        this.div.classList.remove("selected");
+    }
