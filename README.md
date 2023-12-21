@@ -1,12 +1,14 @@
 # SG-Blocks
-App inspired by Java Block but in online version :D
+App inspired by Java Block but in online version (and better) ;D
  ***E(x)plory momento (memento  mori)***
-## Version: Alpha 1.3.5 - official e(x)plory version
+## Use online (version in development state, so in there can be many strange bugs)
 https://walorson.github.io/SG-Blocks/
 
 ## Controls
 * Move Blocks - Left Click Mouse
 * Connect - Right Click Mouse Drag from block to block
+* Hold Z *(Condition Block)* - Add TRUE connect
+* Hold X *(Condition Block)* - Add FALSE connect
 * Remove Connect - Hold CTRL and click on line
 * Remove Block - Hold CTRL and click on block
 

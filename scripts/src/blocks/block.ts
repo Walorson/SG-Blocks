@@ -186,7 +186,6 @@ class Block {
     }
     unsetSelected(): void {
         this.div.classList.remove("selected");
-    }
     isSelected(): boolean {
         if(this.div.classList.contains("selected")) return true;
         else return false;
