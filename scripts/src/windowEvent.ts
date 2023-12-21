@@ -6,13 +6,15 @@ window.addEventListener("load", () => {
     let lineHoverID: number = null;
     let lineController: any = connect();
     let keyPressed: string = null;
+    let shiftPressed: boolean = false;
 
 
     window.addEventListener("mousedown", (e: MouseEvent) => 
     {
         const elementClicked = e.target as HTMLElement;
 
-        if(elementClicked.tagName == 'CANVAS') unselectAllBlocks();
+        if(elementClicked.classList.contains("selected") == false && shiftPressed == false) unselectAllBlocks();
+
         connectBegin(e);
         selectBegin(e);
         removeLine(lineHoverID);
@@ -47,11 +49,16 @@ window.addEventListener("load", () => {
             _canvas.style.cursor = "crosshair";
         }
         keyPressed = e.key.toUpperCase();
+
+        if(e.shiftKey) shiftPressed = true;
+        else shiftPressed = false;
     });
 
     window.addEventListener("keyup", (e: KeyboardEvent) => 
     {
         deleteLineMode = false;
+        shiftPressed = false;
+        
         for(let i=0; i<_lines.length; i++)
         {
             _lines[i].col = _lines[i].colOriginal;
@@ -310,10 +317,54 @@ window.addEventListener("load", () => {
         selectStart = false;
 
         blocksList.forEach((block: Block) => {
-           if(block.x > selectStartX && block.x < selectStartX + selectWidth && block.y > selectStartY && block.y < selectStartY + selectHeight)
-           {
-                block.div.classList.add("selected");
-           }
+            let inSelectY: boolean = false;
+            let inSelectX: boolean = false;
+
+            if(selectWidth >= 0)
+            {
+                if(block.x > selectStartX && block.x < selectStartX + selectWidth)
+                {
+                    inSelectX = true;
+                }
+            }
+            else
+            {
+                if(block.x < selectStartX && block.x > selectStartX + selectWidth)
+                {
+                    inSelectX = true;
+                }
+            }
+
+            if(selectHeight >= 0)
+            {
+                if(block.y > selectStartY && block.y < selectStartY + selectHeight)
+                {
+                    inSelectY = true;
+                }
+            }
+            else
+            {
+                if(block.y < selectStartY && block.y > selectStartY + selectHeight)
+                {
+                    inSelectY = true;
+                }
+            }
+
+            if((selectStartX > block.x && selectStartX < block.x + block.div.offsetWidth) || (selectStartX + selectWidth > block.x && selectStartX + selectWidth < block.x + block.div.offsetWidth))
+            {
+                inSelectX = true;
+            }
+
+            if((selectStartY > block.y && selectStartY < block.y + block.div.offsetHeight) || (selectStartY + selectHeight > block.y && selectStartY + selectHeight < block.y + block.div.offsetHeight))
+            {
+                inSelectY = true;
+            }
+
+            if(inSelectX == true && inSelectY == true)
+            {
+                block.setSelected();
+            }
+           
         });
 
         selectStartX = null;
@@ -325,9 +376,9 @@ window.addEventListener("load", () => {
     function unselectAllBlocks(): void
     {
         blocksList.forEach((block: Block) => {
-            if(block.div.classList.contains("selected"))
+            if(block.isSelected())
             {
-                block.div.classList.remove("selected");
+                block.unsetSelected();
             }
         });
     }
