@@ -57,7 +57,7 @@ class Block {
         });
         window.addEventListener("mousedown", (e) => {
             const elementClicked = e.target;
-            if (this.div.classList.contains("selected") && elementClicked.classList.contains("block")) {
+            if (this.isSelected() && elementClicked.classList.contains("selected")) {
                 mouseDown(e);
             }
         });
@@ -130,5 +130,17 @@ class Block {
     }
     unsetActive() {
         this.div.classList.remove("active");
+    }
+    setSelected() {
+        this.div.classList.add("selected");
+    }
+    unsetSelected() {
+        this.div.classList.remove("selected");
+    }
+    isSelected() {
+        if (this.div.classList.contains("selected"))
+            return true;
+        else
+            return false;
     }
 }

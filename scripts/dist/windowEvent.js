@@ -5,9 +5,10 @@ window.addEventListener("load", () => {
     let lineHoverID = null;
     let lineController = connect();
     let keyPressed = null;
+    let shiftPressed = false;
     window.addEventListener("mousedown", (e) => {
         const elementClicked = e.target;
-        if (elementClicked.tagName == 'CANVAS')
+        if (elementClicked.classList.contains("selected") == false && shiftPressed == false)
             unselectAllBlocks();
         connectBegin(e);
         selectBegin(e);
@@ -37,9 +38,14 @@ window.addEventListener("load", () => {
             _canvas.style.cursor = "crosshair";
         }
         keyPressed = e.key.toUpperCase();
+        if (e.shiftKey)
+            shiftPressed = true;
+        else
+            shiftPressed = false;
     });
     window.addEventListener("keyup", (e) => {
         deleteLineMode = false;
+        shiftPressed = false;
         for (let i = 0; i < _lines.length; i++) {
             _lines[i].col = _lines[i].colOriginal;
         }
@@ -231,8 +237,36 @@ window.addEventListener("load", () => {
         workspace.removeChild(select);
         selectStart = false;
         blocksList.forEach((block) => {
-            if (block.x > selectStartX && block.x < selectStartX + selectWidth && block.y > selectStartY && block.y < selectStartY + selectHeight) {
-                block.div.classList.add("selected");
+            let inSelectY = false;
+            let inSelectX = false;
+            if (selectWidth >= 0) {
+                if (block.x > selectStartX && block.x < selectStartX + selectWidth) {
+                    inSelectX = true;
+                }
+            }
+            else {
+                if (block.x < selectStartX && block.x > selectStartX + selectWidth) {
+                    inSelectX = true;
+                }
+            }
+            if (selectHeight >= 0) {
+                if (block.y > selectStartY && block.y < selectStartY + selectHeight) {
+                    inSelectY = true;
+                }
+            }
+            else {
+                if (block.y < selectStartY && block.y > selectStartY + selectHeight) {
+                    inSelectY = true;
+                }
+            }
+            if ((selectStartX > block.x && selectStartX < block.x + block.div.offsetWidth) || (selectStartX + selectWidth > block.x && selectStartX + selectWidth < block.x + block.div.offsetWidth)) {
+                inSelectX = true;
+            }
+            if ((selectStartY > block.y && selectStartY < block.y + block.div.offsetHeight) || (selectStartY + selectHeight > block.y && selectStartY + selectHeight < block.y + block.div.offsetHeight)) {
+                inSelectY = true;
+            }
+            if (inSelectX == true && inSelectY == true) {
+                block.setSelected();
             }
         });
         selectStartX = null;
@@ -242,8 +276,8 @@ window.addEventListener("load", () => {
     }
     function unselectAllBlocks() {
         blocksList.forEach((block) => {
-            if (block.div.classList.contains("selected")) {
-                block.div.classList.remove("selected");
+            if (block.isSelected()) {
+                block.unsetSelected();
             }
         });
     }

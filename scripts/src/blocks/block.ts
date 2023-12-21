@@ -86,7 +86,7 @@ class Block {
         window.addEventListener("mousedown", (e: MouseEvent) => {
             const elementClicked = e.target as HTMLElement;
 
-            if(this.div.classList.contains("selected") && elementClicked.classList.contains("block"))    
+            if(this.isSelected() && elementClicked.classList.contains("selected"))    
             {
                 mouseDown(e);
             }
@@ -180,5 +180,15 @@ class Block {
     }
     unsetActive(): void {
         this.div.classList.remove("active");
+    }
+    setSelected(): void {
+        this.div.classList.add("selected");
+    }
+    unsetSelected(): void {
+        this.div.classList.remove("selected");
+    }
+    isSelected(): boolean {
+        if(this.div.classList.contains("selected")) return true;
+        else return false;
     }
 }
