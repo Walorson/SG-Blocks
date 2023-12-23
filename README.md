@@ -1,7 +1,7 @@
 # SG-Blocks
 App inspired by Java Block but in online version (and better) ;D
  ***E(x)plory momento (memento  mori)***
-## Use online (version in development state, so in there can be many strange bugs)
+## Use online (version in development state, so there can be many strange bugs)
 https://walorson.github.io/SG-Blocks/
 
 ## Controls
