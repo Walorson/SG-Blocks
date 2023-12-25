@@ -1,7 +1,7 @@
 # SG-Blocks
 App inspired by Java Block but in online version (and better) ;D
  ***E(x)plory momento (memento  mori)***
-## Use online (version in development state, so in there can be many strange bugs)
+## Use online (version in development state, so there can be many strange bugs)
 https://walorson.github.io/SG-Blocks/
 
 ## Controls
@@ -11,6 +11,7 @@ https://walorson.github.io/SG-Blocks/
 * Hold X *(Condition Block)* - Add FALSE connect
 * Remove Connect - Hold CTRL and click on line
 * Remove Block - Hold CTRL and click on block
+* Select Blocks - Left click and move (Hold SHIFT to select blocks with more than one move)
 * Next Block - Press Space
 * Move Map - Press Scroll and move
 
