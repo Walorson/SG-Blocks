@@ -5,6 +5,7 @@
     position: absolute;
     top: 15px; left:15px;
     width: 200px;
+    user-select: none;
 }
 .title {
     letter-spacing: 5px;
@@ -70,11 +71,16 @@ select:focus {
     background-color: #eeeeee;
     border: black solid 2px;
 }
-#run-button
+#nav-bottom
 {
+    display: flex;
+    gap: 20px;
     position: absolute;
     left: 15px;
-    bottom: 15px;
+    bottom: 15px;   
+}
+#run-button
+{
     width: 200px;
     height: 40px;
 }
@@ -91,5 +97,10 @@ select:focus {
     position: absolute;
     top: 11px;
     right: 15px;
+    cursor: pointer;
+}
+label {
+    display: flex;
+    align-items: center;
     cursor: pointer;
 }

@@ -24,7 +24,7 @@ class OutputBlock extends Block {
                 alert(this.message);
             }
 
-            this.connectToExecute();
+            this.executeNextBlock();
         }, runSpeed/5);
     }
 

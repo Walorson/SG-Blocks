@@ -1,4 +1,5 @@
 class StartBlock extends Block {
+    runSpeed: number = 500;
     constructor(x: number, y: number) {
         super(x, y);
         this.init();
@@ -17,7 +18,8 @@ class StartBlock extends Block {
             const property: any = propertiesWindow.querySelectorAll(".property"+this.id);
             
             property[0].oninput = () => {
-                runSpeed = property[0].value;
+                this.runSpeed = property[0].value;
+                runSpeed = this.runSpeed;
             }
 
         });

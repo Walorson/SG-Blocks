@@ -16,7 +16,7 @@ class OutputBlock extends Block {
                 console.log(this.message);
                 alert(this.message);
             }
-            this.connectToExecute();
+            this.executeNextBlock();
         }, runSpeed / 5);
     }
     createBlock() {

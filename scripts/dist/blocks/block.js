@@ -8,6 +8,10 @@ class Block {
         this.x = x;
         this.y = y;
         this.connectTo = [];
+        this.executeOnSpacePress = (e) => {
+            if (e.key == ' ')
+                this.connectToExecute();
+        };
     }
     init() {
         this.createBlock();
@@ -33,8 +37,20 @@ class Block {
     getID() {
         this.div = document.getElementById(this.id + "");
     }
-    execute() { this.div.classList.add("active"); this.connectToExecute(); }
+    execute() {
+        this.setActive();
+        this.executeNextBlock();
+    }
+    executeNextBlock() {
+        if (autorun == true) {
+            this.connectToExecute();
+        }
+        else {
+            window.addEventListener("keypress", this.executeOnSpacePress);
+        }
+    }
     connectToExecute() {
+        window.removeEventListener("keypress", this.executeOnSpacePress);
         setTimeout(() => {
             executeHistory.push(this);
             if (this.connectTo.length <= 0) {
@@ -56,10 +72,12 @@ class Block {
             mouseDown(e);
         });
         window.addEventListener("mousedown", (e) => {
-            const elementClicked = e.target;
-            if (this.isSelected() && elementClicked.classList.contains("selected")) {
-                mouseDown(e);
-            }
+            setTimeout(() => {
+                const elementClicked = e.target;
+                if (this.isSelected() && elementClicked.classList.contains("selected")) {
+                    mouseDown(e);
+                }
+            }, 5);
         });
         window.addEventListener("mousemove", (e) => {
             mouseMove(e);

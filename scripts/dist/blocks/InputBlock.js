@@ -18,7 +18,7 @@ class InputBlock extends Block {
                 globalVariables.set(this.variableName, variable);
                 console.log("Input: " + variable);
             }
-            this.connectToExecute();
+            this.executeNextBlock();
         }, runSpeed / 5);
     }
     createBlock() {
