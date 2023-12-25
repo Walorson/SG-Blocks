@@ -58,7 +58,7 @@ class OperationBlock extends Block {
 
         globalVariables.set(this.variableName, result);
 
-        this.connectToExecute();
+        this.executeNextBlock();
     }
 
     properties(): void {

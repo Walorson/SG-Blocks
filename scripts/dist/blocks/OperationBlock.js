@@ -52,7 +52,7 @@ class OperationBlock extends Block {
                 break;
         }
         globalVariables.set(this.variableName, result);
-        this.connectToExecute();
+        this.executeNextBlock();
     }
     properties() {
         this.div.addEventListener("mousedown", () => {

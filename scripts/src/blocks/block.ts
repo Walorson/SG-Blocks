@@ -8,12 +8,16 @@ class Block {
     div: HTMLElement;
     maxConnects: number = 10;
     connectTo: Block[] = [];
+    executeOnSpacePress: any;
 
     constructor(x: number, y: number) {
         this.id = blocksList.length;
         this.x = x;
         this.y = y;
         this.connectTo = [];
+        this.executeOnSpacePress = (e: KeyboardEvent) => {
+            if(e.key == ' ') this.connectToExecute();
+        }
     }
 
     init(): void 
@@ -50,9 +54,25 @@ class Block {
         this.div = document.getElementById(this.id+"");
     }
     
-    execute(): void { this.div.classList.add("active"); this.connectToExecute(); }
+    execute(): void { 
+        this.setActive();
+        this.executeNextBlock();
+    }
+
+    executeNextBlock(): void
+    {
+        if(autorun == true)
+        {
+            this.connectToExecute(); 
+        }
+        else
+        {
+            window.addEventListener("keypress", this.executeOnSpacePress);
+        }
+    }
 
     connectToExecute(): void {
+        window.removeEventListener("keypress", this.executeOnSpacePress);
         setTimeout(() => 
         {
             executeHistory.push(this);
@@ -84,12 +104,14 @@ class Block {
         });
 
         window.addEventListener("mousedown", (e: MouseEvent) => {
-            const elementClicked = e.target as HTMLElement;
+            setTimeout(() => {
+                const elementClicked = e.target as HTMLElement;
 
-            if(this.isSelected() && elementClicked.classList.contains("selected"))    
-            {
-                mouseDown(e);
-            }
+                if(this.isSelected() && elementClicked.classList.contains("selected"))    
+                {
+                    mouseDown(e);
+                }
+            },5);
         })
 
         window.addEventListener("mousemove", (e: MouseEvent) => {
@@ -186,6 +208,7 @@ class Block {
     }
     unsetSelected(): void {
         this.div.classList.remove("selected");
+    }
     isSelected(): boolean {
         if(this.div.classList.contains("selected")) return true;
         else return false;

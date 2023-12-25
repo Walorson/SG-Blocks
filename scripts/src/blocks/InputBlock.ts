@@ -25,7 +25,7 @@ class InputBlock extends Block {
                 console.log("Input: "+variable);
             }
 
-            this.connectToExecute();
+            this.executeNextBlock();
         }, runSpeed/5);
     }
 

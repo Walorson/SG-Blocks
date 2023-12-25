@@ -1,5 +1,6 @@
 let runSpeed: number = 500; //in miliseconds
 let runStatus: boolean = false;
+let autorun: boolean = buttons.autorun.checked;
 let deleteLineMode: boolean = false;
 let executeHistory: Block[] = [];
 let globalVariables: Map<string, any> = new Map();

@@ -7,7 +7,8 @@ const buttons = {
     operation: document.getElementById("operation-block-button"),
     empty: document.getElementById("empty-block-button"),
     end: document.getElementById("end-block-button"),
-    run: document.getElementById("run-button")
+    run: document.getElementById("run-button"),
+    autorun: document.getElementById("autorun-checkbox")
 };
 buttons.output.addEventListener("click", () => {
     new OutputBlock(250, 50);
@@ -29,4 +30,14 @@ buttons.end.addEventListener("click", () => {
 });
 buttons.run.addEventListener("click", () => {
     run();
+});
+buttons.autorun.addEventListener("input", () => {
+    if (buttons.autorun.checked) {
+        autorun = true;
+        runSpeed = blocksList[0].runSpeed;
+    }
+    else {
+        autorun = false;
+        runSpeed = 50;
+    }
 });
