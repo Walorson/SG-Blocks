@@ -216,22 +216,24 @@ window.addEventListener("load", () => {
         select.classList.add("select");
         select.setAttribute("id", "select");
         workspace.appendChild(select);
-        selectStartX = e.clientX;
-        selectStartY = e.clientY;
+        selectStartX = e.clientX - workspaceMove.translateX;
+        selectStartY = e.clientY - workspaceMove.translateY;
         select.style.top = selectStartY + "px";
         select.style.left = selectStartX + "px";
     }
     function selectResize(e) {
         const select = document.getElementById("select");
-        selectWidth = e.clientX - selectStartX;
-        selectHeight = e.clientY - selectStartY;
+        const clientX = e.clientX - workspaceMove.translateX;
+        const clientY = e.clientY - workspaceMove.translateY;
+        selectWidth = clientX - selectStartX;
+        selectHeight = clientY - selectStartY;
         select.style.height = Math.abs(selectHeight) + "px";
         select.style.width = Math.abs(selectWidth) + "px";
         if (selectWidth < 0) {
-            select.style.left = e.clientX + "px";
+            select.style.left = clientX + "px";
         }
         if (selectHeight < 0) {
-            select.style.top = e.clientY + "px";
+            select.style.top = clientY + "px";
         }
     }
     function selectEnd(e) {

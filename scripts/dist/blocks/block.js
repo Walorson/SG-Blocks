@@ -106,8 +106,8 @@ class Block {
                 let y = e.clientY + grabPointY;
                 this.x = x;
                 this.y = y;
-                this.div.style.top = y + "px";
-                this.div.style.left = x + "px";
+                this.div.style.top = (y - workspaceMove.translateY) + "px";
+                this.div.style.left = (x - workspaceMove.translateX) + "px";
             }
         };
         const mouseUp = (e) => {

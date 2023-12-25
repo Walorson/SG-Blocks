@@ -12,6 +12,8 @@ https://walorson.github.io/SG-Blocks/
 * Remove Connect - Hold CTRL and click on line
 * Remove Block - Hold CTRL and click on block
 * Select Blocks - Left click and move (Hold SHIFT to select blocks with more than one move)
+* Next Block - Press Space
+* Move Map - Press Scroll and move
 
 ## In console
 * **run()** - to run algoritm (Or just click the button)
