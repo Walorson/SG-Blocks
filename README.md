@@ -11,6 +11,8 @@ https://walorson.github.io/SG-Blocks/
 * Hold X *(Condition Block)* - Add FALSE connect
 * Remove Connect - Hold CTRL and click on line
 * Remove Block - Hold CTRL and click on block
+* Next Block - Press Space
+* Move Map - Press Scroll and move
 
 ## In console
 * **run()** - to run algoritm (Or just click the button)
