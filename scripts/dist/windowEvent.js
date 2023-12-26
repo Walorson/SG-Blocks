@@ -10,7 +10,7 @@ window.addEventListener("load", () => {
         const elementClicked = e.target;
         if (elementClicked.classList.contains("selected") == false && shiftPressed == false)
             unselectAllBlocks();
-        if (elementClicked.classList.contains("block"))
+        if (elementClicked.classList.contains("block") && e.button == 0)
             elementClicked.classList.add("selected");
         connectBegin(e);
         selectBegin(e);
