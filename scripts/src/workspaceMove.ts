@@ -15,17 +15,15 @@ window.addEventListener("mousedown", (e: MouseEvent) => {
 
     workspaceMove.x = e.clientX;
     workspaceMove.y = e.clientY;
-
-    console.log(workspaceMove.x, workspaceMove.y)
 });
 
 window.addEventListener("mousemove", (e: MouseEvent) => {
     if(workspaceMove.isMove == false) return;
 
-    workspaceMove.xEnd = -(e.clientX - workspaceMove.x);
-    workspaceMove.yEnd = -(e.clientY - workspaceMove.y);
+    workspaceMove.xEnd = e.clientX - workspaceMove.x;
+    workspaceMove.yEnd = e.clientY - workspaceMove.y;
     
-    workspace.style.transform = `translate(${workspaceMove.translateX + workspaceMove.xEnd}px, ${workspaceMove.translateY + workspaceMove.yEnd}px)`;
+    workspace.style.transform = `translate(${workspaceMove.translateX + workspaceMove.xEnd}px, ${workspaceMove.translateY + workspaceMove.yEnd}px) scale(${workspaceResize.size})`;
 });
 
 window.addEventListener("mouseup", () => {

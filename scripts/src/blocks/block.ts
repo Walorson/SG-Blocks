@@ -1,4 +1,6 @@
 const workspace: HTMLElement = document.getElementById("workspace");
+const DEFAULT_BLOCK_X = 250;
+const DEFAULT_BLOCK_Y = 75;
 const blocksList = [];
 
 class Block {
@@ -144,12 +146,12 @@ class Block {
 
             if(isdrag)
             {
-                let x: number = e.clientX + grabPointX;
-                let y: number = e.clientY + grabPointY;
+                let x: number = e.clientX + grabPointX - workspaceMove.translateX;
+                let y: number = e.clientY + grabPointY - workspaceMove.translateY;
                 this.x = x;
                 this.y = y;
-                this.div.style.top = (y-workspaceMove.translateY)+"px";
-                this.div.style.left = (x-workspaceMove.translateX)+"px";
+                this.div.style.top = y+"px";
+                this.div.style.left = x+"px";
             }
         }
 

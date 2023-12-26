@@ -24,28 +24,47 @@
     <script src="scripts/dist/blocks/EmptyBlock.js" defer></script>
     <script src="scripts/dist/windowEvent.js" defer></script>
     <script src="scripts/dist/workspaceMove.js" defer></script>
+    <script src="scripts/dist/workspaceResize.js" defer></script>
     <script src="scripts/dist/ui.js" defer></script>
     <script src="scripts/dist/main.js" defer></script>
 </head>
 <body>
     <div class="cursor" id="cursor"></div>
 
-    <div class="ui" id="ui">
-        <h1 class="title">SG-Blocks</h1>
-        <button id="output-block-button">Output Block</button>
-        <button id="input-block-button">Input Block</button>
-        <button id="condition-block-button">Condition Block</button>
-        <button id="operation-block-button">Operation Block</button>
-        <button id="empty-block-button">Empty Block</button>
-        <button id="end-block-button">End Block</button>
-        <h1>Properties</h1>
-        <div id="properties"></div>
+    <div id="nav-top">
+        <img src="favicon.ico">
+        <span class="title">
+            <span class="title-letter">B</span>
+            <span class="title-letter">l</span>
+            <span class="title-letter">o</span>
+            <span class="title-letter">c</span>
+            <span class="title-letter">k</span>
+            <span class="title-letter">s</span>
+        </span>
+        <div class="nav-button" id="nav-file-button">File</div>
+        <div class="nav-button" id="nav-settings-button">Settings</div>
+        <div class="nav-button" id="nav-run-button">Run</div>
+        <div class="nav-button" id="nav-help-button">Help</div>
     </div>
 
-    <div id="nav-bottom"><button id="run-button">Run</button><label><input type="checkbox" id="autorun-checkbox" checked>Autorun</label></div>
+    <div class="nav-side" id="ui">
+        <h1 class="section-title">Blocks</h1>
+        <div class="block-box">
+            <button id="output-block-button">Output Block</button>
+            <button id="input-block-button">Input Block</button>
+            <button id="condition-block-button">Condition Block</button>
+            <button id="operation-block-button">Operation Block</button>
+            <button id="empty-block-button">Empty Block</button>
+            <button id="end-block-button">End Block</button>
+        </div>
+        <h1 class="section-title">Properties</h1>
+        <div id="properties"></div>
+        <div class="run-box">
+            <button id="run-button">Run</button><label><input type="checkbox" id="autorun-checkbox" checked>Autorun</label>
+        </div>
+    </div>
     
     <div id="controls">
-        <div class="exit" id="exit">X</div>
         <h1>Sterowanie</h1>
         <p><b>Przeciągnie</b> - Przytrzymać lewy przycisk myszy</p>
         <p><b>Łączenie</b> - Przytrzymać prawy przycisk myszy i przeciągnąć na wybrany blok</p>

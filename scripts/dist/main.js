@@ -4,9 +4,9 @@ let autorun = buttons.autorun.checked;
 let deleteLineMode = false;
 let executeHistory = [];
 let globalVariables = new Map();
-new StartBlock(700, 50);
-new OutputBlock(650, 350, "Hello!");
-new EndBlock(700, 600);
+new StartBlock(700, 80);
+new OutputBlock(650, 380, "Hello!");
+new EndBlock(700, 630);
 function run() {
     if (runStatus == true)
         return;
@@ -45,6 +45,3 @@ function endRun() {
     runStatus = false;
     buttons.run.removeAttribute("disabled");
 }
-document.getElementById("exit").addEventListener("click", () => {
-    document.getElementById("controls").remove();
-});
