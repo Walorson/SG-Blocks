@@ -13,14 +13,13 @@ window.addEventListener("mousedown", (e) => {
     workspaceMove.isMove = true;
     workspaceMove.x = e.clientX;
     workspaceMove.y = e.clientY;
-    console.log(workspaceMove.x, workspaceMove.y);
 });
 window.addEventListener("mousemove", (e) => {
     if (workspaceMove.isMove == false)
         return;
-    workspaceMove.xEnd = -(e.clientX - workspaceMove.x);
-    workspaceMove.yEnd = -(e.clientY - workspaceMove.y);
-    workspace.style.transform = `translate(${workspaceMove.translateX + workspaceMove.xEnd}px, ${workspaceMove.translateY + workspaceMove.yEnd}px)`;
+    workspaceMove.xEnd = e.clientX - workspaceMove.x;
+    workspaceMove.yEnd = e.clientY - workspaceMove.y;
+    workspace.style.transform = `translate(${workspaceMove.translateX + workspaceMove.xEnd}px, ${workspaceMove.translateY + workspaceMove.yEnd}px) scale(${workspaceResize.size})`;
 });
 window.addEventListener("mouseup", () => {
     if (workspaceMove.isMove == true) {

@@ -10,23 +10,26 @@ const buttons = {
     run: document.getElementById("run-button"),
     autorun: document.getElementById("autorun-checkbox")
 };
+const nav = {
+    help: document.getElementById("nav-help-button")
+};
 buttons.output.addEventListener("click", () => {
-    new OutputBlock(250, 50);
+    new OutputBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y);
 });
 buttons.input.addEventListener("click", () => {
-    new InputBlock(250, 50, "a" + blocksList.length);
+    new InputBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y, "a" + blocksList.length);
 });
 buttons.condition.addEventListener("click", () => {
-    new ConditionBlock(250, 50);
+    new ConditionBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y);
 });
 buttons.operation.addEventListener("click", () => {
-    new OperationBlock(250, 50);
+    new OperationBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y);
 });
 buttons.empty.addEventListener("click", () => {
-    new EmptyBlock(250, 50);
+    new EmptyBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y);
 });
 buttons.end.addEventListener("click", () => {
-    new EndBlock(250, 50);
+    new EndBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y);
 });
 buttons.run.addEventListener("click", () => {
     run();
@@ -40,4 +43,10 @@ buttons.autorun.addEventListener("input", () => {
         autorun = false;
         runSpeed = 50;
     }
+});
+nav.help.addEventListener("mouseenter", () => {
+    document.getElementById("controls").style.display = 'block';
+});
+nav.help.addEventListener("mouseleave", () => {
+    document.getElementById("controls").style.display = '';
 });

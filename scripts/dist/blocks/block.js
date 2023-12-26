@@ -1,4 +1,6 @@
 const workspace = document.getElementById("workspace");
+const DEFAULT_BLOCK_X = 250;
+const DEFAULT_BLOCK_Y = 75;
 const blocksList = [];
 class Block {
     constructor(x, y) {
@@ -102,12 +104,12 @@ class Block {
             if (e.button != 0)
                 return;
             if (isdrag) {
-                let x = e.clientX + grabPointX;
-                let y = e.clientY + grabPointY;
+                let x = e.clientX + grabPointX - workspaceMove.translateX;
+                let y = e.clientY + grabPointY - workspaceMove.translateY;
                 this.x = x;
                 this.y = y;
-                this.div.style.top = (y - workspaceMove.translateY) + "px";
-                this.div.style.left = (x - workspaceMove.translateX) + "px";
+                this.div.style.top = y + "px";
+                this.div.style.left = x + "px";
             }
         };
         const mouseUp = (e) => {

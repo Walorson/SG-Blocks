@@ -5,9 +5,9 @@ let deleteLineMode: boolean = false;
 let executeHistory: Block[] = [];
 let globalVariables: Map<string, any> = new Map();
 
-new StartBlock(700, 50);
-new OutputBlock(650, 350, "Hello!");
-new EndBlock(700, 600);
+new StartBlock(700, 80);
+new OutputBlock(650, 380, "Hello!");
+new EndBlock(700, 630);
 
 function run(): void
 {
@@ -60,7 +60,3 @@ function endRun(): void
     runStatus = false;
     buttons.run.removeAttribute("disabled");
 }
-
-document.getElementById("exit").addEventListener("click", () => {
-    document.getElementById("controls").remove();
-});
