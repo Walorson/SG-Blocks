@@ -1,6 +1,3 @@
-let runSpeed: number = 500; //in miliseconds
-let runStatus: boolean = false;
-let autorun: boolean = buttons.autorun.checked;
 let deleteLineMode: boolean = false;
 let executeHistory: Block[] = [];
 let globalVariables: Map<string, any> = new Map();
@@ -8,21 +5,6 @@ let globalVariables: Map<string, any> = new Map();
 new StartBlock(700, 80);
 new OutputBlock(650, 380, "Hello!");
 new EndBlock(700, 630);
-
-function run(): void
-{
-    if(runStatus == true) return;
-    globalVariablesUpdate();
-    blocksList.forEach((block: Block) => { block.unsetActive(); });
-
-    runStatus = true;
-    executeHistory = [];
-    buttons.run.setAttribute("disabled",";");
-
-    blocksList[0].execute();
-    console.log("");
-    console.warn("START");
-}
 
 function globalVariablesUpdate(): void
 {
@@ -53,10 +35,4 @@ function fakeCursorToRealCursor(e: MouseEvent)
     const cursor: HTMLElement = document.getElementById("cursor");
     cursor.style.top = e.clientY+"px";
     cursor.style.left = e.clientX+"px";
-}
-
-function endRun(): void
-{
-    runStatus = false;
-    buttons.run.removeAttribute("disabled");
 }

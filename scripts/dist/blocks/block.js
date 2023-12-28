@@ -1,6 +1,6 @@
 const workspace = document.getElementById("workspace");
-const DEFAULT_BLOCK_X = 250;
-const DEFAULT_BLOCK_Y = 75;
+let DEFAULT_BLOCK_X = 250;
+let DEFAULT_BLOCK_Y = 75;
 const blocksList = [];
 class Block {
     constructor(x, y) {
@@ -44,6 +44,8 @@ class Block {
         this.executeNextBlock();
     }
     executeNextBlock() {
+        if (runStatus == false)
+            return;
         if (autorun == true) {
             this.connectToExecute();
         }
@@ -56,8 +58,7 @@ class Block {
         setTimeout(() => {
             executeHistory.push(this);
             if (this.connectTo.length <= 0) {
-                runStatus = false;
-                buttons.run.removeAttribute("disabled");
+                endRun();
                 return;
             }
             for (let i = 0; i < this.connectTo.length; i++) {

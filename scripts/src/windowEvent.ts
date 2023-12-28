@@ -1,19 +1,16 @@
 let removeLine: any;
+let keyPressed: string = null;
 
 window.addEventListener("load", () => {
-    let connectStart: boolean = false;
-    let blockStart: Block;
     let lineHoverID: number = null;
-    let lineController: any = connect();
-    let keyPressed: string = null;
     let shiftPressed: boolean = false;
-
+    window.scrollTo(0,0);
 
     window.addEventListener("mousedown", (e: MouseEvent) => 
     {
         const elementClicked = e.target as HTMLElement;
 
-        if(elementClicked.classList.contains("selected") == false && shiftPressed == false) unselectAllBlocks();
+        if(elementClicked.classList.contains("selected") == false && shiftPressed == false && e.button != 1) unselectAllBlocks();
         if(elementClicked.classList.contains("block") && e.button == 0) elementClicked.classList.add("selected");
 
         connectBegin(e);
@@ -23,14 +20,14 @@ window.addEventListener("load", () => {
 
     window.addEventListener("mouseup", (e: MouseEvent) => 
     {
-        if(selectStart == true) selectEnd(e);
+        if(select.start == true) selectEnd(e);
         connectEnd(e);
     });
 
     window.addEventListener("mousemove", (e: MouseEvent) => 
     {
         fakeCursorToRealCursor(e);
-        if(selectStart == true) selectResize(e);
+        if(select.start == true) selectResize(e);
 
         if(deleteLineMode == true) showDeletePossibilities(e);
         else document.body.style.cursor = "default";
@@ -101,127 +98,7 @@ window.addEventListener("load", () => {
         lineController.redrawLines();
     }
 
-    function connectBegin(e: MouseEvent): void
-    {
-        if(e.button != 2) return;
-
-        e.preventDefault();
-        let block: Element = document.elementFromPoint(e.clientX, e.clientY);
     
-        if(block.tagName == 'B' || block.tagName == 'I')
-        {
-            block = block.parentElement;
-        }
-
-        let id: number = Number(block.getAttribute("id"));
-
-        if(isNaN(id) == false && block.tagName == "DIV")
-        {
-            if(blocksList[id].connectTo.length < blocksList[id].maxConnects)
-            {
-                blockStart = blocksList[id];
-                connectStart = true;
-
-                lineController.drawLine({
-            
-                    left_node: blockStart.id,
-                    right_node: "cursor",
-                    col : "black",
-                    colOriginal: "black",
-                    width:2,
-                    gtype:"D"
-                
-                });
-            }
-        }
-
-        
-    }
-
-    function connectEnd(e: MouseEvent)
-    {
-        if(connectStart == false || e.button != 2) return;
-        
-        delete _lines[_lines.length-1];
-        _lines = _lines.filter(line => line != undefined);
-        _ctx.clearRect(0, 0,  10000, 4300);	
-
-        const connected = Number(document.elementFromPoint(e.clientX, e.clientY).getAttribute("id"));
-
-        if(isNaN(connected) == false && blocksList[connected].connectTo.length < blocksList[connected].maxConnects)
-        {
-            const blockEnd = blocksList[connected];
-            if(blockEnd == blockStart) return;
-
-            let isBlockRepeat: Boolean = false;
-            blockStart.connectTo.forEach((block: Block) => {
-                if(block == blockEnd) isBlockRepeat = true;
-            });
-            if(isBlockRepeat == true) return;
-
-            if(blockStart instanceof ConditionBlock)
-            {   
-                if(keyPressed == 'Z' && blockStart.connectToTRUE == undefined) {
-                    lineController.drawLine({
-        
-                        left_node: blockStart.id,
-                        right_node: blockEnd.id,
-                        col : "green",
-                        colOriginal: "green",
-                        width:3,
-                        gtype:"D"
-                    
-                    });
-
-                    blockStart.connectToTRUE = blockEnd;
-                }
-                else if(keyPressed == 'X' && blockStart.connectToFALSE == undefined) {
-                    lineController.drawLine({
-        
-                        left_node: blockStart.id,
-                        right_node: blockEnd.id,
-                        col : "orange",
-                        colOriginal: "orange",
-                        width:3,
-                        gtype:"D"
-                    
-                    }); 
-
-                    blockStart.connectToFALSE = blockEnd;
-                }
-                else {
-                    lineController.drawLine({
-        
-                        left_node: blockStart.id,
-                        right_node: blockEnd.id,
-                        col : "black",
-                        colOriginal: "black",
-                        width:2,
-                        gtype:"D"
-                    
-                    });
-
-                    blockStart.connectTo.push(blockEnd);
-                }
-            }
-            else {
-                lineController.drawLine({
-        
-                    left_node: blockStart.id,
-                    right_node: blockEnd.id,
-                    col : "black",
-                    colOriginal: "black",
-                    width:2,
-                    gtype:"D"
-                
-                });
-
-                blockStart.connectTo.push(blockEnd);
-            }
-        }
-        
-        connectStart = false;
-    }
 
     function showDeletePossibilities(e: MouseEvent)
     {
@@ -268,124 +145,7 @@ window.addEventListener("load", () => {
         
     }
 
-    let selectStartX: number;
-    let selectStartY: number;
-    let selectWidth: number;
-    let selectHeight: number;
-    let selectStart: boolean = false;
-    function selectBegin(e: MouseEvent): void {
-        const clickedElement = e.target as HTMLElement;
-        if(clickedElement.tagName != 'CANVAS' || e.button != 0) return;
-
-        selectStart = true;
-
-        const select: HTMLElement = document.createElement("div");
-        select.classList.add("select");
-        select.setAttribute("id","select");
-        workspace.appendChild(select);
-
-        selectStartX = e.clientX - workspaceMove.translateX;
-        selectStartY = e.clientY - workspaceMove.translateY;
-
-        select.style.top = selectStartY+"px";
-        select.style.left = selectStartX+"px";
-    }
-
-    function selectResize(e: MouseEvent): void {
-        const select: HTMLElement = document.getElementById("select");
-        
-        const clientX = e.clientX - workspaceMove.translateX;
-        const clientY = e.clientY - workspaceMove.translateY;
-
-        selectWidth = clientX - selectStartX;
-        selectHeight = clientY - selectStartY;
-
-        select.style.height = Math.abs(selectHeight)+"px";
-        select.style.width = Math.abs(selectWidth)+"px";
-
-        if(selectWidth < 0)
-        {
-            select.style.left = clientX+"px";
-        }
-        if(selectHeight < 0)
-        {
-            select.style.top = clientY+"px";
-        }
-    }
-
-    function selectEnd(e: MouseEvent): void {
-        const select: HTMLElement = document.getElementById("select");
-
-        workspace.removeChild(select);
-
-        selectStart = false;
-
-        blocksList.forEach((block: Block) => {
-            let inSelectY: boolean = false;
-            let inSelectX: boolean = false;
-
-            if(selectWidth >= 0)
-            {
-                if(block.x > selectStartX && block.x < selectStartX + selectWidth)
-                {
-                    inSelectX = true;
-                }
-            }
-            else
-            {
-                if(block.x < selectStartX && block.x > selectStartX + selectWidth)
-                {
-                    inSelectX = true;
-                }
-            }
-
-            if(selectHeight >= 0)
-            {
-                if(block.y > selectStartY && block.y < selectStartY + selectHeight)
-                {
-                    inSelectY = true;
-                }
-            }
-            else
-            {
-                if(block.y < selectStartY && block.y > selectStartY + selectHeight)
-                {
-                    inSelectY = true;
-                }
-            }
-
-            if((selectStartX > block.x && selectStartX < block.x + block.div.offsetWidth) || (selectStartX + selectWidth > block.x && selectStartX + selectWidth < block.x + block.div.offsetWidth))
-            {
-                inSelectX = true;
-            }
-
-            if((selectStartY > block.y && selectStartY < block.y + block.div.offsetHeight) || (selectStartY + selectHeight > block.y && selectStartY + selectHeight < block.y + block.div.offsetHeight))
-            {
-                inSelectY = true;
-            }
-
-            if(inSelectX == true && inSelectY == true)
-            {
-                block.setSelected();
-            }
-           
-        });
-
-        selectStartX = null;
-        selectStartY = null;
-        selectWidth = null;
-        selectHeight = null;
-    }
-
-    function unselectAllBlocks(): void
-    {
-        blocksList.forEach((block: Block) => {
-            if(block.isSelected())
-            {
-                block.unsetSelected();
-            }
-        });
-    }
+    
 
     window.addEventListener("resize", () => {
         _canvas.width = document.body.clientWidth;
