@@ -48,16 +48,15 @@
 button {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: bolder;
-    background-color: white;
-    color: black;
+    background-color: #e6e6e6;
+    color: #111;
     padding: 8px 0;
-    border: 2px dotted black;
     border-radius: 8px;
     transition: 0.12s;
 }
 button:hover {
     cursor: pointer;
-    background-color: #cecece;
+    background-color: #eee;
     letter-spacing: 2px;
 }
 button:disabled {
@@ -95,6 +94,7 @@ select:focus {
 }
 .run-box {
     position: absolute;
+    padding: 0 10px;
     bottom: 55px;
 }
 #run-button
@@ -149,7 +149,7 @@ label {
     font-variant: small-caps;
 }
 .nav-button:first-of-type {
-    margin-left: 50px;
+    margin-left: 75px;
 }
 .nav-button:hover {
     background-color: #aaa;

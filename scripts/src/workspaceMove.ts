@@ -5,7 +5,9 @@ const workspaceMove = {
     yEnd: 0 as number,
     translateX: 0 as number,
     translateY: 0 as number,
-    isMove: false as boolean
+    isMove: false as boolean,
+    center: document.getElementById("center") as HTMLElement,
+    cursor: document.getElementById("workspace-cursor") as HTMLElement
 }
 
 window.addEventListener("mousedown", (e: MouseEvent) => {
@@ -34,4 +36,14 @@ window.addEventListener("mouseup", () => {
         workspaceMove.translateX += workspaceMove.xEnd;
         workspaceMove.translateY += workspaceMove.yEnd;
    }
+});
+
+let cursorX: number;
+let cursorY: number;
+_canvas.addEventListener("mousemove", (e: MouseEvent) => {
+    cursorX = e.offsetX - workspaceMove.translateX;
+    cursorY = e.offsetY - workspaceMove.translateY;
+
+    DEFAULT_BLOCK_X = cursorX+20;
+    DEFAULT_BLOCK_Y = cursorY;
 });

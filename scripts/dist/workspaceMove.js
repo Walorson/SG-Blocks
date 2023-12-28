@@ -5,7 +5,9 @@ const workspaceMove = {
     yEnd: 0,
     translateX: 0,
     translateY: 0,
-    isMove: false
+    isMove: false,
+    center: document.getElementById("center"),
+    cursor: document.getElementById("workspace-cursor")
 };
 window.addEventListener("mousedown", (e) => {
     if (e.button != 1)
@@ -27,4 +29,12 @@ window.addEventListener("mouseup", () => {
         workspaceMove.translateX += workspaceMove.xEnd;
         workspaceMove.translateY += workspaceMove.yEnd;
     }
+});
+let cursorX;
+let cursorY;
+_canvas.addEventListener("mousemove", (e) => {
+    cursorX = e.offsetX - workspaceMove.translateX;
+    cursorY = e.offsetY - workspaceMove.translateY;
+    DEFAULT_BLOCK_X = cursorX + 20;
+    DEFAULT_BLOCK_Y = cursorY;
 });

@@ -17,3 +17,11 @@ body {
     top: 0; left: 0;
     border: 2px dashed black;
 }
+#center {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#workspace-cursor {
+    position: absolute;
+}

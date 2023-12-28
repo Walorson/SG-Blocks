@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/block.css">
+    <link rel="stylesheet" href="css/input.css">
     <link rel="stylesheet" href="css/ui.css">
 
     <script src="scripts/dist/Line.js" defer></script>
@@ -25,7 +26,10 @@
     <script src="scripts/dist/windowEvent.js" defer></script>
     <script src="scripts/dist/workspaceMove.js" defer></script>
     <script src="scripts/dist/workspaceResize.js" defer></script>
+    <script src="scripts/dist/select.js" defer></script>
+    <script src="scripts/dist/connectLine.js" defer></script>
     <script src="scripts/dist/ui.js" defer></script>
+    <script src="scripts/dist/run.js" defer></script>
     <script src="scripts/dist/main.js" defer></script>
 </head>
 <body>
@@ -42,8 +46,8 @@
             <span class="title-letter">s</span>
         </span>
         <div class="nav-button" id="nav-file-button">File</div>
+        <div class="nav-button" id="nav-run-button">Edit</div>
         <div class="nav-button" id="nav-settings-button">Settings</div>
-        <div class="nav-button" id="nav-run-button">Run</div>
         <div class="nav-button" id="nav-help-button">Help</div>
     </div>
 
@@ -74,6 +78,7 @@
         <p><b>Usuwanie</b> - Przytrzymać CTRL i kliknąć na wybrany blok albo łączenie</p>
         <p><b>Przejście do kolejnego bloku</b> - Spacja</p>
         <p><b>Przesuwanie Mapy</b> - Przytrzymać Scroll i poruszyć</p>
+        <p><b>Uruchomienie Schematu</b> - Spacja (albo kliknąć "Run")</p>
     </div>
     <div class="workspace" id="workspace"></div>
 </body>
