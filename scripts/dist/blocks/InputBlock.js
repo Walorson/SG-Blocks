@@ -38,6 +38,7 @@ class InputBlock extends Block {
             property[1].oninput = () => {
                 this.message = property[1].value;
             };
+            super.properties();
         });
     }
 }

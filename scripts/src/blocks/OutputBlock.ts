@@ -87,6 +87,10 @@ class OutputBlock extends Block {
             }
 
             if(this.isVariable == true) property[1].value = this.variable;
+
+            super.properties();
         });
+
+        
     }
 }

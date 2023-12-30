@@ -17,4 +17,10 @@ class EndBlock extends Block
         console.warn("END");
         endRun();
     }   
+
+    properties(): void {
+        this.div.addEventListener("mousedown", () => {
+            propertiesWindow.innerHTML = '';
+        });
+    }
 }

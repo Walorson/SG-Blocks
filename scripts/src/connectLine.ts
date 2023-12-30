@@ -9,7 +9,7 @@ function connectBegin(e: MouseEvent): void
     e.preventDefault();
     let block: Element = document.elementFromPoint(e.clientX, e.clientY);
 
-    if(block.tagName == 'B' || block.tagName == 'I')
+    if(block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P')
     {
         block = block.parentElement;
     }
@@ -47,7 +47,14 @@ function connectEnd(e: MouseEvent)
     _lines = _lines.filter(line => line != undefined);
     _ctx.clearRect(0, 0,  10000, 4300);	
 
-    const connected = Number(document.elementFromPoint(e.clientX, e.clientY).getAttribute("id"));
+    let block: Element = document.elementFromPoint(e.clientX, e.clientY);
+
+    if(block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P')
+    {
+        block = block.parentElement;
+    }
+
+    const connected: number = Number(block.getAttribute("id"));
 
     if(isNaN(connected) == false && blocksList[connected].connectTo.length < blocksList[connected].maxConnects)
     {

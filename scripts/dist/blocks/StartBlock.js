@@ -10,13 +10,14 @@ class StartBlock extends Block {
     properties() {
         this.div.addEventListener("mousedown", () => {
             propertiesWindow.innerHTML = `
-                <p>Run Speed (ms): <input type="text" value="${runSpeed}" class="property${this.id}"></p>
+                <p>Run Speed (ms): <input type="number" value="${runSpeed}" class="property${this.id}"></p>
             `;
             const property = propertiesWindow.querySelectorAll(".property" + this.id);
             property[0].oninput = () => {
                 this.runSpeed = property[0].value;
                 runSpeed = this.runSpeed;
             };
+            super.properties();
         });
     }
     delete() { }

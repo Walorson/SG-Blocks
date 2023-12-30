@@ -20,8 +20,13 @@ function endRun() {
     runStatus = false;
     buttons.run.textContent = "Run";
     buttons.run.style.backgroundColor = '';
+    blocksList.forEach((block) => {
+        window.removeEventListener("keypress", block.executeOnSpacePress);
+    });
 }
 window.addEventListener("keypress", (e) => {
-    if (runStatus == false && e.key == " ")
+    if (runStatus == false && e.key == " " && isInputFocus == false) {
+        window.focus();
         run();
+    }
 });

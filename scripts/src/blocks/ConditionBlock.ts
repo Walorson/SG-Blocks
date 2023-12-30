@@ -77,7 +77,26 @@ class ConditionBlock extends Block {
     }
 
     createBlock(): void {
-        workspace.innerHTML += `<div class="block condition" id="${this.id}" title="Z - Linia prawda\nX - Linia Fałsz">IF</div>`;
+        workspace.innerHTML += `<div class="block condition" id="${this.id}" title="Z - Linia prawda\nX - Linia Fałsz"><p>IF</p><p>${this.value[0]}${this.operator}${this.value[1]}</p></div>`;
+    }
+
+    updateDiv(): void {
+        if(this.isValueVariable[0] == true && this.isValueVariable[1] == true)
+        {
+            this.div.innerHTML = `<p>IF</p><p><b>${this.valueName[0]}</b>${this.operator}<b>${this.valueName[1]}</b></p>`;;
+        }
+        else if(this.isValueVariable[0] == true)
+        {
+            this.div.innerHTML = `<p>IF</p><p><b>${this.valueName[0]}</b>${this.operator}${this.value[1]}</p>`;;
+        }
+        else if(this.isValueVariable[1] == true)
+        {
+            this.div.innerHTML = `<p>IF</p><p>${this.value[0]}${this.operator}<b>${this.valueName[1]}</b></p>`;;
+        }
+        else
+        {
+            this.div.innerHTML = `<p>IF</p><p>${this.value[0]}${this.operator}${this.value[1]}</p>`;;
+        }
     }
 
     properties(): void {
@@ -102,6 +121,7 @@ class ConditionBlock extends Block {
 
             property[0].oninput = () => {
                 this.value[0] = property[0].value;
+                this.updateDiv();
             }
             for(let i=0; i<this.isValueVariable.length; i++)
             {
@@ -123,6 +143,8 @@ class ConditionBlock extends Block {
                             {
                                 this.isValueVariable[i] = false;
                             }
+
+                            this.updateDiv();
                         }
                     }
                     else
@@ -133,16 +155,21 @@ class ConditionBlock extends Block {
                         const property: any = document.getElementById("property"+i);
                         property.oninput = () => {
                             this.value[i] = property.value;
+                            this.updateDiv();
                         }
                     }
+
+                    this.updateDiv();
                 }
             }
             property[2].oninput = () => {
                 this.value[1] = property[2].value;
+                this.updateDiv();
             }
 
             property[4].oninput = () => {
                 this.operator = property[4].value;
+                this.updateDiv();
             }
             property[4].value = this.operator;
 
@@ -167,10 +194,12 @@ class ConditionBlock extends Block {
                             this.isValueVariable[i] = false;
                             this.value[i] = 0;
                         }
+                        this.updateDiv();
                     }
 
                 }
             }
+            super.properties();
         });
     }
     
