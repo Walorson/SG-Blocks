@@ -11,7 +11,8 @@ window.addEventListener("load", () => {
         const elementClicked = e.target as HTMLElement;
 
         if(elementClicked.classList.contains("selected") == false && shiftPressed == false && e.button != 1) unselectAllBlocks();
-        if(elementClicked.classList.contains("block") && e.button == 0) elementClicked.classList.add("selected");
+        if(elementClicked.classList.contains("block") && e.button == 0 && deleteLineMode == false) elementClicked.classList.add("selected");
+        if(elementClicked.parentElement.classList.contains("block") && e.button == 0 && deleteLineMode == false) elementClicked.parentElement.classList.add("selected");
 
         connectBegin(e);
         selectBegin(e);
@@ -118,14 +119,14 @@ window.addEventListener("load", () => {
             for(let i=0; i<_lines.length; i++) 
             { 
 
-                if((e.clientX >= blocksList[_lines[i].left_node].x + 20 && e.clientX <= blocksList[_lines[i].right_node].x + 80 &&
-                    e.clientY >= blocksList[_lines[i].left_node].y + 20 && e.clientY <= blocksList[_lines[i].right_node].y + 50) ||
-                    (e.clientX >= blocksList[_lines[i].right_node].x + 20 && e.clientX <= blocksList[_lines[i].left_node].x + 80 &&
-                    e.clientY >= blocksList[_lines[i].right_node].y + 20 && e.clientY <= blocksList[_lines[i].left_node].y + 50) ||
-                    (e.clientX >= blocksList[_lines[i].left_node].x + 20 && e.clientX <= blocksList[_lines[i].right_node].x + 80 &&
-                    e.clientY >= blocksList[_lines[i].right_node].y + 20 && e.clientY <= blocksList[_lines[i].left_node].y + 50)||
-                    (e.clientX >= blocksList[_lines[i].right_node].x + 20 && e.clientX <= blocksList[_lines[i].left_node].x + 80 &&
-                        e.clientY >= blocksList[_lines[i].left_node].y + 20 && e.clientY <= blocksList[_lines[i].right_node].y + 50)
+                if((e.clientX - workspaceMove.translateX >= blocksList[_lines[i].left_node].x + 20 && e.clientX - workspaceMove.translateX <= blocksList[_lines[i].right_node].x + 80 &&
+                    e.clientY - workspaceMove.translateY >= blocksList[_lines[i].left_node].y + 20 && e.clientY - workspaceMove.translateY <= blocksList[_lines[i].right_node].y + 50) ||
+                    (e.clientX - workspaceMove.translateX >= blocksList[_lines[i].right_node].x + 20 && e.clientX - workspaceMove.translateX <= blocksList[_lines[i].left_node].x + 80 &&
+                    e.clientY - workspaceMove.translateY >= blocksList[_lines[i].right_node].y + 20 && e.clientY - workspaceMove.translateY <= blocksList[_lines[i].left_node].y + 50) ||
+                    (e.clientX - workspaceMove.translateX >= blocksList[_lines[i].left_node].x + 20 && e.clientX - workspaceMove.translateX <= blocksList[_lines[i].right_node].x + 80 &&
+                    e.clientY - workspaceMove.translateY >= blocksList[_lines[i].right_node].y + 20 && e.clientY - workspaceMove.translateY <= blocksList[_lines[i].left_node].y + 50)||
+                    (e.clientX - workspaceMove.translateX >= blocksList[_lines[i].right_node].x + 20 && e.clientX - workspaceMove.translateX <= blocksList[_lines[i].left_node].x + 80 &&
+                        e.clientY - workspaceMove.translateY >= blocksList[_lines[i].left_node].y + 20 && e.clientY - workspaceMove.translateY <= blocksList[_lines[i].right_node].y + 50)
                     ) 
                 {
                     _lines[i].col = "red";

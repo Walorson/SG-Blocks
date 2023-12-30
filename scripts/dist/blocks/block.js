@@ -29,6 +29,7 @@ class Block {
         this.properties();
         this.delete();
     }
+    updateDiv() { }
     createBlock() {
         workspace.innerHTML += `<div class="block" id="${this.id}"></div>`;
     }
@@ -93,7 +94,7 @@ class Block {
                 document.querySelectorAll(".block").forEach((block) => block.style.cursor = 'cell');
                 _canvas.style.cursor = 'cell';
             }
-            if (e.button != 0)
+            if (e.button != 0 || deleteLineMode == true)
                 return;
             this.div.style.cursor = "grabbing";
             isdrag = true;
@@ -145,7 +146,12 @@ class Block {
             this.div.style.border = "";
         });
     }
-    properties() { }
+    properties() {
+        document.querySelectorAll("input").forEach((input) => {
+            input.onfocus = () => { isInputFocus = true; };
+            input.onblur = () => { isInputFocus = false; };
+        });
+    }
     setActive() {
         this.div.classList.add("active");
     }

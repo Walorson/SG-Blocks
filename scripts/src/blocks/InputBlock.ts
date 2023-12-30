@@ -53,6 +53,8 @@ class InputBlock extends Block {
                 this.message = property[1].value;
             };
 
+            super.properties();
         });
+        
     }
 }

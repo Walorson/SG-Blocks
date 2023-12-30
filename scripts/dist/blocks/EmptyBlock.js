@@ -7,4 +7,9 @@ class EmptyBlock extends Block {
     createBlock() {
         workspace.innerHTML += `<div class="block empty" id="${this.id}"></div>`;
     }
+    properties() {
+        this.div.addEventListener("mousedown", () => {
+            propertiesWindow.innerHTML = '';
+        });
+    }
 }

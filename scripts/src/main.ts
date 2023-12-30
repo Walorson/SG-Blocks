@@ -1,6 +1,7 @@
 let deleteLineMode: boolean = false;
 let executeHistory: Block[] = [];
 let globalVariables: Map<string, any> = new Map();
+let isInputFocus: boolean = false;
 
 new StartBlock(700, 80);
 new OutputBlock(650, 380, "Hello!");

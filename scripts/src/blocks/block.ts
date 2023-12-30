@@ -43,6 +43,8 @@ abstract class Block {
         this.delete();
     }
 
+    updateDiv(): void {}
+
     createBlock(): void {
         workspace.innerHTML += `<div class="block" id="${this.id}"></div>`;
     }
@@ -126,12 +128,13 @@ abstract class Block {
         })
 
         const mouseDown = (e: MouseEvent): void =>
-        {
+        {        
             if(e.button == 2) {
                 document.querySelectorAll(".block").forEach((block: HTMLElement) => block.style.cursor = 'cell');
                 _canvas.style.cursor = 'cell';
             }
-            if(e.button != 0) return;
+            if(e.button != 0 || deleteLineMode == true) return;
+            
             this.div.style.cursor = "grabbing";
 
             isdrag = true;
@@ -198,7 +201,12 @@ abstract class Block {
         });
     }
 
-    properties(): void {}
+    properties(): void {
+        document.querySelectorAll("input").forEach((input: HTMLElement) => {      
+            input.onfocus = () => { isInputFocus = true; }
+            input.onblur = () => { isInputFocus = false;  }
+        });
+    }
 
     setActive(): void {
         this.div.classList.add("active");

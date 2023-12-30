@@ -169,6 +169,7 @@ class OperationBlock extends Block {
 
                 }
             }
+            super.properties();
         });
     }
 }

@@ -6,7 +6,7 @@ function connectBegin(e) {
         return;
     e.preventDefault();
     let block = document.elementFromPoint(e.clientX, e.clientY);
-    if (block.tagName == 'B' || block.tagName == 'I') {
+    if (block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P') {
         block = block.parentElement;
     }
     let id = Number(block.getAttribute("id"));
@@ -31,7 +31,11 @@ function connectEnd(e) {
     delete _lines[_lines.length - 1];
     _lines = _lines.filter(line => line != undefined);
     _ctx.clearRect(0, 0, 10000, 4300);
-    const connected = Number(document.elementFromPoint(e.clientX, e.clientY).getAttribute("id"));
+    let block = document.elementFromPoint(e.clientX, e.clientY);
+    if (block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P') {
+        block = block.parentElement;
+    }
+    const connected = Number(block.getAttribute("id"));
     if (isNaN(connected) == false && blocksList[connected].connectTo.length < blocksList[connected].maxConnects) {
         const blockEnd = blocksList[connected];
         if (blockEnd == blockStart)

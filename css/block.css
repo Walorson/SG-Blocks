@@ -21,6 +21,15 @@
     padding: 15px 17px;
     border-radius: 0;
     background-color: rgb(255, 121, 26);
+    text-align: center;
+    padding: 10px 15px;
+    min-width: 50px;
+}
+.condition p {
+    margin: 0;
+}
+.condition p:first-of-type {
+    font-weight: bolder;
 }
 .empty {
     padding: 0;
