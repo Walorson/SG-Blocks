@@ -17,6 +17,7 @@ class ConditionBlock extends Block {
     }
 
     connectToExecute(): void {
+        window.removeEventListener("keypress", this.executeOnSpacePress);
         setTimeout(() => 
         {
             executeHistory.push(this);

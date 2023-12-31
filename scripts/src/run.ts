@@ -16,7 +16,7 @@ function run(): void
 
         blocksList[0].execute();
         console.log("");
-        console.warn("START");
+        console.log("%cSTART","font-weight:bolder;");
     }
     else endRun();
 }

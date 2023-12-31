@@ -11,7 +11,7 @@ function run() {
         buttons.run.style.backgroundColor = "#6eadcd";
         blocksList[0].execute();
         console.log("");
-        console.warn("START");
+        console.log("%cSTART", "font-weight:bolder;");
     }
     else
         endRun();

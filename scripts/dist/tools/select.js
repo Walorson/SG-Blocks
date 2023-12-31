@@ -8,7 +8,7 @@ const select = {
 };
 function selectBegin(e) {
     const clickedElement = e.target;
-    if (clickedElement.tagName != 'CANVAS' || e.button != 0)
+    if (clickedElement.tagName != 'CANVAS' || e.button != 0 || connectStart == true || deleteLineMode == true || workspaceMove.isMove == true)
         return;
     select.start = true;
     select.div = document.createElement("div");

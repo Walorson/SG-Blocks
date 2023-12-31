@@ -9,7 +9,7 @@ const select = {
 
 function selectBegin(e: MouseEvent): void {
     const clickedElement = e.target as HTMLElement;
-    if(clickedElement.tagName != 'CANVAS' || e.button != 0) return;
+    if(clickedElement.tagName != 'CANVAS' || e.button != 0 || connectStart == true || deleteLineMode == true || workspaceMove.isMove == true) return;
 
     select.start = true;
 
