@@ -8,7 +8,7 @@ class EndBlock extends Block {
     }
     execute() {
         this.setActive();
-        console.warn("END");
+        console.log("%cEND", "font-weight:bolder;");
         endRun();
     }
     properties() {

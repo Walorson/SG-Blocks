@@ -11,7 +11,7 @@ const workspaceMove = {
 }
 
 window.addEventListener("mousedown", (e: MouseEvent) => {
-    if(e.button != 1) return;
+    if(e.button != 1 || select.start == true) return;
 
     workspaceMove.isMove = true;
 

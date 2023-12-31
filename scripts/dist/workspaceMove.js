@@ -10,7 +10,7 @@ const workspaceMove = {
     cursor: document.getElementById("workspace-cursor")
 };
 window.addEventListener("mousedown", (e) => {
-    if (e.button != 1)
+    if (e.button != 1 || select.start == true)
         return;
     workspaceMove.isMove = true;
     workspaceMove.x = e.clientX;
