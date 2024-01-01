@@ -111,6 +111,14 @@ function selectEnd(e: MouseEvent): void {
     select.height = null;
 }
 
+window.addEventListener("keydown", (e: KeyboardEvent) => {
+    if(e.ctrlKey == true && e.key == "a") {
+        blocksList.forEach((block: Block) => {
+            block.setSelected();
+        });
+    }
+});
+
 function unselectAllBlocks(): void
 {
     blocksList.forEach((block: Block) => {

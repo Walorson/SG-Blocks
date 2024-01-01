@@ -30,6 +30,7 @@ window.addEventListener("mouseup", () => {
         workspaceMove.translateY += workspaceMove.yEnd;
     }
 });
+const coords = document.getElementById("coords");
 let cursorX;
 let cursorY;
 _canvas.addEventListener("mousemove", (e) => {
@@ -37,4 +38,5 @@ _canvas.addEventListener("mousemove", (e) => {
     cursorY = e.offsetY - workspaceMove.translateY;
     DEFAULT_BLOCK_X = cursorX + 20;
     DEFAULT_BLOCK_Y = cursorY;
+    coords.innerHTML = `X: ${cursorX}, Y: ${cursorY}`;
 });

@@ -77,6 +77,13 @@ function selectEnd(e) {
     select.width = null;
     select.height = null;
 }
+window.addEventListener("keydown", (e) => {
+    if (e.ctrlKey == true && e.key == "a") {
+        blocksList.forEach((block) => {
+            block.setSelected();
+        });
+    }
+});
 function unselectAllBlocks() {
     blocksList.forEach((block) => {
         if (block.isSelected()) {

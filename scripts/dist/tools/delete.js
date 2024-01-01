@@ -61,4 +61,10 @@ window.addEventListener("keydown", (e) => {
         deleteLineMode = true;
         _canvas.style.cursor = "crosshair";
     }
+    if (e.key == "Delete") {
+        blocksList.forEach((block) => {
+            if (block.isSelected())
+                block.deleteBlock();
+        });
+    }
 });

@@ -5,6 +5,7 @@ body {
     height: 100vh;
     font-family: monospace;
     overflow: hidden;
+    user-select: none;
 }
 .cursor {
     position: absolute;
@@ -24,4 +25,10 @@ body {
 }
 #workspace-cursor {
     position: absolute;
+}
+#coords {
+    position: absolute;
+    top: 55px;
+    right: 5px;
+    color: #555;
 }

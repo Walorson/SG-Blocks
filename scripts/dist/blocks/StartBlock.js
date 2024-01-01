@@ -2,6 +2,7 @@ class StartBlock extends Block {
     constructor(x, y) {
         super(x, y);
         this.runSpeed = 500;
+        this.isDeletable = false;
         this.init();
     }
     createBlock() {
