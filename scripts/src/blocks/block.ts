@@ -11,6 +11,7 @@ abstract class Block {
     maxConnects: number = 10;
     connectTo: Block[] = [];
     executeOnSpacePress: any;
+    isDeletable: boolean = true;
 
     constructor(x: number, y: number) {
         this.id = blocksList.length;
@@ -180,19 +181,7 @@ abstract class Block {
         this.div.addEventListener("click", () => {
             if(deleteLineMode == true)
             {
-                for(let j=0; j<_lines.length; j++)
-                {
-                    if(_lines[j].left_node == this.id || _lines[j].right_node == this.id) 
-                    {
-                        removeLine(j);
-                        j=-1;
-                    }
-                } 
-
-                workspace.removeChild(this.div);
-                delete blocksList[this.id];
-
-                propertiesWindow.innerHTML = '';
+                this.deleteBlock();
             }
         });
         
@@ -206,6 +195,25 @@ abstract class Block {
             input.onfocus = () => { isInputFocus = true; }
             input.onblur = () => { isInputFocus = false;  }
         });
+    }
+
+    deleteBlock()
+    {
+        if(this.isDeletable == false) return;
+
+        for(let j=0; j<_lines.length; j++)
+        {
+            if(_lines[j].left_node == this.id || _lines[j].right_node == this.id) 
+            {
+                removeLine(j);
+                j=-1;
+            }
+        } 
+
+        workspace.removeChild(this.div);
+        delete blocksList[this.id];
+
+        propertiesWindow.innerHTML = '';
     }
 
     setActive(): void {

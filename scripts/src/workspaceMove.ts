@@ -38,6 +38,7 @@ window.addEventListener("mouseup", () => {
    }
 });
 
+const coords = document.getElementById("coords");
 let cursorX: number;
 let cursorY: number;
 _canvas.addEventListener("mousemove", (e: MouseEvent) => {
@@ -46,4 +47,6 @@ _canvas.addEventListener("mousemove", (e: MouseEvent) => {
 
     DEFAULT_BLOCK_X = cursorX+20;
     DEFAULT_BLOCK_Y = cursorY;
+
+    coords.innerHTML = `X: ${cursorX}, Y: ${cursorY}`;
 });
