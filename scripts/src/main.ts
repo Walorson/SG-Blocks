@@ -3,9 +3,9 @@ let executeHistory: Block[] = [];
 let globalVariables: Map<string, any> = new Map();
 let isInputFocus: boolean = false;
 
-new StartBlock(700, 80);
-new OutputBlock(650, 380, "Hello!");
-new EndBlock(700, 630);
+new StartBlock(700, 100);
+new OutputBlock(650, 400, "Hello!");
+new EndBlock(700, 650);
 
 function globalVariablesUpdate(): void
 {

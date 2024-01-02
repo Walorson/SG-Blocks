@@ -67,6 +67,13 @@ var connect = function () {
         _lines.push(option);
         this.connect(option);
     };
+    this.drawGrid = function () {
+        _ctx.strokeStyle = "gray";
+        _ctx.beginPath();
+        _ctx.moveTo(0, _canvas.height / 2);
+        _ctx.lineTo(_canvas.width, _canvas.height / 2);
+        _ctx.stroke();
+    };
     this.kruskalize = function (_cl = "rgb(0,0,0,0.08)") {
         for (let line of _lines) {
             line.col = _cl;

@@ -26,6 +26,7 @@ window.addEventListener("mousemove", (e: MouseEvent) => {
     workspaceMove.yEnd = e.clientY - workspaceMove.y;
     
     workspace.style.transform = `translate(${workspaceMove.translateX + workspaceMove.xEnd}px, ${workspaceMove.translateY + workspaceMove.yEnd}px) scale(${workspaceResize.size})`;
+    document.body.style.backgroundPosition = `${workspaceMove.translateX + workspaceMove.xEnd}px ${workspaceMove.translateY + workspaceMove.yEnd}px`;
 });
 
 window.addEventListener("mouseup", () => {

@@ -2,7 +2,7 @@ let removeLine;
 let lineHoverID = null;
 window.addEventListener("load", () => {
     removeLine = (id) => {
-        if (id == null || deleteLineMode == false || connectStart == true)
+        if (id == null || connectStart == true)
             return;
         const left_node = blocksList[_lines[id].left_node];
         const right_node = blocksList[_lines[id].right_node];
@@ -61,10 +61,13 @@ window.addEventListener("keydown", (e) => {
         deleteLineMode = true;
         _canvas.style.cursor = "crosshair";
     }
-    if (e.key == "Delete") {
-        blocksList.forEach((block) => {
-            if (block.isSelected())
-                block.deleteBlock();
-        });
+    if (e.key == "Delete" && isInputFocus == false) {
+        deleteSelectedBlocks();
     }
 });
+function deleteSelectedBlocks() {
+    blocksList.forEach((block) => {
+        if (block.isSelected())
+            block.deleteBlock();
+    });
+}

@@ -112,12 +112,21 @@ function selectEnd(e: MouseEvent): void {
 }
 
 window.addEventListener("keydown", (e: KeyboardEvent) => {
-    if(e.ctrlKey == true && e.key == "a") {
-        blocksList.forEach((block: Block) => {
-            block.setSelected();
-        });
+    if(e.ctrlKey == true && e.key == "a" && isInputFocus == false) 
+    {
+        selectAllBlocks();
+    }
+    else if(e.ctrlKey == true && e.key == "i" && isInputFocus == false)
+    {
+        invertSelection();
     }
 });
+
+function selectAllBlocks(): void {
+    blocksList.forEach((block: Block) => {
+        block.setSelected();
+    });
+}
 
 function unselectAllBlocks(): void
 {
@@ -126,5 +135,19 @@ function unselectAllBlocks(): void
         {
             block.unsetSelected();
         }
+    });
+}
+
+function invertSelection(): void 
+{
+    const selectedBlocks = [];
+    blocksList.forEach((block: Block) => {
+        if(block.isSelected()) selectedBlocks.push(block);
+    });
+
+    selectAllBlocks();
+
+    selectedBlocks.forEach((block: Block) => {
+        block.unsetSelected();
     });
 }

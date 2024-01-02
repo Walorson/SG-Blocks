@@ -22,6 +22,7 @@ window.addEventListener("mousemove", (e) => {
     workspaceMove.xEnd = e.clientX - workspaceMove.x;
     workspaceMove.yEnd = e.clientY - workspaceMove.y;
     workspace.style.transform = `translate(${workspaceMove.translateX + workspaceMove.xEnd}px, ${workspaceMove.translateY + workspaceMove.yEnd}px) scale(${workspaceResize.size})`;
+    document.body.style.backgroundPosition = `${workspaceMove.translateX + workspaceMove.xEnd}px ${workspaceMove.translateY + workspaceMove.yEnd}px`;
 });
 window.addEventListener("mouseup", () => {
     if (workspaceMove.isMove == true) {
