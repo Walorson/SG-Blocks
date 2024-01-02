@@ -2,9 +2,9 @@ let deleteLineMode = false;
 let executeHistory = [];
 let globalVariables = new Map();
 let isInputFocus = false;
-new StartBlock(700, 80);
-new OutputBlock(650, 380, "Hello!");
-new EndBlock(700, 630);
+new StartBlock(700, 100);
+new OutputBlock(650, 400, "Hello!");
+new EndBlock(700, 650);
 function globalVariablesUpdate() {
     globalVariables.clear();
     for (let i = 0; i < blocksList.length; i++) {

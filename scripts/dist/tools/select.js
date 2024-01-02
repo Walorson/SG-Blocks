@@ -78,16 +78,33 @@ function selectEnd(e) {
     select.height = null;
 }
 window.addEventListener("keydown", (e) => {
-    if (e.ctrlKey == true && e.key == "a") {
-        blocksList.forEach((block) => {
-            block.setSelected();
-        });
+    if (e.ctrlKey == true && e.key == "a" && isInputFocus == false) {
+        selectAllBlocks();
+    }
+    else if (e.ctrlKey == true && e.key == "i" && isInputFocus == false) {
+        invertSelection();
     }
 });
+function selectAllBlocks() {
+    blocksList.forEach((block) => {
+        block.setSelected();
+    });
+}
 function unselectAllBlocks() {
     blocksList.forEach((block) => {
         if (block.isSelected()) {
             block.unsetSelected();
         }
+    });
+}
+function invertSelection() {
+    const selectedBlocks = [];
+    blocksList.forEach((block) => {
+        if (block.isSelected())
+            selectedBlocks.push(block);
+    });
+    selectAllBlocks();
+    selectedBlocks.forEach((block) => {
+        block.unsetSelected();
     });
 }

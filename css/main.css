@@ -6,6 +6,8 @@ body {
     font-family: monospace;
     overflow: hidden;
     user-select: none;
+    background: url("../grid.png") fixed;
+    background-position: 0px 0px;
 }
 .cursor {
     position: absolute;

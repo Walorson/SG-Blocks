@@ -184,7 +184,6 @@ abstract class Block {
                 this.deleteBlock();
             }
         });
-        
         this.div.addEventListener("mouseleave", () => {
             this.div.style.border = "";
         });
@@ -204,9 +203,9 @@ abstract class Block {
         for(let j=0; j<_lines.length; j++)
         {
             if(_lines[j].left_node == this.id || _lines[j].right_node == this.id) 
-            {
+            {       
                 removeLine(j);
-                j=-1;
+                j = -1;
             }
         } 
 
