@@ -126,6 +126,7 @@ label {
     height: 48px;
 }
 .nav-button {
+    position: relative;
     font-size: 32px;
     color: #333;
     height: 100%;
@@ -134,12 +135,54 @@ label {
     font-variant: small-caps;
 }
 .nav-button:first-of-type {
-    margin-left: 75px;
+    margin-left: 70px;
 }
 .nav-button:hover {
     background-color: #aaa;
     cursor: pointer;
 }
+.nav-button:hover .sub-menu {
+    display: block;
+}
 #nav-help-button:hover {
     cursor: help !important;
+}
+.sub-menu {
+    display: none;
+    position: absolute;
+    padding: 0;
+    background-color: #ddd;
+    top: 34px; left: -1px;
+    font-size: 20px;
+    font-family: monospace;
+    font-variant: normal;
+    padding: 3px 0;
+}
+.sub-menu:hover {
+    display: block;
+}
+.sub-menu li {
+    line-height: 155%;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0;
+    background-color: inherit;
+    min-height: 30px;
+    min-width: 300px;
+}
+.sub-menu li:hover {
+    filter: brightness(93%);
+}
+.li-info {
+    font-size: 16px;
+    font-style: italic;
+}
+.li-info:hover {
+    filter: none !important;
+    cursor: default;
+}
+.shortcut-info {
+    margin-right: 8px;
+    font-size: 0.8em;
 }

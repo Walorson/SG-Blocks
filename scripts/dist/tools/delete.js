@@ -2,7 +2,7 @@ let removeLine;
 let lineHoverID = null;
 window.addEventListener("load", () => {
     removeLine = (id) => {
-        if (id == null || connectStart == true)
+        if (id == null && deleteLineMode == false && connectStart == true)
             return;
         const left_node = blocksList[_lines[id].left_node];
         const right_node = blocksList[_lines[id].right_node];
