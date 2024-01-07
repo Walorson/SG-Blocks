@@ -186,3 +186,8 @@ label {
     margin-right: 8px;
     font-size: 0.8em;
 }
+.nav-top-side-buttons {
+    position: absolute;
+    display: flex;
+    right: 5px;
+}

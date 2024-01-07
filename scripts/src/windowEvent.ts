@@ -7,14 +7,15 @@ window.addEventListener("load", () => {
     window.addEventListener("mousedown", (e: MouseEvent) => 
     {
         const elementClicked = e.target as HTMLElement;
-
-        if(elementClicked.classList.contains("selected") == false && shiftPressed == false && e.button != 1) unselectAllBlocks();
+        if(elementClicked.classList.contains("selected") == false && shiftPressed == false && e.button != 1 && elementClicked.tagName != 'LI' && elementClicked.tagName != 'SPAN' && elementClicked.tagName != 'I') unselectAllBlocks();
         if(elementClicked.classList.contains("block") && e.button == 0 && deleteLineMode == false) elementClicked.classList.add("selected");
         if(elementClicked.parentElement.classList.contains("block") && e.button == 0 && deleteLineMode == false) elementClicked.parentElement.classList.add("selected");
 
         connectBegin(e);
         selectBegin(e);
         removeLine(lineHoverID);
+
+        window.scrollTo(0,0);
     });
 
     window.addEventListener("mouseup", (e: MouseEvent) => 

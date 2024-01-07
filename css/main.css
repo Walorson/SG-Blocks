@@ -6,7 +6,7 @@ body {
     font-family: monospace;
     overflow: hidden;
     user-select: none;
-    background: url("../grid.png") fixed;
+    background: url("../grid.png");
     background-position: 0px 0px;
 }
 .cursor {

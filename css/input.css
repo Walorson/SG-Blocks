@@ -13,6 +13,30 @@ input[type=checkbox] {
     width: 15px;
     height: 15px;
 }
+
+.button-square input[type=checkbox] {
+    appearance: none;
+    -webkit-appearance: none;
+    display: block;
+    height: 32px;
+    width: 32px;
+    padding: 0;
+    border: 2px solid black;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-left: 5px;
+    background: url("../img/btn-display-grid.png") center;
+    cursor: pointer;
+}
+input[type=checkbox]:checked {
+    transform: scale(0.95);
+    border: 3px solid blue;
+}
+.button-square img {
+    height: 32px !important;
+    width: 32px !important;
+}
+
 /*input[type=checkbox] {
     border: 2px solid black;
     cursor: pointer;
