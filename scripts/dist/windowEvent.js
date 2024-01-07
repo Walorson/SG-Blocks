@@ -4,7 +4,7 @@ window.addEventListener("load", () => {
     window.scrollTo(0, 0);
     window.addEventListener("mousedown", (e) => {
         const elementClicked = e.target;
-        if (elementClicked.classList.contains("selected") == false && shiftPressed == false && e.button != 1)
+        if (elementClicked.classList.contains("selected") == false && shiftPressed == false && e.button != 1 && elementClicked.tagName != 'LI' && elementClicked.tagName != 'SPAN' && elementClicked.tagName != 'I')
             unselectAllBlocks();
         if (elementClicked.classList.contains("block") && e.button == 0 && deleteLineMode == false)
             elementClicked.classList.add("selected");
@@ -13,6 +13,7 @@ window.addEventListener("load", () => {
         connectBegin(e);
         selectBegin(e);
         removeLine(lineHoverID);
+        window.scrollTo(0, 0);
     });
     window.addEventListener("mouseup", (e) => {
         if (select.start == true)

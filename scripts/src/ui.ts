@@ -13,7 +13,9 @@ const buttons = {
 }
 
 const nav = {
-    help: document.getElementById("nav-help-button")
+    edit: document.getElementById("nav-edit-button") as HTMLElement,
+    help: document.getElementById("nav-help-button") as HTMLElement,
+    sideButtons: document.querySelector(".nav-top-side-buttons").querySelectorAll("input") as any
 }
 
 buttons.output.addEventListener("click", () => {
@@ -54,4 +56,33 @@ nav.help.addEventListener("mouseenter", () => {
 });
 nav.help.addEventListener("mouseleave", () => {
     document.getElementById("controls").style.display = '';
-})
+});
+
+{
+    let option = nav.edit.querySelectorAll("li");
+    option[2].onclick = () => { copySelectedBlock(); }
+    option[3].onclick = () => { copySelectedBlock(); deleteSelectedBlocks(); }
+    option[4].onclick = () => { pasteBlocks(); }
+
+    option[5].onclick = () => { selectAllBlocks(); }
+    option[6].onclick = () => { invertSelection(); }
+
+    option[7].onclick = () => { deleteSelectedBlocks(); }
+}
+
+document.querySelectorAll(".sub-menu").forEach((subMenu: HTMLElement) => {
+    subMenu.onclick = () => { 
+        subMenu.style.display = 'none'; 
+        setTimeout(() => { subMenu.style.display = ''; },1);
+    }
+});
+
+nav.sideButtons[0].onclick = function() {
+    if(this.checked == true)
+    {
+        document.body.style.background = 'url("../grid.png")';
+    }
+    else {
+        document.body.style.background = 'white';
+    }
+}
