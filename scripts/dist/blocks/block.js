@@ -1,7 +1,7 @@
 const workspace = document.getElementById("workspace");
 let DEFAULT_BLOCK_X = 250;
 let DEFAULT_BLOCK_Y = 75;
-const blocksList = [];
+let blocksList = [];
 class Block {
     constructor(x, y) {
         this.maxConnects = 10;
@@ -22,7 +22,7 @@ class Block {
         blocksList.forEach((block) => {
             block.update();
         });
-        this.setPosition(this.x, this.y);
+        this.move(this.x, this.y);
     }
     update() {
         this.getID();
@@ -33,10 +33,6 @@ class Block {
     updateDiv() { }
     createBlock() {
         workspace.innerHTML += `<div class="block" id="${this.id}"></div>`;
-    }
-    setPosition(x, y) {
-        this.div.style.top = y + "px";
-        this.div.style.left = x + "px";
     }
     getID() {
         this.div = document.getElementById(this.id + "");
@@ -145,18 +141,28 @@ class Block {
             input.onblur = () => { isInputFocus = false; };
         });
     }
-    deleteBlock() {
-        if (this.isDeletable == false)
+    deleteBlock(forceDeletion = false, multipleDeletion = false) {
+        if (this.isDeletable == false && forceDeletion == false)
             return;
+        if (forceDeletion == false && multipleDeletion == false)
+            saveBlockState();
+        let linesRemoved = 0;
         for (let j = 0; j < _lines.length; j++) {
             if (_lines[j].left_node == this.id || _lines[j].right_node == this.id) {
                 removeLine(j);
+                linesRemoved++;
                 j = -1;
             }
         }
         workspace.removeChild(this.div);
         delete blocksList[this.id];
         propertiesWindow.innerHTML = '';
+    }
+    move(x, y) {
+        this.x = x;
+        this.y = y;
+        this.div.style.top = y + "px";
+        this.div.style.left = x + "px";
     }
     setActive() {
         this.div.classList.add("active");

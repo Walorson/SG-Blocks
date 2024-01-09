@@ -1,7 +1,7 @@
 const workspace: HTMLElement = document.getElementById("workspace");
 let DEFAULT_BLOCK_X = 250;
 let DEFAULT_BLOCK_Y = 75;
-const blocksList = [];
+let blocksList = [];
 
 abstract class Block {
     id: number;
@@ -33,7 +33,7 @@ abstract class Block {
             block.update();
         });
 
-        this.setPosition(this.x, this.y);
+        this.move(this.x, this.y);
     }
 
     update(): void 
@@ -48,11 +48,6 @@ abstract class Block {
 
     createBlock(): void {
         workspace.innerHTML += `<div class="block" id="${this.id}"></div>`;
-    }
-
-    setPosition(x: number, y: number): void {
-        this.div.style.top = y+"px";
-        this.div.style.left = x+"px";
     }
 
     getID(): void {
@@ -196,15 +191,19 @@ abstract class Block {
         });
     }
 
-    deleteBlock()
+    deleteBlock(forceDeletion: boolean = false, multipleDeletion: boolean = false)
     {
-        if(this.isDeletable == false) return;
+        if(this.isDeletable == false && forceDeletion == false) return;
 
+        if(forceDeletion == false && multipleDeletion == false) saveBlockState();
+
+        let linesRemoved: number = 0;
         for(let j=0; j<_lines.length; j++)
         {
             if(_lines[j].left_node == this.id || _lines[j].right_node == this.id) 
             {       
                 removeLine(j);
+                linesRemoved++;
                 j = -1;
             }
         } 
@@ -213,6 +212,14 @@ abstract class Block {
         delete blocksList[this.id];
 
         propertiesWindow.innerHTML = '';
+    }
+
+    move(x: number, y: number) {
+        this.x = x;
+        this.y = y;
+
+        this.div.style.top = y+"px";
+        this.div.style.left = x+"px";
     }
 
     setActive(): void {
