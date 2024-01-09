@@ -1,8 +1,9 @@
 let removeLine;
 let lineHoverID = null;
+let deletedBlocks = [];
 window.addEventListener("load", () => {
     removeLine = (id) => {
-        if (id == null || connectStart == true)
+        if (id == null || deleteLineMode == false || connectStart == true)
             return;
         const left_node = blocksList[_lines[id].left_node];
         const right_node = blocksList[_lines[id].right_node];
@@ -66,8 +67,12 @@ window.addEventListener("keydown", (e) => {
     }
 });
 function deleteSelectedBlocks() {
+    deleteLineMode = true;
+    saveBlockState();
     blocksList.forEach((block) => {
-        if (block.isSelected())
-            block.deleteBlock();
+        if (block.isSelected()) {
+            block.deleteBlock(false, true);
+        }
     });
+    deleteLineMode = false;
 }
