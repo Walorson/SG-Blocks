@@ -73,6 +73,8 @@ function connectEnd(e: MouseEvent)
         });
         if(isDeadLoop == true) return;
 
+        saveBlockState();
+
         if(blockStart instanceof ConditionBlock)
         {   
             if(keyPressed == 'Z' && blockStart.connectToTRUE == undefined) {

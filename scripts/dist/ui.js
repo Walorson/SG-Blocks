@@ -16,21 +16,27 @@ const nav = {
     sideButtons: document.querySelector(".nav-top-side-buttons").querySelectorAll("input")
 };
 buttons.output.addEventListener("click", () => {
+    saveBlockState();
     new OutputBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y);
 });
 buttons.input.addEventListener("click", () => {
+    saveBlockState();
     new InputBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y, "a" + blocksList.length);
 });
 buttons.condition.addEventListener("click", () => {
+    saveBlockState();
     new ConditionBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y);
 });
 buttons.operation.addEventListener("click", () => {
+    saveBlockState();
     new OperationBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y);
 });
 buttons.empty.addEventListener("click", () => {
+    saveBlockState();
     new EmptyBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y);
 });
 buttons.end.addEventListener("click", () => {
+    saveBlockState();
     new EndBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y);
 });
 buttons.run.addEventListener("click", () => {
@@ -69,7 +75,7 @@ document.querySelectorAll(".sub-menu").forEach((subMenu) => {
 });
 nav.sideButtons[0].onclick = function () {
     if (this.checked == true) {
-        document.body.style.background = 'url("../grid.png")';
+        document.body.style.background = 'url("../img/grid.png")';
     }
     else {
         document.body.style.background = 'white';
