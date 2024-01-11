@@ -7,6 +7,7 @@ window.addEventListener("load",() => {
     {
         if(id == null || deleteLineMode == false || connectStart == true) return;
 
+        saveBlockState();
         const left_node: Block = blocksList[_lines[id].left_node];
         const right_node: Block = blocksList[_lines[id].right_node]
 

@@ -54,6 +54,7 @@ function connectEnd(e) {
         });
         if (isDeadLoop == true)
             return;
+        saveBlockState();
         if (blockStart instanceof ConditionBlock) {
             if (keyPressed == 'Z' && blockStart.connectToTRUE == undefined) {
                 lineController.drawLine({

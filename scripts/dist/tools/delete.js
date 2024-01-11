@@ -5,6 +5,7 @@ window.addEventListener("load", () => {
     removeLine = (id) => {
         if (id == null || deleteLineMode == false || connectStart == true)
             return;
+        saveBlockState();
         const left_node = blocksList[_lines[id].left_node];
         const right_node = blocksList[_lines[id].right_node];
         const leftPos = left_node.connectTo.indexOf(right_node);

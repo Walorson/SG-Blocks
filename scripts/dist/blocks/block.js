@@ -72,6 +72,10 @@ class Block {
         this.div.addEventListener("mousedown", (e) => {
             mouseDown(e);
         });
+        this.div.onmousedown = (e) => {
+            if (e.button == 0)
+                saveBlockState();
+        };
         window.addEventListener("mousedown", (e) => {
             setTimeout(() => {
                 const elementClicked = e.target;

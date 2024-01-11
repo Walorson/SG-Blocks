@@ -104,6 +104,11 @@ abstract class Block {
             mouseDown(e);
         });
 
+        this.div.onmousedown = (e: MouseEvent) => {
+            if(e.button == 0)
+                saveBlockState(); 
+        }
+
         window.addEventListener("mousedown", (e: MouseEvent) => {
             setTimeout(() => {
                 const elementClicked = e.target as HTMLElement;
