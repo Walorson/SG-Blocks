@@ -13,7 +13,7 @@ function restoreBlocks(): void {
     let last: number = lastBlocksList.length-1;
 
     blocksList.forEach((block: Block) => {
-        block.deleteBlock(true);
+        block.deleteBlock(true, false, true);
     });
     blocksList = [];
 
@@ -28,6 +28,38 @@ function restoreBlocks(): void {
         else {
             blocksList.push(undefined);
             delete blocksList[index];
+        }
+    });
+
+    blocksList.forEach((block: Block) => {
+        let realConnectTo = [];
+        block.connectTo.forEach((id: any) => {
+            realConnectTo.push(blocksList[id]);
+        });
+
+        block.connectTo = realConnectTo;
+    });
+
+    blocksList.forEach((blockStart: Block) => {
+        if(blockStart.connectTo.length > 0) 
+        {
+            blockStart.connectTo.forEach((blockEnd: any) => {
+                connectLine(blockStart, blockEnd, "normal", true);
+            });
+        }
+
+        if(blockStart instanceof ConditionBlock)
+        {
+            if(blockStart.connectToTRUE != undefined)
+            {
+                blockStart.connectToTRUE = blocksList[blockStart.connectToTRUE];
+                connectLine(blockStart, blockStart.connectToTRUE, "true", true);
+            }
+            if(blockStart.connectToFALSE != undefined)
+            {
+                blockStart.connectToFALSE = blocksList[blockStart.connectToFALSE];
+                connectLine(blockStart, blockStart.connectToFALSE, "false", true);
+            }
         }
     });
 
@@ -50,22 +82,20 @@ function saveBlockState(): void
         block.connectTo.forEach((block: Block) => {
             connectToMap.push(block.id);
         });
-        block.connectTo = [...connectToMap];
-        console.log(block.connectTo);
+
+        if(block instanceof ConditionBlock)
+        {
+            if(block.connectToTRUE != undefined)
+                block.connectToTRUE = block.connectToTRUE.id;
+            if(block.connectToFALSE != undefined)
+                block.connectToFALSE = block.connectToFALSE.id;
+        }
+
+        block.connectTo = connectToMap;
         blockState.push(block);
     }
 
-    for(let i=0; i<blockState.length; i++)
-    {
-        if(blockState[i].connectTo.length <= 0 || blockState[i] == undefined) continue;
-
-        let realConnectTo = [];
-        blockState[i].connectTo.forEach((id: any) => {
-            realConnectTo.push(blocksList[id]);
-        });
-
-        blockState[i].connectTo = [...realConnectTo];
-    }
-    
     lastBlocksList.push(blockState);
 }
+
+//Pozdrawiam użytkownika S0FAiT4PCZ4N

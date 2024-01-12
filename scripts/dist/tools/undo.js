@@ -9,7 +9,7 @@ function restoreBlocks() {
         return;
     let last = lastBlocksList.length - 1;
     blocksList.forEach((block) => {
-        block.deleteBlock(true);
+        block.deleteBlock(true, false, true);
     });
     blocksList = [];
     lastBlocksList[last].forEach((block, index) => {
@@ -21,6 +21,30 @@ function restoreBlocks() {
         else {
             blocksList.push(undefined);
             delete blocksList[index];
+        }
+    });
+    blocksList.forEach((block) => {
+        let realConnectTo = [];
+        block.connectTo.forEach((id) => {
+            realConnectTo.push(blocksList[id]);
+        });
+        block.connectTo = realConnectTo;
+    });
+    blocksList.forEach((blockStart) => {
+        if (blockStart.connectTo.length > 0) {
+            blockStart.connectTo.forEach((blockEnd) => {
+                connectLine(blockStart, blockEnd, "normal", true);
+            });
+        }
+        if (blockStart instanceof ConditionBlock) {
+            if (blockStart.connectToTRUE != undefined) {
+                blockStart.connectToTRUE = blocksList[blockStart.connectToTRUE];
+                connectLine(blockStart, blockStart.connectToTRUE, "true", true);
+            }
+            if (blockStart.connectToFALSE != undefined) {
+                blockStart.connectToFALSE = blocksList[blockStart.connectToFALSE];
+                connectLine(blockStart, blockStart.connectToFALSE, "false", true);
+            }
         }
     });
     delete lastBlocksList[last];
@@ -38,18 +62,15 @@ function saveBlockState() {
         block.connectTo.forEach((block) => {
             connectToMap.push(block.id);
         });
-        block.connectTo = [...connectToMap];
-        console.log(block.connectTo);
+        if (block instanceof ConditionBlock) {
+            if (block.connectToTRUE != undefined)
+                block.connectToTRUE = block.connectToTRUE.id;
+            if (block.connectToFALSE != undefined)
+                block.connectToFALSE = block.connectToFALSE.id;
+        }
+        block.connectTo = connectToMap;
         blockState.push(block);
-    }
-    for (let i = 0; i < blockState.length; i++) {
-        if (blockState[i].connectTo.length <= 0 || blockState[i] == undefined)
-            continue;
-        let realConnectTo = [];
-        blockState[i].connectTo.forEach((id) => {
-            realConnectTo.push(blocksList[id]);
-        });
-        blockState[i].connectTo = [...realConnectTo];
     }
     lastBlocksList.push(blockState);
 }
+//Pozdrawiam użytkownika S0FAiT4PCZ4N

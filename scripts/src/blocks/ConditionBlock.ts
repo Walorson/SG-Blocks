@@ -3,8 +3,8 @@ class ConditionBlock extends Block {
     operator: string = "==";
     isValueVariable: boolean[] = [false, false];
     valueName: string[] = [];
-    connectToTRUE: Block;
-    connectToFALSE: Block;
+    connectToTRUE: Block | any;
+    connectToFALSE: Block | any;
     constructor(x: number, y: number) {
         super(x, y);
 

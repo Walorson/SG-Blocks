@@ -86,7 +86,7 @@ document.querySelectorAll(".sub-menu").forEach((subMenu: HTMLElement) => {
 nav.sideButtons[0].onclick = function() {
     if(this.checked == true)
     {
-        document.body.style.background = 'url("../img/grid.png")';
+        document.body.style.background = 'url("./img/grid.png")';
     }
     else {
         document.body.style.background = 'white';
