@@ -2,10 +2,11 @@ let removeLine;
 let lineHoverID = null;
 let deletedBlocks = [];
 window.addEventListener("load", () => {
-    removeLine = (id) => {
+    removeLine = (id, dontSaveBlockState = false) => {
         if (id == null || deleteLineMode == false || connectStart == true)
             return;
-        saveBlockState();
+        if (dontSaveBlockState == false)
+            saveBlockState();
         const left_node = blocksList[_lines[id].left_node];
         const right_node = blocksList[_lines[id].right_node];
         const leftPos = left_node.connectTo.indexOf(right_node);

@@ -55,52 +55,67 @@ function connectEnd(e) {
         if (isDeadLoop == true)
             return;
         saveBlockState();
-        if (blockStart instanceof ConditionBlock) {
+        if (blockStart instanceof ConditionBlock && keyPressed != null) {
             if (keyPressed == 'Z' && blockStart.connectToTRUE == undefined) {
-                lineController.drawLine({
-                    left_node: blockStart.id,
-                    right_node: blockEnd.id,
-                    col: "green",
-                    colOriginal: "green",
-                    width: 3,
-                    gtype: "D"
-                });
-                blockStart.connectToTRUE = blockEnd;
+                connectLine(blockStart, blockEnd, "true");
             }
-            else if (keyPressed == 'X' && blockStart.connectToFALSE == undefined) {
-                lineController.drawLine({
-                    left_node: blockStart.id,
-                    right_node: blockEnd.id,
-                    col: "orange",
-                    colOriginal: "orange",
-                    width: 3,
-                    gtype: "D"
-                });
-                blockStart.connectToFALSE = blockEnd;
-            }
-            else {
-                lineController.drawLine({
-                    left_node: blockStart.id,
-                    right_node: blockEnd.id,
-                    col: "black",
-                    colOriginal: "black",
-                    width: 2,
-                    gtype: "D"
-                });
-                blockStart.connectTo.push(blockEnd);
+            if (keyPressed == 'X' && blockStart.connectToFALSE == undefined) {
+                connectLine(blockStart, blockEnd, "false");
             }
         }
         else {
+            connectLine(blockStart, blockEnd);
+        }
+        connectStart = false;
+    }
+}
+function connectLine(start, end, type = "normal", noPush = false) {
+    if (start instanceof ConditionBlock) {
+        if (type == "true") {
             lineController.drawLine({
-                left_node: blockStart.id,
-                right_node: blockEnd.id,
+                left_node: start.id,
+                right_node: end.id,
+                col: "green",
+                colOriginal: "green",
+                width: 3,
+                gtype: "D"
+            });
+            start.connectToTRUE = end;
+        }
+        else if (type == "false") {
+            lineController.drawLine({
+                left_node: start.id,
+                right_node: end.id,
+                col: "orange",
+                colOriginal: "orange",
+                width: 3,
+                gtype: "D"
+            });
+            start.connectToFALSE = end;
+        }
+        else {
+            lineController.drawLine({
+                left_node: start.id,
+                right_node: end.id,
                 col: "black",
                 colOriginal: "black",
                 width: 2,
                 gtype: "D"
             });
-            blockStart.connectTo.push(blockEnd);
+            if (noPush == false)
+                start.connectTo.push(end);
         }
     }
-    connectStart = false;
+    else {
+        lineController.drawLine({
+            left_node: start.id,
+            right_node: end.id,
+            col: "black",
+            colOriginal: "black",
+            width: 2,
+            gtype: "D"
+        });
+        if (noPush == false)
+            start.connectTo.push(end);
+    }
 }

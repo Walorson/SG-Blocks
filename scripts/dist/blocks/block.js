@@ -145,7 +145,7 @@ class Block {
             input.onblur = () => { isInputFocus = false; };
         });
     }
-    deleteBlock(forceDeletion = false, multipleDeletion = false) {
+    deleteBlock(forceDeletion = false, multipleDeletion = false, dontSaveBlockState = false) {
         if (this.isDeletable == false && forceDeletion == false)
             return;
         if (forceDeletion == false && multipleDeletion == false)
@@ -153,7 +153,7 @@ class Block {
         let linesRemoved = 0;
         for (let j = 0; j < _lines.length; j++) {
             if (_lines[j].left_node == this.id || _lines[j].right_node == this.id) {
-                removeLine(j);
+                removeLine(j, dontSaveBlockState);
                 linesRemoved++;
                 j = -1;
             }

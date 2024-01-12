@@ -196,7 +196,7 @@ abstract class Block {
         });
     }
 
-    deleteBlock(forceDeletion: boolean = false, multipleDeletion: boolean = false)
+    deleteBlock(forceDeletion: boolean = false, multipleDeletion: boolean = false, dontSaveBlockState: boolean = false)
     {
         if(this.isDeletable == false && forceDeletion == false) return;
 
@@ -207,7 +207,7 @@ abstract class Block {
         {
             if(_lines[j].left_node == this.id || _lines[j].right_node == this.id) 
             {       
-                removeLine(j);
+                removeLine(j, dontSaveBlockState);
                 linesRemoved++;
                 j = -1;
             }

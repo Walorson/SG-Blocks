@@ -75,13 +75,34 @@ function connectEnd(e: MouseEvent)
 
         saveBlockState();
 
-        if(blockStart instanceof ConditionBlock)
-        {   
-            if(keyPressed == 'Z' && blockStart.connectToTRUE == undefined) {
-                lineController.drawLine({
+        if(blockStart instanceof ConditionBlock && keyPressed != null)
+        {
+            if(keyPressed == 'Z' && blockStart.connectToTRUE == undefined)
+            {
+                connectLine(blockStart, blockEnd, "true")
+            }
+            if(keyPressed == 'X' && blockStart.connectToFALSE == undefined)
+            {
+                connectLine(blockStart, blockEnd, "false")
+            }
+        }
+        else {
+            connectLine(blockStart, blockEnd);
+        }
     
-                    left_node: blockStart.id,
-                    right_node: blockEnd.id,
+        connectStart = false;
+    }
+}
+
+function connectLine(start: Block, end: Block, type: string = "normal", noPush: boolean = false): void
+{
+    if(start instanceof ConditionBlock)
+    {   
+            if(type == "true") {
+                lineController.drawLine({
+
+                    left_node: start.id,
+                    right_node: end.id,
                     col : "green",
                     colOriginal: "green",
                     width:3,
@@ -89,13 +110,13 @@ function connectEnd(e: MouseEvent)
                 
                 });
 
-                blockStart.connectToTRUE = blockEnd;
+                start.connectToTRUE = end;
             }
-            else if(keyPressed == 'X' && blockStart.connectToFALSE == undefined) {
+            else if(type == "false") {
                 lineController.drawLine({
-    
-                    left_node: blockStart.id,
-                    right_node: blockEnd.id,
+
+                    left_node: start.id,
+                    right_node: end.id,
                     col : "orange",
                     colOriginal: "orange",
                     width:3,
@@ -103,13 +124,13 @@ function connectEnd(e: MouseEvent)
                 
                 }); 
 
-                blockStart.connectToFALSE = blockEnd;
+                start.connectToFALSE = end;
             }
             else {
                 lineController.drawLine({
-    
-                    left_node: blockStart.id,
-                    right_node: blockEnd.id,
+
+                    left_node: start.id,
+                    right_node: end.id,
                     col : "black",
                     colOriginal: "black",
                     width:2,
@@ -117,24 +138,21 @@ function connectEnd(e: MouseEvent)
                 
                 });
 
-                blockStart.connectTo.push(blockEnd);
+                if(noPush == false) start.connectTo.push(end);
             }
-        }
-        else {
-            lineController.drawLine({
-    
-                left_node: blockStart.id,
-                right_node: blockEnd.id,
-                col : "black",
-                colOriginal: "black",
-                width:2,
-                gtype:"D"
-            
-            });
-
-            blockStart.connectTo.push(blockEnd);
-        }
     }
-    
-    connectStart = false;
+    else {
+        lineController.drawLine({
+
+            left_node: start.id,
+            right_node: end.id,
+            col : "black",
+            colOriginal: "black",
+            width:2,
+            gtype:"D"
+        
+        });
+
+        if(noPush == false) start.connectTo.push(end);
+    }
 }

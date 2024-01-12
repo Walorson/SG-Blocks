@@ -3,11 +3,11 @@ let lineHoverID: number = null;
 let deletedBlocks: Block[] = [];
 
 window.addEventListener("load",() => {
-    removeLine = (id: number) =>
+    removeLine = (id: number, dontSaveBlockState: boolean = false) =>
     {
         if(id == null || deleteLineMode == false || connectStart == true) return;
 
-        saveBlockState();
+        if(dontSaveBlockState == false) saveBlockState();
         const left_node: Block = blocksList[_lines[id].left_node];
         const right_node: Block = blocksList[_lines[id].right_node]
 
