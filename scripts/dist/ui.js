@@ -12,8 +12,7 @@ const buttons = {
 };
 const nav = {
     edit: document.getElementById("nav-edit-button"),
-    help: document.getElementById("nav-help-button"),
-    sideButtons: document.querySelector(".nav-top-side-buttons").querySelectorAll("input")
+    help: document.getElementById("nav-help-button")
 };
 buttons.output.addEventListener("click", () => {
     saveBlockState();
@@ -60,6 +59,8 @@ nav.help.addEventListener("mouseleave", () => {
 });
 {
     let option = nav.edit.querySelectorAll("li");
+    option[0].onclick = () => { undo(); };
+    option[1].onclick = () => { redo(); };
     option[2].onclick = () => { copySelectedBlock(); };
     option[3].onclick = () => { copySelectedBlock(); deleteSelectedBlocks(); };
     option[4].onclick = () => { pasteBlocks(); };
@@ -73,11 +74,3 @@ document.querySelectorAll(".sub-menu").forEach((subMenu) => {
         setTimeout(() => { subMenu.style.display = ''; }, 1);
     };
 });
-nav.sideButtons[0].onclick = function () {
-    if (this.checked == true) {
-        document.body.style.background = 'url("./img/grid.png")';
-    }
-    else {
-        document.body.style.background = 'white';
-    }
-};

@@ -3,21 +3,40 @@ let lastBlocksList: Block[][] = [];
 window.addEventListener("keydown", (e: KeyboardEvent) => {
     if(e.ctrlKey == true && e.key == "z" && isInputFocus == false)
     {
-        restoreBlocks();
+        undo();
     }
 });
 
-function restoreBlocks(): void {
-    if(lastBlocksList.length <= 0) return;
+function undo(): void {
+    saveBlockState("redo");
+    restoreBlocks("undo");
+}
 
-    let last: number = lastBlocksList.length-1;
+function restoreBlocks(action: string = "undo"): void 
+{
+    if(action != "undo" && action != "redo") 
+    {
+        console.error("UNEXPECTED ACTION");
+        return;
+    }
+
+    if(lastBlocksList.length <= 0 && action == "undo") return;
+    else if(restoredBlocksList.length <= 0 && action == "redo") return;
+
+    let last: number;
+    if(action == "undo") last = lastBlocksList.length-1;
+    else if(action == "redo") last = restoredBlocksList.length-1;
 
     blocksList.forEach((block: Block) => {
         block.deleteBlock(true, false, true);
     });
     blocksList = [];
 
-    lastBlocksList[last].forEach((block: Block, index: number) => {
+    let list: Block[] = [];
+    if(action == "undo") list = lastBlocksList[last];
+    else if(action == "redo") list = restoredBlocksList[last];
+
+    list.forEach((block: Block, index: number) => {
         if(block != undefined)
         {
             let blockToPaste: Block = Object.assign(Object.create(Object.getPrototypeOf(block)), block);
@@ -63,11 +82,19 @@ function restoreBlocks(): void {
         }
     });
 
-    delete lastBlocksList[last];
-    lastBlocksList = lastBlocksList.filter((state: any) => state != undefined);
+    if(action == "undo")
+    {
+        delete lastBlocksList[last];
+        lastBlocksList = lastBlocksList.filter((state: any) => state != undefined);
+    }
+    else if(action == "redo")
+    {
+        delete restoredBlocksList[last];
+        restoredBlocksList = restoredBlocksList.filter((state: any) => state != undefined);
+    }
 }
 
-function saveBlockState(): void
+function saveBlockState(action: string = "undo"): void
 {
     const blockState: Block[] = [];
     for(let i=0; i<blocksList.length; i++)
@@ -95,7 +122,10 @@ function saveBlockState(): void
         blockState.push(block);
     }
 
-    lastBlocksList.push(blockState);
+    if(action == "undo")
+        lastBlocksList.push(blockState);
+    else if(action == "redo")
+        restoredBlocksList.push(blockState);
 }
 
 //Pozdrawiam użytkownika S0FAiT4PCZ4N
