@@ -153,6 +153,13 @@ abstract class Block {
             {
                 let x: number = e.clientX + grabPointX - workspaceMove.translateX;
                 let y: number = e.clientY + grabPointY - workspaceMove.translateY;
+
+                if(grid.snap == true)
+                {
+                    x = Math.round(x/25)*25;
+                    y = Math.round(y/25)*25;
+                }
+
                 this.x = x;
                 this.y = y;
                 this.div.style.top = y+"px";

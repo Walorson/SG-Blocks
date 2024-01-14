@@ -109,6 +109,10 @@ class Block {
             if (isdrag) {
                 let x = e.clientX + grabPointX - workspaceMove.translateX;
                 let y = e.clientY + grabPointY - workspaceMove.translateY;
+                if (grid.snap == true) {
+                    x = Math.round(x / 25) * 25;
+                    y = Math.round(y / 25) * 25;
+                }
                 this.x = x;
                 this.y = y;
                 this.div.style.top = y + "px";

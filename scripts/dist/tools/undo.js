@@ -1,18 +1,37 @@
 let lastBlocksList = [];
 window.addEventListener("keydown", (e) => {
     if (e.ctrlKey == true && e.key == "z" && isInputFocus == false) {
-        restoreBlocks();
+        undo();
     }
 });
-function restoreBlocks() {
-    if (lastBlocksList.length <= 0)
+function undo() {
+    saveBlockState("redo");
+    restoreBlocks("undo");
+}
+function restoreBlocks(action = "undo") {
+    if (action != "undo" && action != "redo") {
+        console.error("UNEXPECTED ACTION");
         return;
-    let last = lastBlocksList.length - 1;
+    }
+    if (lastBlocksList.length <= 0 && action == "undo")
+        return;
+    else if (restoredBlocksList.length <= 0 && action == "redo")
+        return;
+    let last;
+    if (action == "undo")
+        last = lastBlocksList.length - 1;
+    else if (action == "redo")
+        last = restoredBlocksList.length - 1;
     blocksList.forEach((block) => {
         block.deleteBlock(true, false, true);
     });
     blocksList = [];
-    lastBlocksList[last].forEach((block, index) => {
+    let list = [];
+    if (action == "undo")
+        list = lastBlocksList[last];
+    else if (action == "redo")
+        list = restoredBlocksList[last];
+    list.forEach((block, index) => {
         if (block != undefined) {
             let blockToPaste = Object.assign(Object.create(Object.getPrototypeOf(block)), block);
             blockToPaste.id = index;
@@ -47,10 +66,16 @@ function restoreBlocks() {
             }
         }
     });
-    delete lastBlocksList[last];
-    lastBlocksList = lastBlocksList.filter((state) => state != undefined);
+    if (action == "undo") {
+        delete lastBlocksList[last];
+        lastBlocksList = lastBlocksList.filter((state) => state != undefined);
+    }
+    else if (action == "redo") {
+        delete restoredBlocksList[last];
+        restoredBlocksList = restoredBlocksList.filter((state) => state != undefined);
+    }
 }
-function saveBlockState() {
+function saveBlockState(action = "undo") {
     const blockState = [];
     for (let i = 0; i < blocksList.length; i++) {
         if (blocksList[i] == undefined) {
@@ -71,6 +96,9 @@ function saveBlockState() {
         block.connectTo = connectToMap;
         blockState.push(block);
     }
-    lastBlocksList.push(blockState);
+    if (action == "undo")
+        lastBlocksList.push(blockState);
+    else if (action == "redo")
+        restoredBlocksList.push(blockState);
 }
 //Pozdrawiam użytkownika S0FAiT4PCZ4N

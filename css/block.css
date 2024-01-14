@@ -13,6 +13,7 @@
 .output {
     font-style: italic;
     font-size: 1.2rem;
+    padding: 12px 20px;
 }
 .input {
     background-color: rgb(255, 185, 54);
@@ -22,7 +23,7 @@
     border-radius: 0;
     background-color: rgb(255, 121, 26);
     text-align: center;
-    padding: 10px 15px;
+    padding: 10px 11px;
     min-width: 50px;
 }
 .condition p {

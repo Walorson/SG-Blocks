@@ -14,8 +14,7 @@ const buttons = {
 
 const nav = {
     edit: document.getElementById("nav-edit-button") as HTMLElement,
-    help: document.getElementById("nav-help-button") as HTMLElement,
-    sideButtons: document.querySelector(".nav-top-side-buttons").querySelectorAll("input") as any
+    help: document.getElementById("nav-help-button") as HTMLElement
 }
 
 buttons.output.addEventListener("click", () => {
@@ -66,6 +65,8 @@ nav.help.addEventListener("mouseleave", () => {
 
 {
     let option = nav.edit.querySelectorAll("li");
+    option[0].onclick = () => { undo(); }
+    option[1].onclick = () => { redo(); }
     option[2].onclick = () => { copySelectedBlock(); }
     option[3].onclick = () => { copySelectedBlock(); deleteSelectedBlocks(); }
     option[4].onclick = () => { pasteBlocks(); }
@@ -82,13 +83,3 @@ document.querySelectorAll(".sub-menu").forEach((subMenu: HTMLElement) => {
         setTimeout(() => { subMenu.style.display = ''; },1);
     }
 });
-
-nav.sideButtons[0].onclick = function() {
-    if(this.checked == true)
-    {
-        document.body.style.background = 'url("./img/grid.png")';
-    }
-    else {
-        document.body.style.background = 'white';
-    }
-}
