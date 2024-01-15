@@ -18,19 +18,3 @@ https://walorson.github.io/SG-Blocks/
 ## In console
 * **run()** - to run algoritm (Or just click the button)
 * **endRun()** - manually stop the run. Use if run would be bugged
-
-## Change log
-### Alpha 1.3.5
-* Empty Block added
-* Condition Block fixed
-* Add instruction (in polish language!!!)
-* css improvement
-### Alpha 1.3.4
-* Operation Block fixed
-* Line drag fixed
-* Output Block fixed
-### Alpha 1.3.3
-* Bug fixes *again*
-### Alpha 1.3.2 - Cursor Update
-* Bug Fixes
-* Add a lot of different cursor behaviour
