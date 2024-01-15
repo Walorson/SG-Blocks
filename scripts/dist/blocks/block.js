@@ -76,6 +76,11 @@ class Block {
             if (e.button == 0)
                 saveBlockState();
         };
+        this.div.onmousemove = (e) => {
+            cursorX = this.x + e.offsetX + 1;
+            cursorY = this.y + e.offsetY + 1;
+            displayCoords();
+        };
         window.addEventListener("mousedown", (e) => {
             setTimeout(() => {
                 const elementClicked = e.target;

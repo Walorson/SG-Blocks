@@ -5,6 +5,8 @@ window.addEventListener("keydown", (e) => {
     }
 });
 function redo() {
-    saveBlockState("undo");
+    if (undoRedoStep >= maxRedoStep)
+        return;
+    saveBlockState("undo", false);
     restoreBlocks("redo");
 }

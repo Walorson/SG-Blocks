@@ -63,19 +63,19 @@ nav.help.addEventListener("mouseleave", () => {
     document.getElementById("controls").style.display = '';
 });
 
-{
+
     let option = nav.edit.querySelectorAll("li");
     option[0].onclick = () => { undo(); }
     option[1].onclick = () => { redo(); }
     option[2].onclick = () => { copySelectedBlock(); }
-    option[3].onclick = () => { copySelectedBlock(); deleteSelectedBlocks(); }
+    option[3].onclick = () => { pasteBlocks(); }
     option[4].onclick = () => { pasteBlocks(); }
 
     option[5].onclick = () => { selectAllBlocks(); }
     option[6].onclick = () => { invertSelection(); }
 
     option[7].onclick = () => { deleteSelectedBlocks(); }
-}
+
 
 document.querySelectorAll(".sub-menu").forEach((subMenu: HTMLElement) => {
     subMenu.onclick = () => { 

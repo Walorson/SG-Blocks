@@ -49,5 +49,10 @@ _canvas.addEventListener("mousemove", (e: MouseEvent) => {
     DEFAULT_BLOCK_X = cursorX+20;
     DEFAULT_BLOCK_Y = cursorY;
 
-    coords.innerHTML = `X: ${cursorX}, Y: ${cursorY}`;
+    displayCoords();
 });
+
+function displayCoords(): void
+{
+    coords.innerHTML = `X: ${Math.floor(cursorX)}, Y: ${Math.floor(-cursorY)}`;
+}

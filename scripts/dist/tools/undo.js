@@ -1,12 +1,17 @@
 let lastBlocksList = [];
+let undoRedoStep = 0;
+let maxRedoStep = 0;
 window.addEventListener("keydown", (e) => {
     if (e.ctrlKey == true && e.key == "z" && isInputFocus == false) {
         undo();
     }
 });
 function undo() {
-    saveBlockState("redo");
+    if (undoRedoStep <= 0)
+        return;
+    saveBlockState("redo", false);
     restoreBlocks("undo");
+    undoRedoStep -= 2;
 }
 function restoreBlocks(action = "undo") {
     if (action != "undo" && action != "redo") {
@@ -22,9 +27,11 @@ function restoreBlocks(action = "undo") {
         last = lastBlocksList.length - 1;
     else if (action == "redo")
         last = restoredBlocksList.length - 1;
+    deleteLineMode = true;
     blocksList.forEach((block) => {
         block.deleteBlock(true, false, true);
     });
+    deleteLineMode = false;
     blocksList = [];
     let list = [];
     if (action == "undo")
@@ -75,7 +82,7 @@ function restoreBlocks(action = "undo") {
         restoredBlocksList = restoredBlocksList.filter((state) => state != undefined);
     }
 }
-function saveBlockState(action = "undo") {
+function saveBlockState(action = "undo", changeLog = true) {
     const blockState = [];
     for (let i = 0; i < blocksList.length; i++) {
         if (blocksList[i] == undefined) {
@@ -100,5 +107,8 @@ function saveBlockState(action = "undo") {
         lastBlocksList.push(blockState);
     else if (action == "redo")
         restoredBlocksList.push(blockState);
+    undoRedoStep++;
+    if (changeLog == true)
+        maxRedoStep = undoRedoStep;
 }
 //Pozdrawiam użytkownika S0FAiT4PCZ4N

@@ -1,4 +1,6 @@
 let lastBlocksList: Block[][] = [];
+let undoRedoStep: number = 0;
+let maxRedoStep: number = 0;
 
 window.addEventListener("keydown", (e: KeyboardEvent) => {
     if(e.ctrlKey == true && e.key == "z" && isInputFocus == false)
@@ -8,8 +10,11 @@ window.addEventListener("keydown", (e: KeyboardEvent) => {
 });
 
 function undo(): void {
-    saveBlockState("redo");
+    if(undoRedoStep <= 0) return;
+
+    saveBlockState("redo", false);
     restoreBlocks("undo");
+    undoRedoStep -= 2;
 }
 
 function restoreBlocks(action: string = "undo"): void 
@@ -27,9 +32,13 @@ function restoreBlocks(action: string = "undo"): void
     if(action == "undo") last = lastBlocksList.length-1;
     else if(action == "redo") last = restoredBlocksList.length-1;
 
+    deleteLineMode = true;
+
     blocksList.forEach((block: Block) => {
         block.deleteBlock(true, false, true);
     });
+
+    deleteLineMode = false;
     blocksList = [];
 
     let list: Block[] = [];
@@ -92,11 +101,13 @@ function restoreBlocks(action: string = "undo"): void
         delete restoredBlocksList[last];
         restoredBlocksList = restoredBlocksList.filter((state: any) => state != undefined);
     }
+
 }
 
-function saveBlockState(action: string = "undo"): void
+function saveBlockState(action: string = "undo", changeLog: boolean = true): void
 {
     const blockState: Block[] = [];
+
     for(let i=0; i<blocksList.length; i++)
     {
         if(blocksList[i] == undefined) {
@@ -126,6 +137,9 @@ function saveBlockState(action: string = "undo"): void
         lastBlocksList.push(blockState);
     else if(action == "redo")
         restoredBlocksList.push(blockState);
+
+    undoRedoStep++;
+    if(changeLog == true) maxRedoStep = undoRedoStep;
 }
 
 //Pozdrawiam użytkownika S0FAiT4PCZ4N

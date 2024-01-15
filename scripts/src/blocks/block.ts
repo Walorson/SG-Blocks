@@ -109,6 +109,12 @@ abstract class Block {
                 saveBlockState(); 
         }
 
+        this.div.onmousemove = (e: MouseEvent) => {
+            cursorX = this.x + e.offsetX + 1;
+            cursorY = this.y + e.offsetY + 1;
+            displayCoords();
+        }
+
         window.addEventListener("mousedown", (e: MouseEvent) => {
             setTimeout(() => {
                 const elementClicked = e.target as HTMLElement;
@@ -210,6 +216,7 @@ abstract class Block {
         if(forceDeletion == false && multipleDeletion == false) saveBlockState();
 
         let linesRemoved: number = 0;
+
         for(let j=0; j<_lines.length; j++)
         {
             if(_lines[j].left_node == this.id || _lines[j].right_node == this.id) 

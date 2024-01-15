@@ -39,5 +39,8 @@ _canvas.addEventListener("mousemove", (e) => {
     cursorY = e.offsetY - workspaceMove.translateY;
     DEFAULT_BLOCK_X = cursorX + 20;
     DEFAULT_BLOCK_Y = cursorY;
-    coords.innerHTML = `X: ${cursorX}, Y: ${cursorY}`;
+    displayCoords();
 });
+function displayCoords() {
+    coords.innerHTML = `X: ${Math.floor(cursorX)}, Y: ${Math.floor(-cursorY)}`;
+}
