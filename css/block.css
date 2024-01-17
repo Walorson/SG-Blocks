@@ -5,7 +5,7 @@
     background-color: yellow;
     padding: 10px 20px;
     border: 2px solid black;
-    border-radius: 10px;
+    border-radius: 0;
     font-size: 22px;
     user-select: none;
     cursor: grab;
@@ -14,23 +14,69 @@
     font-style: italic;
     font-size: 1.2rem;
     padding: 12px 20px;
+    white-space: nowrap;
+    padding: 20px 38px;
+    clip-path: polygon(0% 100%, 25% 0%, 100% 0%, 75% 100%);
+    border-radius: 0;
+}
+.output.active {
+    clip-path: none;
+    border-radius: 50%;
+}
+.output.selected {
+    clip-path: none;
+    border-radius: 50%;
 }
 .input {
     background-color: rgb(255, 185, 54);
+    padding: 20px 38px;
+    clip-path: polygon(0% 100%, 25% 0%, 100% 0%, 75% 100%);
+    border-radius: 0;
 }
+.input.active {
+    clip-path: none;
+    border-radius: 50%;
+}
+.input.selected {
+    clip-path: none;
+    border-radius: 50%;
+}
+.operation {
+    background-color: rgb(255, 185, 54);
+    padding: 12px 20px;
+}
+
+.start {
+    border-radius: 50%;
+}
+
+.end {
+    border-radius: 50%;
+}
+
 .condition {
     padding: 15px 17px;
     border-radius: 0;
     background-color: rgb(255, 121, 26);
     text-align: center;
-    padding: 10px 11px;
+    /*padding: 10px 11px;*/
+    padding: 20px 21px;
     min-width: 50px;
+    clip-path: polygon(0% 50%, 50% 0%, 100% 50%, 50% 100%);
 }
 .condition p {
     margin: 0;
 }
 .condition p:first-of-type {
     font-weight: bolder;
+}
+.condition.active {
+    clip-path: none;
+    border-radius: 50%;
+}
+.condition.selected {
+    clip-path: none;
+    border-radius: 50%;
 }
 .empty {
     padding: 0;
