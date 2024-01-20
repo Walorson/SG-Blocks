@@ -6,8 +6,10 @@ function connectBegin(e) {
         return;
     e.preventDefault();
     let block = document.elementFromPoint(e.clientX, e.clientY);
-    if (block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P') {
+    if (block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P' || block.tagName == 'SPAN') {
         block = block.parentElement;
+        if (block.tagName == 'SPAN')
+            block = block.parentElement;
     }
     let id = Number(block.getAttribute("id"));
     if (isNaN(id) == false && block.tagName == "DIV") {
@@ -32,8 +34,10 @@ function connectEnd(e) {
     _lines = _lines.filter(line => line != undefined);
     _ctx.clearRect(0, 0, 10000, 4300);
     let block = document.elementFromPoint(e.clientX, e.clientY);
-    if (block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P') {
+    if (block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P' || block.tagName == 'SPAN') {
         block = block.parentElement;
+        if (block.tagName == 'SPAN')
+            block = block.parentElement;
     }
     const connected = Number(block.getAttribute("id"));
     if (isNaN(connected) == false && blocksList[connected].connectTo.length < blocksList[connected].maxConnects) {

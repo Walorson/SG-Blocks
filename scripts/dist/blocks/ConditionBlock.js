@@ -65,23 +65,29 @@ class ConditionBlock extends Block {
         }, runSpeed);
     }
     createBlock() {
-        workspace.innerHTML += `<div class="block condition" id="${this.id}" title="Z - Linia prawda\nX - Linia Fałsz"><p>IF</p><p>${this.value[0]}${this.operator}${this.value[1]}</p></div>`;
+        workspace.innerHTML +=
+            `<div class="block condition" id="${this.id}" title="Z - Linia prawda\nX - Linia Fałsz">
+            <span>
+                <p>IF</p>
+                <p>${this.value[0]}${this.operator}${this.value[1]}</p>
+            </span>
+        </div>`;
     }
     updateDiv() {
         if (this.isValueVariable[0] == true && this.isValueVariable[1] == true) {
-            this.div.innerHTML = `<p>IF</p><p><b>${this.valueName[0]}</b>${this.operator}<b>${this.valueName[1]}</b></p>`;
+            this.div.innerHTML = `<span><p>IF</p><p><b>${this.valueName[0]}</b>${this.operator}<b>${this.valueName[1]}</b></p></span>`;
             ;
         }
         else if (this.isValueVariable[0] == true) {
-            this.div.innerHTML = `<p>IF</p><p><b>${this.valueName[0]}</b>${this.operator}${this.value[1]}</p>`;
+            this.div.innerHTML = `<span><p>IF</p><p><b>${this.valueName[0]}</b>${this.operator}${this.value[1]}</p></span>`;
             ;
         }
         else if (this.isValueVariable[1] == true) {
-            this.div.innerHTML = `<p>IF</p><p>${this.value[0]}${this.operator}<b>${this.valueName[1]}</b></p>`;
+            this.div.innerHTML = `<span><p>IF</p><p>${this.value[0]}${this.operator}<b>${this.valueName[1]}</b></p></span>`;
             ;
         }
         else {
-            this.div.innerHTML = `<p>IF</p><p>${this.value[0]}${this.operator}${this.value[1]}</p>`;
+            this.div.innerHTML = `<span><p>IF</p><p>${this.value[0]}${this.operator}${this.value[1]}</p></span>`;
             ;
         }
     }

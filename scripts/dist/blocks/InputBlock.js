@@ -22,7 +22,10 @@ class InputBlock extends Block {
         }, runSpeed / 5);
     }
     createBlock() {
-        workspace.innerHTML += `<div class="block input" id="${this.id}">Input: <b>${this.variableName}</b></div>`;
+        workspace.innerHTML += `
+        <div class="block input" id="${this.id}">
+            <span>Input: <b>${this.variableName}</b></span>
+        </div>`;
     }
     properties() {
         this.div.addEventListener("mousedown", () => {
@@ -33,7 +36,7 @@ class InputBlock extends Block {
             const property = propertiesWindow.querySelectorAll(".property" + this.id);
             property[0].oninput = () => {
                 this.variableName = property[0].value;
-                this.div.innerHTML = `Input: <b>${this.variableName}</b>`;
+                this.div.innerHTML = `<span>Input: <b>${this.variableName}</b></span>`;
             };
             property[1].oninput = () => {
                 this.message = property[1].value;
