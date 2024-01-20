@@ -9,9 +9,12 @@ function connectBegin(e: MouseEvent): void
     e.preventDefault();
     let block: Element = document.elementFromPoint(e.clientX, e.clientY);
 
-    if(block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P')
+    if(block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P' || block.tagName == 'SPAN') 
     {
         block = block.parentElement;
+
+        if(block.tagName == 'SPAN')
+            block = block.parentElement;
     }
 
     let id: number = Number(block.getAttribute("id"));
@@ -49,9 +52,12 @@ function connectEnd(e: MouseEvent)
 
     let block: Element = document.elementFromPoint(e.clientX, e.clientY);
 
-    if(block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P')
+    if(block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P' || block.tagName == 'SPAN')
     {
         block = block.parentElement;
+
+        if(block.tagName == 'SPAN')
+            block = block.parentElement;
     }
 
     const connected: number = Number(block.getAttribute("id"));

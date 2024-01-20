@@ -30,7 +30,10 @@ class InputBlock extends Block {
     }
 
     createBlock(): void {
-        workspace.innerHTML += `<div class="block input" id="${this.id}">Input: <b>${this.variableName}</b></div>`;
+        workspace.innerHTML += `
+        <div class="block input" id="${this.id}">
+            <span>Input: <b>${this.variableName}</b></span>
+        </div>`;
     }
 
     properties(): void {
@@ -45,7 +48,7 @@ class InputBlock extends Block {
             
             property[0].oninput = () => {
                 this.variableName = property[0].value;
-                this.div.innerHTML = `Input: <b>${this.variableName}</b>`;
+                this.div.innerHTML = `<span>Input: <b>${this.variableName}</b></span>`;
 
             }
 

@@ -13,7 +13,7 @@ class OperationBlock extends Block {
     }
 
     createBlock(): void {
-        workspace.innerHTML += `<div class="block input" id="${this.id}">Operation: <i>${this.value[0]}${this.operator}${this.value[1]}</i></div>`;
+        workspace.innerHTML += `<div class="block operation" id="${this.id}">Operation: <i>${this.value[0]}${this.operator}${this.value[1]}</i></div>`;
     }
 
     updateDiv(): void

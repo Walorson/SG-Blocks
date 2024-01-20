@@ -29,7 +29,7 @@ class OutputBlock extends Block {
     }
 
     createBlock(): void {
-            workspace.innerHTML += `<div class="block output" id="${this.id}">Print: ${this.message}</div>`;
+            workspace.innerHTML += `<div class="block output" id="${this.id}"><span>Print: ${this.message}</span></div>`;
     }
 
     updateDiv(): void {
@@ -43,11 +43,11 @@ class OutputBlock extends Block {
 
         if(this.variable != undefined)
         {
-            this.div.innerHTML = `Print: ${messageShort}<b>${this.variable}</b>`;
+            this.div.innerHTML = `<span>Print: ${messageShort}<b>${this.variable}</b></span>`;
         }
         else
         {
-            this.div.innerHTML = "Print: "+messageShort;
+            this.div.innerHTML = "<span>Print: "+messageShort+"</span>";
         }
     }
 
