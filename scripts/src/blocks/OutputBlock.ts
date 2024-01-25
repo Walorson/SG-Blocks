@@ -3,7 +3,7 @@ class OutputBlock extends Block {
     isVariable: boolean;
     variable: any;
 
-    constructor(x: number, y: number, message: string = "Hello World!", isVariable: boolean = false) {
+    constructor(x: number = 0, y: number = 0, message: string = "Hello World!", isVariable: boolean = false) {
         super(x, y);
         this.message = message;
         this.isVariable = isVariable;

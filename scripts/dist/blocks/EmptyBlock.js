@@ -1,5 +1,5 @@
 class EmptyBlock extends Block {
-    constructor(x, y) {
+    constructor(x = 0, y = 0) {
         super(x, y);
         this.maxConnects = 2;
         this.init();

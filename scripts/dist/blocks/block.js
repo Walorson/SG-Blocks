@@ -3,7 +3,7 @@ let DEFAULT_BLOCK_X = 250;
 let DEFAULT_BLOCK_Y = 75;
 let blocksList = [];
 class Block {
-    constructor(x, y) {
+    constructor(x = 0, y = 0) {
         this.maxConnects = 10;
         this.connectTo = [];
         this.isDeletable = true;

@@ -32,14 +32,7 @@ function restoreBlocks(action: string = "undo"): void
     if(action == "undo") last = lastBlocksList.length-1;
     else if(action == "redo") last = restoredBlocksList.length-1;
 
-    deleteLineMode = true;
-
-    blocksList.forEach((block: Block) => {
-        block.deleteBlock(true, false, true);
-    });
-
-    deleteLineMode = false;
-    blocksList = [];
+    deleteAllBlocks();
 
     let list: Block[] = [];
     if(action == "undo") list = lastBlocksList[last];

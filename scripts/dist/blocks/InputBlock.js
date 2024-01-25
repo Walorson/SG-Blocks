@@ -1,5 +1,5 @@
 class InputBlock extends Block {
-    constructor(x, y, variableName, message = "Enter variable") {
+    constructor(x = 0, y = 0, variableName = undefined, message = "Enter variable") {
         super(x, y);
         this.message = message;
         this.variableName = variableName;
