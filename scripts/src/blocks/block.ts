@@ -13,7 +13,7 @@ abstract class Block {
     executeOnSpacePress: any;
     isDeletable: boolean = true;
 
-    constructor(x: number, y: number) {
+    constructor(x: number = 0, y: number = 0) {
         this.id = blocksList.length;
         this.x = x;
         this.y = y;

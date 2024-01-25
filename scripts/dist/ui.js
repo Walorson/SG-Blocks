@@ -11,6 +11,7 @@ const buttons = {
     autorun: document.getElementById("autorun-checkbox")
 };
 const nav = {
+    file: document.getElementById("nav-file-button"),
     edit: document.getElementById("nav-edit-button"),
     help: document.getElementById("nav-help-button")
 };
@@ -57,15 +58,22 @@ nav.help.addEventListener("mouseenter", () => {
 nav.help.addEventListener("mouseleave", () => {
     document.getElementById("controls").style.display = '';
 });
-let option = nav.edit.querySelectorAll("li");
-option[0].onclick = () => { undo(); };
-option[1].onclick = () => { redo(); };
-option[2].onclick = () => { copySelectedBlock(); };
-option[3].onclick = () => { pasteBlocks(); };
-option[4].onclick = () => { pasteBlocks(); };
-option[5].onclick = () => { selectAllBlocks(); };
-option[6].onclick = () => { invertSelection(); };
-option[7].onclick = () => { deleteSelectedBlocks(); };
+{
+    let option = nav.edit.querySelectorAll("li");
+    option[0].onclick = () => { undo(); };
+    option[1].onclick = () => { redo(); };
+    option[2].onclick = () => { copySelectedBlock(); };
+    option[3].onclick = () => { pasteBlocks(); };
+    option[4].onclick = () => { pasteBlocks(); };
+    option[5].onclick = () => { selectAllBlocks(); };
+    option[6].onclick = () => { invertSelection(); };
+    option[7].onclick = () => { deleteSelectedBlocks(); };
+}
+{
+    let option = nav.file.querySelectorAll("li");
+    option[1].onclick = () => { exportBlocks(blocksList); };
+    option[2].onclick = () => { importBlocks(); };
+}
 document.querySelectorAll(".sub-menu").forEach((subMenu) => {
     subMenu.onclick = () => {
         subMenu.style.display = 'none';

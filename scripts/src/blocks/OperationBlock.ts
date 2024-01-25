@@ -5,7 +5,7 @@ class OperationBlock extends Block {
     variableName: string;
     valueName: string[] = [];
 
-    constructor(x: number, y: number) {
+    constructor(x: number = 0, y: number = 0) {
         super(x, y);
         this.variableName = "a"+this.id;
 

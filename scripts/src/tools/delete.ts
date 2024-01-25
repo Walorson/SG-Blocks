@@ -105,3 +105,15 @@ function deleteSelectedBlocks(): void
 
     deleteLineMode = false;
 }
+
+function deleteAllBlocks(): void
+{
+    deleteLineMode = true;
+
+    blocksList.forEach((block: Block) => {
+        block.deleteBlock(true, false, true);
+    });
+
+    deleteLineMode = false;
+    blocksList = [];
+}

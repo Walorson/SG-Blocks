@@ -1,5 +1,13 @@
-function exportBlocks(blocks: Block[]) {
-    let json = JSON.stringify(blocks);
+function exportBlocks() {
+    let blocks = [...blocksList];
+    let json = JSON.stringify(blocks, (key, value) => 
+    {
+        if (value instanceof Block) {
+          return { __type: value.constructor.name, ...value };
+        }
+        return value;
+    });
+    
     let file = new Blob([json], {type: 'application/json'});
     let a = document.createElement('a');
     let filename = prompt("Podaj nazwę projektu:");
@@ -13,74 +21,49 @@ function importBlocks() {
     input.type = 'file';
     input.onchange = _ => {
         let file = Array.from(input.files)[0];
-        let fr = new FileReader();
-        fr.onload = () => {
-            let json = fr.result;
+        let fileReader = new FileReader();
+        fileReader.onload = () => {
+            let json = fileReader.result;
             try {
                 json = json + "";
-                let parsedJson = JSON.parse(json);
-                deleteLineMode = true;
 
-                blocksList.forEach((block: Block) => {
-                    block.deleteBlock(true, false, true);
-                });
+                deleteAllBlocks();
 
-                deleteLineMode = false;
-                blocksList = [];
-
-                let list: Block[] = parsedJson;
-
-                list.forEach((block: Block, index: number) => {
-                    if(block != undefined)
-                    {
-                        let blockToPaste: Block = Object.assign(Object.create(Object.getPrototypeOf(block)), block);
-                    
-                        blockToPaste.id = index;
-                        blockToPaste.init();
+                JSON.parse(json, (key, value) => {
+                    if (value && value.__type === 'StartBlock') {
+                        return Object.assign(new StartBlock(value.x, value.y), value);
+                      }
+                    if (value && value.__type === 'InputBlock') {
+                      return Object.assign(new InputBlock(value.x, value.y), value);
                     }
-                    else {
-                        blocksList.push(undefined);
-                        delete blocksList[index];
+                    if (value && value.__type === 'OutputBlock') {
+                      return Object.assign(new OutputBlock(value.x, value.y), value);
                     }
-                });
-
-                blocksList.forEach((block: Block) => {
-                    let realConnectTo = [];
-                    block.connectTo.forEach((id: any) => {
-                        realConnectTo.push(blocksList[id]);
-                    });
-
-                    block.connectTo = realConnectTo;
-                });
-
-                blocksList.forEach((blockStart: Block) => {
-                    if(blockStart.connectTo.length > 0) 
-                    {
-                        blockStart.connectTo.forEach((blockEnd: any) => {
-                            connectLine(blockStart, blockEnd, "normal", true);
-                        });
+                    if (value && value.__type === 'ConditionBlock') {
+                      return Object.assign(new ConditionBlock(value.x, value.y), value);
                     }
-
-                    if(blockStart instanceof ConditionBlock)
-                    {
-                        if(blockStart.connectToTRUE != undefined)
-                        {
-                            blockStart.connectToTRUE = blocksList[blockStart.connectToTRUE];
-                            connectLine(blockStart, blockStart.connectToTRUE, "true", true);
-                        }
-                        if(blockStart.connectToFALSE != undefined)
-                        {
-                            blockStart.connectToFALSE = blocksList[blockStart.connectToFALSE];
-                            connectLine(blockStart, blockStart.connectToFALSE, "false", true);
-                        }
+                    if (value && value.__type === 'OperationBlock') {
+                        return Object.assign(new OperationBlock(value.x, value.y), value);
                     }
-                });
+                    if (value && value.__type === 'EmptyBlock') {
+                        return Object.assign(new EmptyBlock(value.x, value.y), value);
+                      }
+                    if (value && value.__type === 'EndBlock') {
+                        return Object.assign(new EndBlock(value.x, value.y), value);
+                    }
+                    return value;
+                  });
+
+                  blocksList.forEach((block: Block) => {
+                    block.update();
+                  });
+
             } catch(e) {
                 console.error(e);
                 alert("Wystąpił błąd!");
             }
         }
-        fr.readAsBinaryString(file);
+        fileReader.readAsBinaryString(file);
     }
     input.click();
 }

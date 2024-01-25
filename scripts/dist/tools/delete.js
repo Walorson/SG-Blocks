@@ -78,3 +78,10 @@ function deleteSelectedBlocks() {
     });
     deleteLineMode = false;
 }
+function deleteAllBlocks() {
+    deleteLineMode = true;
+    blocksList.forEach((block) => {
+        block.deleteBlock(true, false, true);
+    });
+    deleteLineMode = false;
+}

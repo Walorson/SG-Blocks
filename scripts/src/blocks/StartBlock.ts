@@ -1,7 +1,7 @@
 class StartBlock extends Block {
     runSpeed: number = 500;
     isDeletable: boolean = false;
-    constructor(x: number, y: number) {
+    constructor(x: number = 0, y: number = 0) {
         super(x, y);
         this.init();
     }

@@ -1,5 +1,5 @@
 class OperationBlock extends Block {
-    constructor(x, y) {
+    constructor(x = 0, y = 0) {
         super(x, y);
         this.value = [0, 0];
         this.operator = '+';

@@ -1,7 +1,7 @@
 class EmptyBlock extends Block
 {
     maxConnects: number = 2;
-    constructor(x: number, y: number)
+    constructor(x: number = 0, y: number = 0)
     {
         super(x,y);
 

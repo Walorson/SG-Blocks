@@ -6,7 +6,7 @@ class ConditionBlock extends Block {
     connectToTRUE: Block | any;
     connectToFALSE: Block | any;
 
-    constructor(x: number, y: number) {
+    constructor(x: number = 0, y: number = 0) {
         super(x, y);
 
         for(let i=0; i<this.isValueVariable.length; i++)

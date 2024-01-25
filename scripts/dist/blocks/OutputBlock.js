@@ -1,5 +1,5 @@
 class OutputBlock extends Block {
-    constructor(x, y, message = "Hello World!", isVariable = false) {
+    constructor(x = 0, y = 0, message = "Hello World!", isVariable = false) {
         super(x, y);
         this.message = message;
         this.isVariable = isVariable;
