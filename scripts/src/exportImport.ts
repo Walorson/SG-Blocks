@@ -1,5 +1,5 @@
 function exportBlocks() {
-    let blocks = [...blocksList];
+    let blocks = convertConnectToToMap();
     let json = JSON.stringify(blocks, (key, value) => 
     {
         if (value instanceof Block) {
@@ -34,10 +34,10 @@ function importBlocks() {
                         return Object.assign(new StartBlock(value.x, value.y), value);
                       }
                     if (value && value.__type === 'InputBlock') {
-                      return Object.assign(new InputBlock(value.x, value.y), value);
+                      return Object.assign(new InputBlock(value.x, value.y, value.variableName, value.message), value);
                     }
                     if (value && value.__type === 'OutputBlock') {
-                      return Object.assign(new OutputBlock(value.x, value.y), value);
+                      return Object.assign(new OutputBlock(value.x, value.y, value.message, value.isVariable), value);
                     }
                     if (value && value.__type === 'ConditionBlock') {
                       return Object.assign(new ConditionBlock(value.x, value.y), value);
@@ -53,6 +53,8 @@ function importBlocks() {
                     }
                     return value;
                   });
+
+                  convertMapToConnectTo();
 
                   blocksList.forEach((block: Block) => {
                     block.update();
