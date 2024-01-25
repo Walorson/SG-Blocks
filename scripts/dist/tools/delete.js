@@ -84,4 +84,5 @@ function deleteAllBlocks() {
         block.deleteBlock(true, false, true);
     });
     deleteLineMode = false;
+    blocksList = [];
 }

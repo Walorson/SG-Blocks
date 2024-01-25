@@ -29,6 +29,7 @@ class Block {
         this.dragAndDrop();
         this.properties();
         this.delete();
+        this.updateDiv();
     }
     updateDiv() { }
     createBlock() {

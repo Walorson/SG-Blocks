@@ -52,6 +52,69 @@ function restoreBlocks(action: string = "undo"): void
         }
     });
 
+    
+
+    if(action == "undo")
+    {
+        delete lastBlocksList[last];
+        lastBlocksList = lastBlocksList.filter((state: any) => state != undefined);
+    }
+    else if(action == "redo")
+    {
+        delete restoredBlocksList[last];
+        restoredBlocksList = restoredBlocksList.filter((state: any) => state != undefined);
+    }
+
+}
+
+function saveBlockState(action: string = "undo", changeLog: boolean = true): void
+{
+    const blockState: Block[] = convertConnectToToMap();
+
+    if(action == "undo")
+        lastBlocksList.push(blockState);
+    else if(action == "redo")
+        restoredBlocksList.push(blockState);
+
+    undoRedoStep++;
+    if(changeLog == true) maxRedoStep = undoRedoStep;
+}
+
+
+function convertConnectToToMap(): Block[]
+{
+    let blockState: Block[] = [];
+
+    for(let i=0; i<blocksList.length; i++)
+    {
+        if(blocksList[i] == undefined) {
+            blockState.push(undefined);
+            continue;
+        }
+
+        let block: Block = Object.assign(Object.create(Object.getPrototypeOf(blocksList[i])), blocksList[i]);
+        let connectToMap = [];
+        block.connectTo.forEach((block: Block) => {
+            connectToMap.push(block.id);
+        });
+
+        if(block instanceof ConditionBlock)
+        {
+            if(block.connectToTRUE != undefined)
+                block.connectToTRUE = block.connectToTRUE.id;
+            if(block.connectToFALSE != undefined)
+                block.connectToFALSE = block.connectToFALSE.id;
+        }
+
+        block.connectTo = connectToMap;
+        blockState.push(block);
+    }
+
+    return blockState;
+}
+
+function convertMapToConnectTo(): void
+{
     blocksList.forEach((block: Block) => {
         let realConnectTo = [];
         block.connectTo.forEach((id: any) => {
@@ -83,56 +146,5 @@ function restoreBlocks(action: string = "undo"): void
             }
         }
     });
-
-    if(action == "undo")
-    {
-        delete lastBlocksList[last];
-        lastBlocksList = lastBlocksList.filter((state: any) => state != undefined);
-    }
-    else if(action == "redo")
-    {
-        delete restoredBlocksList[last];
-        restoredBlocksList = restoredBlocksList.filter((state: any) => state != undefined);
-    }
-
 }
-
-function saveBlockState(action: string = "undo", changeLog: boolean = true): void
-{
-    const blockState: Block[] = [];
-
-    for(let i=0; i<blocksList.length; i++)
-    {
-        if(blocksList[i] == undefined) {
-            blockState.push(undefined);
-            continue;
-        }
-
-        let block: Block = Object.assign(Object.create(Object.getPrototypeOf(blocksList[i])), blocksList[i]);
-        let connectToMap = [];
-        block.connectTo.forEach((block: Block) => {
-            connectToMap.push(block.id);
-        });
-
-        if(block instanceof ConditionBlock)
-        {
-            if(block.connectToTRUE != undefined)
-                block.connectToTRUE = block.connectToTRUE.id;
-            if(block.connectToFALSE != undefined)
-                block.connectToFALSE = block.connectToFALSE.id;
-        }
-
-        block.connectTo = connectToMap;
-        blockState.push(block);
-    }
-
-    if(action == "undo")
-        lastBlocksList.push(blockState);
-    else if(action == "redo")
-        restoredBlocksList.push(blockState);
-
-    undoRedoStep++;
-    if(changeLog == true) maxRedoStep = undoRedoStep;
-}
-
 //Pozdrawiam użytkownika S0FAiT4PCZ4N

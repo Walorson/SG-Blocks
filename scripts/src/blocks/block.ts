@@ -42,6 +42,7 @@ abstract class Block {
         this.dragAndDrop();
         this.properties();
         this.delete();
+        this.updateDiv();
     }
 
     updateDiv(): void {}

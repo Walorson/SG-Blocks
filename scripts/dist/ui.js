@@ -71,7 +71,7 @@ nav.help.addEventListener("mouseleave", () => {
 }
 {
     let option = nav.file.querySelectorAll("li");
-    option[1].onclick = () => { exportBlocks(blocksList); };
+    option[1].onclick = () => { exportBlocks(); };
     option[2].onclick = () => { importBlocks(); };
 }
 document.querySelectorAll(".sub-menu").forEach((subMenu) => {
