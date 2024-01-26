@@ -44,6 +44,7 @@ function restoreBlocks(action = "undo") {
             delete blocksList[index];
         }
     });
+    convertMapToConnectTo();
     if (action == "undo") {
         delete lastBlocksList[last];
         lastBlocksList = lastBlocksList.filter((state) => state != undefined);
@@ -62,6 +63,7 @@ function saveBlockState(action = "undo", changeLog = true) {
     undoRedoStep++;
     if (changeLog == true)
         maxRedoStep = undoRedoStep;
+    window.onbeforeunload = () => { return true; };
 }
 function convertConnectToToMap() {
     let blockState = [];

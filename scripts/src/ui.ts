@@ -79,6 +79,7 @@ nav.help.addEventListener("mouseleave", () => {
 }
 {
     let option = nav.file.querySelectorAll("li");
+    option[0].onclick = () => { window.location.reload(); }
     option[1].onclick = () => { exportBlocks(); }
     option[2].onclick = () => { importBlocks(); }
 }

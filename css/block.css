@@ -37,10 +37,13 @@
     width: 47px;
     height: 47px;
     transform: rotate(-45deg) translateX(-1px) translateY(21px);
+    overflow: hidden;
 }
 .condition span {
+    height: 47px;
+    width: 47px;
     position: absolute;
-    top: 9%; left: 17%;
+    top: 9%; left: 21%;
     display: block;
     transform: rotate(45deg);
 }

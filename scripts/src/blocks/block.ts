@@ -40,6 +40,7 @@ abstract class Block {
     {
         this.getID();
         this.dragAndDrop();
+        this.selectEvent();
         this.properties();
         this.delete();
         this.updateDiv();
@@ -136,7 +137,7 @@ abstract class Block {
         })
 
         const mouseDown = (e: MouseEvent): void =>
-        {        
+        {   
             if(e.button == 2) {
                 document.querySelectorAll(".block").forEach((block: HTMLElement) => block.style.cursor = 'cell');
                 _canvas.style.cursor = 'cell';
@@ -232,6 +233,14 @@ abstract class Block {
         delete blocksList[this.id];
 
         propertiesWindow.innerHTML = '';
+    }
+
+    selectEvent() {
+        this.div.addEventListener("mousedown", (e: MouseEvent) => {
+            if(shiftPressed == false && e.button != 1 && this.isSelected() == false) unselectAllBlocks();
+
+            this.setSelected(); 
+        });
     }
 
     move(x: number, y: number) {

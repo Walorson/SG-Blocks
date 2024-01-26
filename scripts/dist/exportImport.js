@@ -8,10 +8,13 @@ function exportBlocks() {
     });
     let file = new Blob([json], { type: 'application/json' });
     let a = document.createElement('a');
-    let filename = prompt("Podaj nazwę projektu:");
-    a.download = filename + ".json";
-    a.href = window.URL.createObjectURL(file);
-    a.click();
+    let filename = prompt("Enter project name:", "save");
+    if (filename != null) {
+        a.download = "sg-" + filename + ".json";
+        a.href = window.URL.createObjectURL(file);
+        a.click();
+        window.onbeforeunload = () => { ; };
+    }
 }
 function importBlocks() {
     let input = document.createElement('input');
@@ -46,11 +49,16 @@ function importBlocks() {
                     if (value && value.__type === 'EndBlock') {
                         return Object.assign(new EndBlock(value.x, value.y), value);
                     }
+                    if (value == null) {
+                        blocksList.push(null);
+                        delete blocksList[blocksList.length - 1];
+                    }
                     return value;
                 });
                 convertMapToConnectTo();
                 blocksList.forEach((block) => {
-                    block.update();
+                    if (block != undefined)
+                        block.update();
                 });
             }
             catch (e) {

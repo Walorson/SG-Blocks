@@ -52,7 +52,7 @@ function restoreBlocks(action: string = "undo"): void
         }
     });
 
-    
+    convertMapToConnectTo();
 
     if(action == "undo")
     {
@@ -78,6 +78,8 @@ function saveBlockState(action: string = "undo", changeLog: boolean = true): voi
 
     undoRedoStep++;
     if(changeLog == true) maxRedoStep = undoRedoStep;
+
+    window.onbeforeunload = () => { return true; }
 }
 
 
