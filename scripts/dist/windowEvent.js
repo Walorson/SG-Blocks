@@ -1,15 +1,11 @@
 let keyPressed = null;
+let shiftPressed = false;
 window.addEventListener("load", () => {
-    let shiftPressed = false;
     window.scrollTo(0, 0);
     window.addEventListener("mousedown", (e) => {
         const elementClicked = e.target;
-        if (elementClicked.classList.contains("selected") == false && shiftPressed == false && e.button != 1 && elementClicked.tagName != 'LI' && elementClicked.tagName != 'SPAN' && elementClicked.tagName != 'I')
+        if (elementClicked.tagName == 'CANVAS' && shiftPressed == false && e.button != 1)
             unselectAllBlocks();
-        if (elementClicked.classList.contains("block") && e.button == 0 && deleteLineMode == false)
-            elementClicked.classList.add("selected");
-        if (elementClicked.parentElement.classList.contains("block") && e.button == 0 && deleteLineMode == false)
-            elementClicked.parentElement.classList.add("selected");
         connectBegin(e);
         selectBegin(e);
         removeLine(lineHoverID);

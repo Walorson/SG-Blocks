@@ -27,6 +27,7 @@ class Block {
     update() {
         this.getID();
         this.dragAndDrop();
+        this.selectEvent();
         this.properties();
         this.delete();
         this.updateDiv();
@@ -171,6 +172,13 @@ class Block {
         workspace.removeChild(this.div);
         delete blocksList[this.id];
         propertiesWindow.innerHTML = '';
+    }
+    selectEvent() {
+        this.div.addEventListener("mousedown", (e) => {
+            if (shiftPressed == false && e.button != 1 && this.isSelected() == false)
+                unselectAllBlocks();
+            this.setSelected();
+        });
     }
     move(x, y) {
         this.x = x;
