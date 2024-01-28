@@ -56,8 +56,12 @@ function connectEnd(e: MouseEvent)
     {
         block = block.parentElement;
 
+        if(block.tagName == 'P')
+                block = block.parentElement;
+
         if(block.tagName == 'SPAN')
             block = block.parentElement;
+         
     }
 
     const connected: number = Number(block.getAttribute("id"));
@@ -95,9 +99,9 @@ function connectEnd(e: MouseEvent)
         else {
             connectLine(blockStart, blockEnd);
         }
-    
-        connectStart = false;
     }
+
+    connectStart = false;
 }
 
 function connectLine(start: Block, end: Block, type: string = "normal", noPush: boolean = false): void
