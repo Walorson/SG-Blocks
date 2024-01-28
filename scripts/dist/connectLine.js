@@ -36,6 +36,8 @@ function connectEnd(e) {
     let block = document.elementFromPoint(e.clientX, e.clientY);
     if (block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P' || block.tagName == 'SPAN') {
         block = block.parentElement;
+        if (block.tagName == 'P')
+            block = block.parentElement;
         if (block.tagName == 'SPAN')
             block = block.parentElement;
     }
@@ -70,8 +72,8 @@ function connectEnd(e) {
         else {
             connectLine(blockStart, blockEnd);
         }
-        connectStart = false;
     }
+    connectStart = false;
 }
 function connectLine(start, end, type = "normal", noPush = false) {
     if (start instanceof ConditionBlock) {

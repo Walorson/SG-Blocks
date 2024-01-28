@@ -76,7 +76,7 @@ function importBlocks() {
                 alert("Wystąpił błąd!");
             }
         }
-        fileReader.readAsBinaryString(file);
+        fileReader.readAsText(file, "utf-8");
     }
     input.click();
 }
