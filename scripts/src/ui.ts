@@ -8,6 +8,7 @@ const buttons = {
     operation: document.getElementById("operation-block-button"),
     empty: document.getElementById("empty-block-button"),
     end: document.getElementById("end-block-button"),
+    text: document.getElementById("text-other-button"),
     run: document.getElementById("run-button"),
     autorun: document.getElementById("autorun-checkbox") as HTMLInputElement
 }
@@ -41,6 +42,10 @@ buttons.empty.addEventListener("click", () => {
 buttons.end.addEventListener("click", () => {
     saveBlockState();
     new EndBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y);
+});
+buttons.text.addEventListener("click", () => {
+    saveBlockState();
+    new TextBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y);
 });
 buttons.run.addEventListener("click",() => {
     run();

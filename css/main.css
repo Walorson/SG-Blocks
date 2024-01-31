@@ -7,7 +7,6 @@ body {
     overflow: hidden;
     user-select: none;
     background: url("../img/grid.png");
-    background-position: 0px 0px;
 }
 .cursor {
     position: absolute;
