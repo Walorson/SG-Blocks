@@ -229,7 +229,7 @@ abstract class Block {
             }
         } 
 
-        workspace.removeChild(this.div);
+        this.div.remove();
         delete blocksList[this.id];
 
         propertiesWindow.innerHTML = '';

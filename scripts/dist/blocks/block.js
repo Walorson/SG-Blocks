@@ -169,7 +169,7 @@ class Block {
                 j = -1;
             }
         }
-        workspace.removeChild(this.div);
+        this.div.remove();
         delete blocksList[this.id];
         propertiesWindow.innerHTML = '';
     }

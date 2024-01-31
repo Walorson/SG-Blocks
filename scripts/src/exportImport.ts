@@ -57,6 +57,9 @@ function importBlocks() {
                     if (value && value.__type === 'EndBlock') {
                         return Object.assign(new EndBlock(value.x, value.y), value);
                     }
+                    if (value && value.__type === 'TextBlock') {
+                        return Object.assign(new TextBlock(value.x, value.y), value);
+                    }
                     if(value == null) {
                         blocksList.push(null);
                         delete blocksList[blocksList.length-1];
