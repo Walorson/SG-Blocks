@@ -119,8 +119,8 @@ abstract class Block {
 
         window.addEventListener("mousedown", (e: MouseEvent) => {
             setTimeout(() => {
-                const elementClicked = e.target as HTMLElement;
-
+                let elementClicked = e.target as HTMLElement;
+                
                 if(this.isSelected() && elementClicked.classList.contains("selected"))    
                 {
                     mouseDown(e);
