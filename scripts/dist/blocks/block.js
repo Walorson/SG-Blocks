@@ -85,7 +85,7 @@ class Block {
         };
         window.addEventListener("mousedown", (e) => {
             setTimeout(() => {
-                const elementClicked = e.target;
+                let elementClicked = e.target;
                 if (this.isSelected() && elementClicked.classList.contains("selected")) {
                     mouseDown(e);
                 }

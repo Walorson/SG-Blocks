@@ -31,6 +31,9 @@ input[type=checkbox] {
 #toolbar-grid-snap {
     background: url("../img/btn-grid-snap.png") center; 
 }
+#toolbar-display-texts {
+    background: url("../img/btn-display-text.png") center; 
+}
 input[type=checkbox]:checked {
     transform: scale(0.95);
     border: 3px solid blue;
