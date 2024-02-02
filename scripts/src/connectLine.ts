@@ -13,6 +13,9 @@ function connectBegin(e: MouseEvent): void
     {
         block = block.parentElement;
 
+        if(block.tagName == 'P')
+            block = block.parentElement;
+
         if(block.tagName == 'SPAN')
             block = block.parentElement;
     }
@@ -51,13 +54,13 @@ function connectEnd(e: MouseEvent)
     _ctx.clearRect(0, 0,  10000, 4300);	
 
     let block: Element = document.elementFromPoint(e.clientX, e.clientY);
-
+    console.log(block);
     if(block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P' || block.tagName == 'SPAN')
     {
         block = block.parentElement;
 
         if(block.tagName == 'P')
-                block = block.parentElement;
+            block = block.parentElement;
 
         if(block.tagName == 'SPAN')
             block = block.parentElement;

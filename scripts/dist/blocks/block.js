@@ -137,7 +137,7 @@ class Block {
     delete() {
         this.div.addEventListener("mousemove", () => {
             if (deleteLineMode == true) {
-                this.div.style.border = "2px solid red";
+                this.div.style.borderColor = "red";
                 this.div.style.cursor = "crosshair";
             }
         });

@@ -69,26 +69,27 @@ class ConditionBlock extends Block {
             `<div class="block condition" id="${this.id}" title="Z - Linia prawda\nX - Linia Fałsz">
             <span>
                 <p>IF</p>
-                <p>${this.value[0]}${this.operator}${this.value[1]}</p>
+                <p>n${this.operator}n</p>
             </span>
-        </div>`;
+        </div>
+        <div class="condition-desc">${this.value[0]}${this.operator}${this.value[1]}</div>
+        `;
     }
     updateDiv() {
+        let operator = this.operator;
+        if (operator == "<")
+            operator = "&lt;";
         if (this.isValueVariable[0] == true && this.isValueVariable[1] == true) {
-            this.div.innerHTML = `<span><p>IF</p><p><b>${this.valueName[0]}</b>${this.operator}<b>${this.valueName[1]}</b></p></span>`;
-            ;
+            this.div.innerHTML = `<span><p>IF</p><p><b>var</b>${operator}<b>var</b></p></span>`;
         }
         else if (this.isValueVariable[0] == true) {
-            this.div.innerHTML = `<span><p>IF</p><p><b>${this.valueName[0]}</b>${this.operator}${this.value[1]}</p></span>`;
-            ;
+            this.div.innerHTML = `<span><p>IF</p><p><b>var</b>${operator}num</p></span>`;
         }
         else if (this.isValueVariable[1] == true) {
-            this.div.innerHTML = `<span><p>IF</p><p>${this.value[0]}${this.operator}<b>${this.valueName[1]}</b></p></span>`;
-            ;
+            this.div.innerHTML = `<span><p>IF</p><p>num${operator}<b>var</b></p></span>`;
         }
         else {
-            this.div.innerHTML = `<span><p>IF</p><p>${this.value[0]}${this.operator}${this.value[1]}</p></span>`;
-            ;
+            this.div.innerHTML = `<span><p>IF</p><p>num${operator}num</p></span>`;
         }
     }
     properties() {
