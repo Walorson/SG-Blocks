@@ -120,6 +120,12 @@ abstract class Block {
         window.addEventListener("mousedown", (e: MouseEvent) => {
             setTimeout(() => {
                 let elementClicked = e.target as HTMLElement;
+
+                if(elementClicked.tagName == 'B')
+                    elementClicked = elementClicked.parentElement;
+
+                if(elementClicked.tagName == 'SPAN')
+                    elementClicked = elementClicked.parentElement;
                 
                 if(this.isSelected() && elementClicked.classList.contains("selected"))    
                 {

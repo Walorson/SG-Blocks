@@ -63,13 +63,29 @@ function importBlocks() {
                     if (block != undefined)
                         block.update();
                 });
+                lastBlocksList = [];
+                restoredBlocksList = [];
+                undoRedoStep = 0;
+                maxRedoStep = 0;
+                moveWorkspaceTo(blocksList[0]);
             }
             catch (e) {
                 console.error(e);
-                alert("Wystąpił błąd!");
+                alert("An error occurred! The save is invalid or corrupted.");
             }
         };
         fileReader.readAsText(file, "utf-8");
     };
     input.click();
 }
+window.addEventListener("keydown", (e) => {
+    if (e.altKey == true && e.key == "s" && isInputFocus == false) {
+        exportBlocks();
+    }
+    if (e.altKey == true && e.key == "o" && isInputFocus == false) {
+        importBlocks();
+    }
+    if (e.altKey == true && e.key == "n" && isInputFocus == false) {
+        window.location.reload();
+    }
+});

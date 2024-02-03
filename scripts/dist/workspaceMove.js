@@ -44,3 +44,10 @@ _canvas.addEventListener("mousemove", (e) => {
 function displayCoords() {
     coords.innerHTML = `X: ${Math.floor(cursorX)}, Y: ${Math.floor(-cursorY)}`;
 }
+function moveWorkspaceTo(block) {
+    workspaceMove.translateX = -block.x + 500;
+    workspaceMove.translateY = -block.y + 300;
+    workspace.style.transform = `translate(${workspaceMove.translateX}px, ${workspaceMove.translateY}px) scale(${workspaceResize.size})`;
+    document.body.style.backgroundPosition = `${workspaceMove.translateX}px ${workspaceMove.translateY}px`;
+    lineController.redrawLines();
+}

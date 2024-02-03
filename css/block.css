@@ -30,37 +30,30 @@
     transform: skewX(15deg) scale(1);
 }
 .condition {
-    padding: 15px 17px;
-    background-color: rgb(255, 121, 26);
-    text-align: center;
-    padding: 10px 11px;
-    width: 47px;
-    height: 47px;
-    transform: rotateZ(-45deg) translateX(-1px) translateY(21px);
+    --g:var(--c,rgb(255, 121, 26)) calc(49.5% - 2.5px),#000 calc(49.5% - 1.5px),#000 49.5%, transparent 50%;
+    background:
+     linear-gradient(to top right   ,var(--g)) top right,
+     linear-gradient(to top left    ,var(--g)) top left,
+     linear-gradient(to bottom right,var(--g)) bottom right,
+     linear-gradient(to bottom left ,var(--g)) bottom left;
+    background-size:50% 50%;
+    background-repeat:no-repeat;
+    
+    min-width: 70px;
+    min-height:70px; 
+    display:inline-block;
+    margin:5px;
+    border-color: transparent;
+    transform: translate(-5px,-5px);
 }
 .condition span {
-    height: 47px;
-    width: 47px;
-    position: absolute;
-    top: 9%; left: 21%;
+    margin-top: 20px;
     display: block;
-    transform: rotateZ(45deg);
-}
-.condition p {
-    margin: 0;
-}
-.condition p:first-of-type {
-    font-weight: bolder;
-}
-.condition p:last-of-type {
-    width: 100px;
-    font-size: 0.6em;
-    margin-left: -26px;
-    margin-top: 2px;
     text-align: center;
+    width: 100%;
 }
-.condition-desc {
-    position: absolute;
+.active.condition {
+    background-color: rgba(5,138,14,0.40);
 }
 /*
     .condition::before{
