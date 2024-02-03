@@ -36,7 +36,6 @@ function connectEnd(e) {
     _lines = _lines.filter(line => line != undefined);
     _ctx.clearRect(0, 0, 10000, 4300);
     let block = document.elementFromPoint(e.clientX, e.clientY);
-    console.log(block);
     if (block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P' || block.tagName == 'SPAN') {
         block = block.parentElement;
         if (block.tagName == 'P')

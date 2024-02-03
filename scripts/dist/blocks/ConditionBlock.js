@@ -66,30 +66,31 @@ class ConditionBlock extends Block {
     }
     createBlock() {
         workspace.innerHTML +=
-            `<div class="block condition" id="${this.id}" title="Z - Linia prawda\nX - Linia Fałsz"><span>IF</span></div>
-        <div class="condition-desc" id="condition-desc${this.id}">0==0</div>
-        `;
-    }
-    getID() {
-        super.getID();
-        this.conditionDesc = document.getElementById("condition-desc" + this.id);
+            `<div class="block condition" id="${this.id}" title="Z - Linia prawda\nX - Linia Fałsz">
+            0==0
+        </div>`;
     }
     updateDiv() {
-        let operator = this.operator;
-        if (operator == "<")
-            operator = "&lt;";
         if (this.isValueVariable[0] == true && this.isValueVariable[1] == true) {
-            this.conditionDesc.innerHTML = `${this.valueName[0]}${this.operator}${this.valueName[1]}`;
+            this.div.innerHTML = `<span><b>${this.valueName[0]}</b>${this.operator}<b>${this.valueName[1]}</b></span>`;
+            ;
         }
         else if (this.isValueVariable[0] == true) {
-            this.conditionDesc.innerHTML = `${this.valueName[0]}${this.operator}${this.value[1]}`;
+            this.div.innerHTML = `<span><b>${this.valueName[0]}</b>${this.operator}${this.value[1]}</span>`;
+            ;
         }
         else if (this.isValueVariable[1] == true) {
-            this.conditionDesc.innerHTML = `${this.value[0]}${this.operator}${this.valueName[1]}`;
+            this.div.innerHTML = `<span>${this.value[0]}${this.operator}<b>${this.valueName[1]}</b></span>`;
+            ;
         }
         else {
-            this.conditionDesc.innerHTML = `${this.value[0]}${this.operator}${this.value[1]}`;
+            this.div.innerHTML = `<span>${this.value[0]}${this.operator}${this.value[1]}</span>`;
+            ;
         }
+        this.resize();
+    }
+    resize() {
+        this.div.style.width = (this.div.textContent.length * 14) + "px";
     }
     properties() {
         this.div.addEventListener("mousedown", () => {

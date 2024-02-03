@@ -33,3 +33,12 @@ body {
     right: 5px;
     color: #555;
 }
+#version-info {
+    position: absolute;
+    right: 5px;
+    bottom: 0;
+    font-family: 'bebas-neue';
+    opacity: 0.5;
+    letter-spacing: 1px;
+    font-size: 2em;
+}
