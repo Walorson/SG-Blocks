@@ -59,7 +59,7 @@ function displayCoords(): void
 
 function moveWorkspaceTo(block: Block)
 {
-    workspaceMove.translateX = -block.x + 500;
+    workspaceMove.translateX = -block.x + 700;
     workspaceMove.translateY = -block.y + 300;
     workspace.style.transform = `translate(${workspaceMove.translateX}px, ${workspaceMove.translateY}px) scale(${workspaceResize.size})`;
     document.body.style.backgroundPosition = `${workspaceMove.translateX}px ${workspaceMove.translateY}px`;
