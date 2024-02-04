@@ -52,7 +52,7 @@ function restoreBlocks(action: string = "undo"): void
         }
     });
 
-    convertMapToConnectTo();
+    convertMapToConnectTo(blocksList);
 
     if(action == "undo")
     {
@@ -69,7 +69,7 @@ function restoreBlocks(action: string = "undo"): void
 
 function saveBlockState(action: string = "undo", changeLog: boolean = true): void
 {
-    const blockState: Block[] = convertConnectToToMap();
+    const blockState: Block[] = convertConnectToToMap(blocksList);
 
     if(action == "undo")
         lastBlocksList.push(blockState);
@@ -83,18 +83,18 @@ function saveBlockState(action: string = "undo", changeLog: boolean = true): voi
 }
 
 
-function convertConnectToToMap(): Block[]
+function convertConnectToToMap(blocks: Block[]): Block[]
 {
     let blockState: Block[] = [];
 
-    for(let i=0; i<blocksList.length; i++)
+    for(let i=0; i<blocks.length; i++)
     {
-        if(blocksList[i] == undefined) {
+        if(blocks[i] == undefined) {
             blockState.push(undefined);
             continue;
         }
 
-        let block: Block = Object.assign(Object.create(Object.getPrototypeOf(blocksList[i])), blocksList[i]);
+        let block: Block = Object.assign(Object.create(Object.getPrototypeOf(blocks[i])), blocks[i]);
         let connectToMap = [];
         block.connectTo.forEach((block: Block) => {
             connectToMap.push(block.id);
@@ -115,18 +115,18 @@ function convertConnectToToMap(): Block[]
     return blockState;
 }
 
-function convertMapToConnectTo(): void
+function convertMapToConnectTo(blocks: Block[]): void
 {
-    blocksList.forEach((block: Block) => {
+    blocks.forEach((block: Block) => {
         let realConnectTo = [];
         block.connectTo.forEach((id: any) => {
-            realConnectTo.push(blocksList[id]);
+            realConnectTo.push(blocks[id]);
         });
 
         block.connectTo = realConnectTo;
     });
 
-    blocksList.forEach((blockStart: Block) => {
+    blocks.forEach((blockStart: Block) => {
         if(blockStart.connectTo.length > 0) 
         {
             blockStart.connectTo.forEach((blockEnd: any) => {
@@ -138,12 +138,12 @@ function convertMapToConnectTo(): void
         {
             if(blockStart.connectToTRUE != undefined)
             {
-                blockStart.connectToTRUE = blocksList[blockStart.connectToTRUE];
+                blockStart.connectToTRUE = blocks[blockStart.connectToTRUE];
                 connectLine(blockStart, blockStart.connectToTRUE, "true", true);
             }
             if(blockStart.connectToFALSE != undefined)
             {
-                blockStart.connectToFALSE = blocksList[blockStart.connectToFALSE];
+                blockStart.connectToFALSE = blocks[blockStart.connectToFALSE];
                 connectLine(blockStart, blockStart.connectToFALSE, "false", true);
             }
         }
