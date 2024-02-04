@@ -5,12 +5,17 @@ window.addEventListener("keydown", (e) => {
 });
 function pasteBlocks() {
     unselectAllBlocks();
-    blocksToCopy.forEach((block) => {
-        let blockToPaste = Object.assign(Object.create(Object.getPrototypeOf(block)), block);
-        blockToPaste.id = blocksList.length;
-        blockToPaste.y -= 50;
-        blockToPaste.connectTo = [];
-        blockToPaste.init();
-        blockToPaste.setSelected();
+    let len = blocksList.length - JSON.parse(blocksToCopy).length;
+    JSONtoBlocks(blocksToCopy);
+    for (let i = blocksList.length - 1; i > len; i--) {
+        blocksList[i].id = i;
+        blocksList[i].connectTo = [];
+    }
+    blocksList.forEach((block) => {
+        if (block != undefined)
+            block.update();
     });
+    for (let i = blocksList.length - 1; i > len; i--) {
+        blocksList[i].move(blocksList[i].x, blocksList[i].y - 60);
+    }
 }

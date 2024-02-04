@@ -8,6 +8,8 @@ function connectBegin(e) {
     let block = document.elementFromPoint(e.clientX, e.clientY);
     if (block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P' || block.tagName == 'SPAN') {
         block = block.parentElement;
+        if (block.tagName == 'I')
+            block = block.parentElement;
         if (block.tagName == 'P')
             block = block.parentElement;
         if (block.tagName == 'SPAN')
@@ -38,6 +40,8 @@ function connectEnd(e) {
     let block = document.elementFromPoint(e.clientX, e.clientY);
     if (block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P' || block.tagName == 'SPAN') {
         block = block.parentElement;
+        if (block.tagName == 'I')
+            block = block.parentElement;
         if (block.tagName == 'P')
             block = block.parentElement;
         if (block.tagName == 'SPAN')

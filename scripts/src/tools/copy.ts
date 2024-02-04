@@ -1,4 +1,4 @@
-const blocksToCopy = [];
+let blocksToCopy: string = "";
 
 window.addEventListener("keydown", (e: KeyboardEvent) => 
 {
@@ -10,9 +10,16 @@ window.addEventListener("keydown", (e: KeyboardEvent) =>
 
 function copySelectedBlock(): void
 {
-    blocksToCopy.length = 0;
+    blocksToCopy = "";
+    let blocksToCopyList: Block[] = [];
 
     blocksList.forEach((block: Block) => {
-        if(block.isSelected() && !(block instanceof StartBlock)) blocksToCopy.push(block);
+        if(block.isSelected() && !(block instanceof StartBlock))
+        {     
+            blocksToCopyList.push(block);
+        }
     });
+
+    blocksToCopyList = convertConnectToToMap(blocksToCopyList);
+    blocksToCopy = blocksToJSON(blocksToCopyList);
 }

@@ -9,13 +9,22 @@ function pasteBlocks()
 {
     unselectAllBlocks();
 
-    blocksToCopy.forEach((block: Block) => 
+    let len = blocksList.length - JSON.parse(blocksToCopy).length;
+    JSONtoBlocks(blocksToCopy);
+
+    for(let i=blocksList.length-1; i>len; i--)
     {
-        let blockToPaste: Block = Object.assign(Object.create(Object.getPrototypeOf(block)), block);
-        blockToPaste.id = blocksList.length;
-        blockToPaste.y -= 50;
-        blockToPaste.connectTo = [];
-        blockToPaste.init();
-        blockToPaste.setSelected();
+        blocksList[i].id = i;
+        blocksList[i].connectTo = [];
+    }
+
+    blocksList.forEach((block: Block) => {
+        if(block != undefined)
+            block.update();
     });
+
+    for(let i=blocksList.length-1; i>len; i--)
+    {
+        blocksList[i].move(blocksList[i].x, blocksList[i].y - 60);
+    }
 }

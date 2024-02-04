@@ -38,13 +38,13 @@ function showDeletePossibilities(e) {
         return;
     }
     for (let i = 0; i < _lines.length; i++) {
-        if ((e.clientX - workspaceMove.translateX >= blocksList[_lines[i].left_node].x + 20 && e.clientX - workspaceMove.translateX <= blocksList[_lines[i].right_node].x + 80 &&
+        if ((e.clientX - workspaceMove.translateX >= blocksList[_lines[i].left_node].x + 40 && e.clientX - workspaceMove.translateX <= blocksList[_lines[i].right_node].x + 150 &&
             e.clientY - workspaceMove.translateY >= blocksList[_lines[i].left_node].y + 20 && e.clientY - workspaceMove.translateY <= blocksList[_lines[i].right_node].y + 50) ||
-            (e.clientX - workspaceMove.translateX >= blocksList[_lines[i].right_node].x + 20 && e.clientX - workspaceMove.translateX <= blocksList[_lines[i].left_node].x + 80 &&
+            (e.clientX - workspaceMove.translateX >= blocksList[_lines[i].right_node].x + 40 && e.clientX - workspaceMove.translateX <= blocksList[_lines[i].left_node].x + 150 &&
                 e.clientY - workspaceMove.translateY >= blocksList[_lines[i].right_node].y + 20 && e.clientY - workspaceMove.translateY <= blocksList[_lines[i].left_node].y + 50) ||
-            (e.clientX - workspaceMove.translateX >= blocksList[_lines[i].left_node].x + 20 && e.clientX - workspaceMove.translateX <= blocksList[_lines[i].right_node].x + 80 &&
+            (e.clientX - workspaceMove.translateX >= blocksList[_lines[i].left_node].x + 40 && e.clientX - workspaceMove.translateX <= blocksList[_lines[i].right_node].x + 150 &&
                 e.clientY - workspaceMove.translateY >= blocksList[_lines[i].right_node].y + 20 && e.clientY - workspaceMove.translateY <= blocksList[_lines[i].left_node].y + 50) ||
-            (e.clientX - workspaceMove.translateX >= blocksList[_lines[i].right_node].x + 20 && e.clientX - workspaceMove.translateX <= blocksList[_lines[i].left_node].x + 80 &&
+            (e.clientX - workspaceMove.translateX >= blocksList[_lines[i].right_node].x + 40 && e.clientX - workspaceMove.translateX <= blocksList[_lines[i].left_node].x + 150 &&
                 e.clientY - workspaceMove.translateY >= blocksList[_lines[i].left_node].y + 20 && e.clientY - workspaceMove.translateY <= blocksList[_lines[i].right_node].y + 50)) {
             _lines[i].col = "red";
             lineHoverID = i;

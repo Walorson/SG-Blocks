@@ -1,12 +1,6 @@
 function exportBlocks() {
-    let blocks = convertConnectToToMap();
-    let json = JSON.stringify(blocks, (key, value) => 
-    {
-        if (value instanceof Block) {
-          return { __type: value.constructor.name, ...value };
-        }
-        return value;
-    });
+    let blocks = convertConnectToToMap(blocksList);
+    let json = blocksToJSON(blocks);
     
     let file = new Blob([json], {type: 'application/json'});
     let a = document.createElement('a');
@@ -35,39 +29,9 @@ function importBlocks() {
 
                 deleteAllBlocks();
 
-                JSON.parse(json, (key, value) => {
-                    if (value && value.__type === 'StartBlock') {
-                        return Object.assign(new StartBlock(value.x, value.y), value);
-                      }
-                    if (value && value.__type === 'InputBlock') {
-                      return Object.assign(new InputBlock(value.x, value.y, value.variableName, value.message), value);
-                    }
-                    if (value && value.__type === 'OutputBlock') {
-                      return Object.assign(new OutputBlock(value.x, value.y, value.message, value.isVariable), value);
-                    }
-                    if (value && value.__type === 'ConditionBlock') {
-                      return Object.assign(new ConditionBlock(value.x, value.y), value);
-                    }
-                    if (value && value.__type === 'OperationBlock') {
-                        return Object.assign(new OperationBlock(value.x, value.y), value);
-                    }
-                    if (value && value.__type === 'EmptyBlock') {
-                        return Object.assign(new EmptyBlock(value.x, value.y), value);
-                      }
-                    if (value && value.__type === 'EndBlock') {
-                        return Object.assign(new EndBlock(value.x, value.y), value);
-                    }
-                    if (value && value.__type === 'TextBlock') {
-                        return Object.assign(new TextBlock(value.x, value.y), value);
-                    }
-                    if(value == null) {
-                        blocksList.push(null);
-                        delete blocksList[blocksList.length-1];
-                    }
-                    return value;
-                  });
+                  JSONtoBlocks(json);
 
-                  convertMapToConnectTo();
+                  convertMapToConnectTo(blocksList);
 
                   blocksList.forEach((block: Block) => {
                     if(block != undefined)
@@ -89,6 +53,51 @@ function importBlocks() {
         fileReader.readAsText(file, "utf-8");
     }
     input.click();
+}
+
+function blocksToJSON(blocks: Block[])
+{
+  return JSON.stringify(blocks, (key, value) => 
+    {
+        if (value instanceof Block) {
+          return { __type: value.constructor.name, ...value };
+        }
+        return value;
+    });
+}
+
+function JSONtoBlocks(json: string) {
+    JSON.parse(json, (key, value) => {
+      if (value && value.__type === 'StartBlock') {
+        return Object.assign(new StartBlock(value.x, value.y), value);
+      }
+      if (value && value.__type === 'InputBlock') {
+        return Object.assign(new InputBlock(value.x, value.y, value.variableName, value.message), value);
+      }
+      if (value && value.__type === 'OutputBlock') {
+        return Object.assign(new OutputBlock(value.x, value.y, value.message, value.isVariable), value);
+      }
+      if (value && value.__type === 'ConditionBlock') {
+        return Object.assign(new ConditionBlock(value.x, value.y), value);
+      }
+      if (value && value.__type === 'OperationBlock') {
+          return Object.assign(new OperationBlock(value.x, value.y), value);
+      }
+      if (value && value.__type === 'EmptyBlock') {
+          return Object.assign(new EmptyBlock(value.x, value.y), value);
+        }
+      if (value && value.__type === 'EndBlock') {
+          return Object.assign(new EndBlock(value.x, value.y), value);
+      }
+      if (value && value.__type === 'TextBlock') {
+          return Object.assign(new TextBlock(value.x, value.y), value);
+      }
+      if(value == null) {
+          blocksList.push(null);
+          delete blocksList[blocksList.length-1];
+      }
+      return value;
+    });
 }
 
 window.addEventListener("keydown", (e: KeyboardEvent) => {

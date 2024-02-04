@@ -13,6 +13,9 @@ function connectBegin(e: MouseEvent): void
     {
         block = block.parentElement;
 
+        if(block.tagName == 'I')
+            block = block.parentElement;
+
         if(block.tagName == 'P')
             block = block.parentElement;
 
@@ -57,6 +60,9 @@ function connectEnd(e: MouseEvent)
     if(block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P' || block.tagName == 'SPAN')
     {
         block = block.parentElement;
+
+        if(block.tagName == 'I')
+            block = block.parentElement;
 
         if(block.tagName == 'P')
             block = block.parentElement;
