@@ -88,6 +88,8 @@ class Block {
                 let elementClicked = e.target;
                 if (elementClicked.tagName == 'B')
                     elementClicked = elementClicked.parentElement;
+                if(elementClicked.tagName == 'I')
+                    elementClicked = elementClicked.parentElement;
                 if (elementClicked.tagName == 'SPAN')
                     elementClicked = elementClicked.parentElement;
                 if (this.isSelected() && elementClicked.classList.contains("selected")) {
