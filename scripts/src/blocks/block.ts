@@ -124,6 +124,9 @@ abstract class Block {
                 if(elementClicked.tagName == 'B')
                     elementClicked = elementClicked.parentElement;
 
+                if(elementClicked.tagName == 'I')
+                    elementClicked = elementClicked.parentElement;
+
                 if(elementClicked.tagName == 'SPAN')
                     elementClicked = elementClicked.parentElement;
                 
@@ -272,5 +275,23 @@ abstract class Block {
     isSelected(): boolean {
         if(this.div.classList.contains("selected")) return true;
         else return false;
+    }
+    getCenter(): object {
+        return {
+            x: this.x + this.div.clientWidth/2,
+            y: this.y + this.div.clientHeight/2
+        }   
+    }
+    angleBetween(block: Block) {
+        const center1: any = this.getCenter();
+        const center2: any = block.getCenter();
+
+        const angleRad = Math.atan2(center2.y - center1.y, center2.x - center1.x);
+        let angleDegree = (180 * angleRad) / Math.PI;
+
+        if(angleDegree < 0)
+            angleDegree += 360;
+
+        return angleDegree;
     }
 }
