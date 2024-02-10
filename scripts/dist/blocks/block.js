@@ -23,6 +23,7 @@ class Block {
             block.update();
         });
         this.move(this.x, this.y);
+        this.updateDiv();
     }
     update() {
         this.getID();
@@ -30,9 +31,8 @@ class Block {
         this.selectEvent();
         this.properties();
         this.delete();
-        this.updateDiv();
     }
-    updateDiv() { }
+    updateDiv() { this.addConnectPoints(); }
     createBlock() {
         workspace.innerHTML += `<div class="block" id="${this.id}"></div>`;
     }
@@ -99,6 +99,7 @@ class Block {
         });
         window.addEventListener("mousemove", (e) => {
             mouseMove(e);
+            this.changeConnectPoint();
         });
         window.addEventListener("mouseup", (e) => {
             mouseUp(e);
@@ -192,6 +193,38 @@ class Block {
         this.div.style.top = y + "px";
         this.div.style.left = x + "px";
     }
+    addConnectPoints() {
+        this.div.innerHTML +=
+            `<div class="connectPoint" id="n${this.id}"></div>
+        <div class="connectPoint" id="e${this.id}"></div>
+        <div class="connectPoint" id="s${this.id}"></div>
+        <div class="connectPoint" id="w${this.id}"></div>`;
+    }
+    changeConnectPoint() {
+        if (this.connectTo.length <= 0)
+            return;
+        let angle = this.angleBetween(this.connectTo[0]);
+        let direction = _lines[0].right_node[0];
+        const directionBeforeChange = direction;
+        if (angle > 20 && angle < 160) {
+            direction = 'n';
+        }
+        else if (angle >= 160 && angle <= 200) {
+            direction = 'e';
+        }
+        else if (angle > 200 && angle < 340) {
+            direction = 's';
+        }
+        else {
+            direction = 'w';
+        }
+        if (direction == directionBeforeChange)
+            return;
+        else {
+            console.log("zmiana boża");
+            _lines[0].right_node = direction + this.connectTo[0].id;
+        }
+    }
     setActive() {
         this.div.classList.add("active");
     }
@@ -224,5 +257,7 @@ class Block {
         if (angleDegree < 0)
             angleDegree += 360;
         return angleDegree;
+    }
+    getLines() {
     }
 }
