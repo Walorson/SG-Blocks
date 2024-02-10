@@ -88,6 +88,7 @@ class ConditionBlock extends Block {
             ;
         }
         this.resize();
+        super.updateDiv();
     }
     resize() {
         this.div.style.width = (this.div.textContent.length * 14) + "px";

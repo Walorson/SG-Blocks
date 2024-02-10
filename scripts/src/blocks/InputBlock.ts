@@ -36,6 +36,12 @@ class InputBlock extends Block {
         </div>`;
     }
 
+    updateDiv(): void {
+        this.div.innerHTML = `<span>Input: <b>${this.variableName}</b></span>`;
+
+        super.updateDiv();
+    }
+
     properties(): void {
     
         this.div.addEventListener("mousedown", () => {
@@ -48,8 +54,7 @@ class InputBlock extends Block {
             
             property[0].oninput = () => {
                 this.variableName = property[0].value;
-                this.div.innerHTML = `<span>Input: <b>${this.variableName}</b></span>`;
-
+                this.updateDiv();
             }
 
             property[1].oninput = () => {

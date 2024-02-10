@@ -34,6 +34,8 @@ class OperationBlock extends Block {
         {
             this.div.innerHTML = `Operation: <i>${this.value[0]}${this.operator}${this.value[1]}</i>`;
         }
+
+        super.updateDiv();
     }
 
     execute(): void {

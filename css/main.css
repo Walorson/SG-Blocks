@@ -42,3 +42,16 @@ body {
     letter-spacing: 1px;
     font-size: 2em;
 }
+.connectPoint {
+    position: absolute;
+    top: 0; left: 50%;
+}
+.connectPoint:nth-of-type(2) {
+    top: 50%; left: 100%;
+}
+.connectPoint:nth-of-type(3) {
+    top: 100%; left: 50%;
+}
+.connectPoint:nth-of-type(4) {
+    top: 50%; left: 0;
+}

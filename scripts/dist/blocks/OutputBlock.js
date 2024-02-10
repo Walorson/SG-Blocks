@@ -34,6 +34,7 @@ class OutputBlock extends Block {
         else {
             this.div.innerHTML = "<span>Print: " + messageShort + "</span>";
         }
+        super.updateDiv();
     }
     properties() {
         this.div.addEventListener("mousedown", () => {

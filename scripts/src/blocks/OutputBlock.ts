@@ -49,6 +49,8 @@ class OutputBlock extends Block {
         {
             this.div.innerHTML = "<span>Print: "+messageShort+"</span>";
         }
+
+        super.updateDiv();
     }
 
     properties(): void {

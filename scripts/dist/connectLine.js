@@ -81,7 +81,7 @@ function connectEnd(e) {
     }
     connectStart = false;
 }
-function connectLine(start, end, type = "normal", noPush = false) {
+function connectLine(start, end, type = "normal", noPush = false, point = "n") {
     if (start instanceof ConditionBlock) {
         if (type == "true") {
             lineController.drawLine({
@@ -121,7 +121,7 @@ function connectLine(start, end, type = "normal", noPush = false) {
     else {
         lineController.drawLine({
             left_node: start.id,
-            right_node: end.id,
+            right_node: point + end.id,
             col: "black",
             colOriginal: "black",
             width: 2,

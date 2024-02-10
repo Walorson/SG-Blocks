@@ -112,7 +112,7 @@ function connectEnd(e: MouseEvent)
     connectStart = false;
 }
 
-function connectLine(start: Block, end: Block, type: string = "normal", noPush: boolean = false): void
+function connectLine(start: Block, end: Block, type: string = "normal", noPush: boolean = false, point: string = "n"): void
 {
     if(start instanceof ConditionBlock)
     {   
@@ -163,7 +163,7 @@ function connectLine(start: Block, end: Block, type: string = "normal", noPush: 
         lineController.drawLine({
 
             left_node: start.id,
-            right_node: end.id,
+            right_node: point+end.id,
             col : "black",
             colOriginal: "black",
             width:2,

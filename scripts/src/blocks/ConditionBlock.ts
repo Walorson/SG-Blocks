@@ -104,6 +104,7 @@ class ConditionBlock extends Block {
         }
 
         this.resize();
+        super.updateDiv();
     }
 
     resize(): void {

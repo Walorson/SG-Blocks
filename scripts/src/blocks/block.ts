@@ -26,7 +26,7 @@ abstract class Block {
     init(): void 
     {
         this.createBlock();
-        
+
         blocksList.push(this);
         blocksList.forEach((block: Block) => 
         {
@@ -34,6 +34,7 @@ abstract class Block {
         });
 
         this.move(this.x, this.y);
+        this.updateDiv();
     }
 
     update(): void 
@@ -43,10 +44,9 @@ abstract class Block {
         this.selectEvent();
         this.properties();
         this.delete();
-        this.updateDiv();
     }
 
-    updateDiv(): void {}
+    updateDiv(): void { this.addConnectPoints(); }
 
     createBlock(): void {
         workspace.innerHTML += `<div class="block" id="${this.id}"></div>`;
@@ -139,6 +139,7 @@ abstract class Block {
 
         window.addEventListener("mousemove", (e: MouseEvent) => {
             mouseMove(e);
+            this.changeConnectPoint();
         });
 
         window.addEventListener("mouseup", (e: MouseEvent) => {
@@ -260,6 +261,46 @@ abstract class Block {
         this.div.style.left = x+"px";
     }
 
+    addConnectPoints(): void {
+        this.div.innerHTML += 
+        `<div class="connectPoint" id="n${this.id}"></div>
+        <div class="connectPoint" id="e${this.id}"></div>
+        <div class="connectPoint" id="s${this.id}"></div>
+        <div class="connectPoint" id="w${this.id}"></div>`;
+    }
+
+    changeConnectPoint() {
+        if(this.connectTo.length <= 0) return;
+
+        let angle = this.angleBetween(this.connectTo[0]);
+        let direction = _lines[0].right_node[0];
+        const directionBeforeChange = direction;
+
+        if(angle > 20 && angle < 160) 
+        {
+            direction = 'n';
+        }
+        else if(angle >= 160 && angle <= 200)
+        {
+            direction = 'e';
+        }
+        else if(angle > 200 && angle < 340)
+        {
+            direction = 's';
+        }
+        else
+        {
+            direction = 'w';
+        }
+
+        if(direction == directionBeforeChange) return;
+        else 
+        {
+            console.log("zmiana boża")
+            _lines[0].right_node = direction+this.connectTo[0].id;
+        }
+    }
+
     setActive(): void {
         this.div.classList.add("active");
     }
@@ -282,7 +323,7 @@ abstract class Block {
             y: this.y + this.div.clientHeight/2
         }   
     }
-    angleBetween(block: Block) {
+    angleBetween(block: Block): number {
         const center1: any = this.getCenter();
         const center2: any = block.getCenter();
 
@@ -293,5 +334,9 @@ abstract class Block {
             angleDegree += 360;
 
         return angleDegree;
+    }
+
+    getLines(): void {
+
     }
 }
