@@ -162,8 +162,8 @@ function connectLine(start: Block, end: Block, type: string = "normal", noPush: 
     else {
         lineController.drawLine({
 
-            left_node: start.id,
-            right_node: point+end.id,
+            left_node: start.id+point,
+            right_node: end.id+point,
             col : "black",
             colOriginal: "black",
             width:2,

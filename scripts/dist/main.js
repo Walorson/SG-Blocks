@@ -27,3 +27,12 @@ function fakeCursorToRealCursor(e) {
     cursor.style.top = e.clientY + "px";
     cursor.style.left = e.clientX + "px";
 }
+function reverseDirection(direction) {
+    switch (direction) {
+        case "n": return "s";
+        case "s": return "n";
+        case "e": return "w";
+        case "w": return "e";
+        default: return undefined;
+    }
+}

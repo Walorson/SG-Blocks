@@ -31,9 +31,19 @@ function createSelectVariables(id: string = "property0", exclude: any = undefine
     return select;
 }
 
-function fakeCursorToRealCursor(e: MouseEvent)
+function fakeCursorToRealCursor(e: MouseEvent): void
 {
     const cursor: HTMLElement = document.getElementById("cursor");
     cursor.style.top = e.clientY+"px";
     cursor.style.left = e.clientX+"px";
+}
+
+function reverseDirection(direction: string): string {
+    switch(direction) {
+        case "n": return "s";
+        case "s": return "n";
+        case "e": return "w";
+        case "w": return "e";
+        default: return undefined;
+    }
 }

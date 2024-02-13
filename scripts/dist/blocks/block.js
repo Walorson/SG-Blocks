@@ -88,10 +88,8 @@ class Block {
                 let elementClicked = e.target;
                 if (elementClicked.tagName == 'B')
                     elementClicked = elementClicked.parentElement;
-
                 if (elementClicked.tagName == 'I')
                     elementClicked = elementClicked.parentElement;
-                    
                 if (elementClicked.tagName == 'SPAN')
                     elementClicked = elementClicked.parentElement;
                 if (this.isSelected() && elementClicked.classList.contains("selected")) {
@@ -197,34 +195,38 @@ class Block {
     }
     addConnectPoints() {
         this.div.innerHTML +=
-            `<div class="connectPoint" id="n${this.id}"></div>
-        <div class="connectPoint" id="e${this.id}"></div>
-        <div class="connectPoint" id="s${this.id}"></div>
-        <div class="connectPoint" id="w${this.id}"></div>`;
+            `<div class="connectPoint" id="${this.id}n"></div>
+        <div class="connectPoint" id="${this.id}e"></div>
+        <div class="connectPoint" id="${this.id}s"></div>
+        <div class="connectPoint" id="${this.id}w"></div>`;
     }
     changeConnectPoint() {
         if (this.connectTo.length <= 0)
             return;
-        let angle = this.angleBetween(this.connectTo[0]);
-        let direction = _lines[0].right_node[0];
-        const directionBeforeChange = direction;
-        if (angle > 20 && angle < 160) {
-            direction = 'n';
-        }
-        else if (angle >= 160 && angle <= 200) {
-            direction = 'e';
-        }
-        else if (angle > 200 && angle < 340) {
-            direction = 's';
-        }
-        else {
-            direction = 'w';
-        }
-        if (direction == directionBeforeChange)
-            return;
-        else {
-            console.log("zmiana boża");
-            _lines[0].right_node = direction + this.connectTo[0].id;
+        const lines = this.getLines();
+        for (let i = 0; i < lines.length; i++) {
+            let angle = this.angleBetween(this.connectTo[i]);
+            let direction = lines[i].right_node[1];
+            const directionBeforeChange = direction;
+            if (angle > 20 && angle < 160) {
+                direction = 'n';
+            }
+            else if (angle >= 160 && angle <= 200) {
+                direction = 'e';
+            }
+            else if (angle > 200 && angle < 340) {
+                direction = 's';
+            }
+            else {
+                direction = 'w';
+            }
+            if (direction == directionBeforeChange)
+                continue;
+            else {
+                console.log("zmiana boża");
+                lines[i].right_node = this.connectTo[i].id + direction;
+                lines[i].left_node = this.id + reverseDirection(direction);
+            }
         }
     }
     setActive() {
@@ -261,5 +263,12 @@ class Block {
         return angleDegree;
     }
     getLines() {
+        const lines = [];
+        _lines.forEach((line) => {
+            if (line.left_node[0] == this.id) {
+                lines.push(line);
+            }
+        });
+        return lines;
     }
 }
