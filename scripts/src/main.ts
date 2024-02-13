@@ -47,3 +47,27 @@ function reverseDirection(direction: string): string {
         default: return undefined;
     }
 }
+
+function newDirection(angle: number): string
+{
+    let direction: string;
+
+    if(angle > 20 && angle < 160) 
+    {
+        direction = 'n';
+    }
+    else if(angle >= 160 && angle <= 200)
+    {
+        direction = 'e';
+    }
+    else if(angle > 200 && angle < 340)
+    {
+        direction = 's';
+    }
+    else
+    {
+        direction = 'w';
+    }
+
+    return direction;
+}

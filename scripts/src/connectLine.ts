@@ -119,8 +119,10 @@ function connectLine(start: Block, end: Block, type: string = "normal", noPush: 
             if(type == "true") {
                 lineController.drawLine({
 
-                    left_node: start.id,
-                    right_node: end.id,
+                    left_node: start.id+point,
+                    right_node: end.id+point,
+                    left_node_id: start.id,
+                    right_node_id: end.id,
                     col : "green",
                     colOriginal: "green",
                     width:3,
@@ -133,8 +135,10 @@ function connectLine(start: Block, end: Block, type: string = "normal", noPush: 
             else if(type == "false") {
                 lineController.drawLine({
 
-                    left_node: start.id,
-                    right_node: end.id,
+                    left_node: start.id+point,
+                    right_node: end.id+point,
+                    left_node_id: start.id,
+                    right_node_id: end.id,
                     col : "orange",
                     colOriginal: "orange",
                     width:3,
@@ -147,8 +151,10 @@ function connectLine(start: Block, end: Block, type: string = "normal", noPush: 
             else {
                 lineController.drawLine({
 
-                    left_node: start.id,
-                    right_node: end.id,
+                    left_node: start.id+point,
+                    right_node: end.id+point,
+                    left_node_id: start.id,
+                    right_node_id: end.id,
                     col : "black",
                     colOriginal: "black",
                     width:2,
@@ -164,6 +170,8 @@ function connectLine(start: Block, end: Block, type: string = "normal", noPush: 
 
             left_node: start.id+point,
             right_node: end.id+point,
+            left_node_id: start.id,
+            right_node_id: end.id,
             col : "black",
             colOriginal: "black",
             width:2,
@@ -173,4 +181,6 @@ function connectLine(start: Block, end: Block, type: string = "normal", noPush: 
 
         if(noPush == false) start.connectTo.push(end);
     }
+
+    start.updateConnectPoint(true);
 }

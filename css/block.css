@@ -7,17 +7,18 @@
     border: 2px solid black;
     font-size: 22px;
     user-select: none;
+    white-space: nowrap;
     text-rendering: optimizeLegibility;
     cursor: grab;
 }
 .start, .end {
     border-radius: 50%;
 }
+
 .output {
     font-style: italic;
     font-size: 1.2rem;
     padding: 12px 20px;
-    white-space: nowrap;
 }
 .input {
     background-color: rgb(255, 185, 54);
@@ -29,6 +30,13 @@
     display: block;
     transform: skewX(15deg) scale(1);
 }
+.input .connectPoint:nth-of-type(1), .output .input .connectPoint:nth-of-type(1) {
+    top: 0%; left: 49%;
+}
+.input .connectPoint:nth-of-type(3), .output .input .connectPoint:nth-of-type(3) {
+    top: 100%; left: 51%;
+}
+
 .condition {
     --g:var(--c,rgb(255, 121, 26)) calc(49.5% - 2.5px),#000 calc(49.5% - 1.5px),#000 49.5%, transparent 50%;
     background:
@@ -51,6 +59,18 @@
     display: block;
     text-align: center;
     width: 100%;
+}
+.condition .connectPoint:nth-of-type(1) {
+    top: 1%; left: 50%;
+}
+.condition .connectPoint:nth-of-type(2) {
+    top: 50%; left: 99%;
+}
+.condition .connectPoint:nth-of-type(3) {
+    top: 99%; left: 50%;
+}
+.condition .connectPoint:nth-of-type(4) {
+    top: 50%; left: 1%;
 }
 .active.condition {
     background-color: rgba(5,138,14,0.40);

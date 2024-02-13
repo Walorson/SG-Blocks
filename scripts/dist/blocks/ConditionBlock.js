@@ -175,4 +175,40 @@ class ConditionBlock extends Block {
             super.properties();
         });
     }
+    updateConnectPoint(force = false) {
+        if (this.connectTo.length <= 0 && this.connectToTRUE == undefined && this.connectToFALSE == undefined)
+            return;
+        const lines = this.getLines();
+        let j = 0;
+        for (let i = 0; i < lines.length; i++) {
+            let angle;
+            if (lines[i].colOriginal == 'green') {
+                angle = this.angleBetween(this.connectToTRUE);
+            }
+            else if (lines[i].colOriginal == 'orange') {
+                angle = this.angleBetween(this.connectToFALSE);
+            }
+            else {
+                angle = this.angleBetween(this.connectTo[j]);
+            }
+            let direction = lines[i].right_node[lines[i].right_node.length - 1];
+            const directionBeforeChange = direction;
+            direction = newDirection(angle);
+            if (direction == directionBeforeChange && force == false)
+                continue;
+            else {
+                if (lines[i].colOriginal == 'green') {
+                    lines[i].right_node = this.connectToTRUE.id + direction;
+                }
+                else if (lines[i].colOriginal == 'orange') {
+                    lines[i].right_node = this.connectToFALSE.id + direction;
+                }
+                else {
+                    lines[i].right_node = this.connectTo[j].id + direction;
+                    j++;
+                }
+                lines[i].left_node = this.id + reverseDirection(direction);
+            }
+        }
+    }
 }

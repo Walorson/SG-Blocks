@@ -17,5 +17,6 @@ function pasteBlocks() {
     });
     for (let i = blocksList.length - 1; i > len; i--) {
         blocksList[i].move(blocksList[i].x, blocksList[i].y - 60);
+        blocksList[i].setSelected();
     }
 }

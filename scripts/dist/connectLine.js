@@ -85,8 +85,10 @@ function connectLine(start, end, type = "normal", noPush = false, point = "n") {
     if (start instanceof ConditionBlock) {
         if (type == "true") {
             lineController.drawLine({
-                left_node: start.id,
-                right_node: end.id,
+                left_node: start.id + point,
+                right_node: end.id + point,
+                left_node_id: start.id,
+                right_node_id: end.id,
                 col: "green",
                 colOriginal: "green",
                 width: 3,
@@ -96,8 +98,10 @@ function connectLine(start, end, type = "normal", noPush = false, point = "n") {
         }
         else if (type == "false") {
             lineController.drawLine({
-                left_node: start.id,
-                right_node: end.id,
+                left_node: start.id + point,
+                right_node: end.id + point,
+                left_node_id: start.id,
+                right_node_id: end.id,
                 col: "orange",
                 colOriginal: "orange",
                 width: 3,
@@ -107,8 +111,10 @@ function connectLine(start, end, type = "normal", noPush = false, point = "n") {
         }
         else {
             lineController.drawLine({
-                left_node: start.id,
-                right_node: end.id,
+                left_node: start.id + point,
+                right_node: end.id + point,
+                left_node_id: start.id,
+                right_node_id: end.id,
                 col: "black",
                 colOriginal: "black",
                 width: 2,
@@ -122,6 +128,8 @@ function connectLine(start, end, type = "normal", noPush = false, point = "n") {
         lineController.drawLine({
             left_node: start.id + point,
             right_node: end.id + point,
+            left_node_id: start.id,
+            right_node_id: end.id,
             col: "black",
             colOriginal: "black",
             width: 2,
@@ -130,4 +138,5 @@ function connectLine(start, end, type = "normal", noPush = false, point = "n") {
         if (noPush == false)
             start.connectTo.push(end);
     }
+    start.updateConnectPoint(true);
 }
