@@ -99,7 +99,6 @@ class Block {
         });
         window.addEventListener("mousemove", (e) => {
             mouseMove(e);
-            this.changeConnectPoint();
         });
         window.addEventListener("mouseup", (e) => {
             mouseUp(e);
@@ -131,6 +130,11 @@ class Block {
                 this.y = y;
                 this.div.style.top = y + "px";
                 this.div.style.left = x + "px";
+                blocksList.forEach((block) => {
+                    if (block != undefined) {
+                        block.updateConnectPoint();
+                    }
+                });
             }
         };
         const mouseUp = (e) => {
@@ -170,7 +174,7 @@ class Block {
             saveBlockState();
         let linesRemoved = 0;
         for (let j = 0; j < _lines.length; j++) {
-            if (_lines[j].left_node == this.id || _lines[j].right_node == this.id) {
+            if (_lines[j].left_node_id == this.id || _lines[j].right_node_id == this.id) {
                 removeLine(j, dontSaveBlockState);
                 linesRemoved++;
                 j = -1;
@@ -200,30 +204,18 @@ class Block {
         <div class="connectPoint" id="${this.id}s"></div>
         <div class="connectPoint" id="${this.id}w"></div>`;
     }
-    changeConnectPoint() {
+    updateConnectPoint(force = false) {
         if (this.connectTo.length <= 0)
             return;
         const lines = this.getLines();
         for (let i = 0; i < lines.length; i++) {
             let angle = this.angleBetween(this.connectTo[i]);
-            let direction = lines[i].right_node[1];
+            let direction = lines[i].right_node[lines[i].right_node.length - 1];
             const directionBeforeChange = direction;
-            if (angle > 20 && angle < 160) {
-                direction = 'n';
-            }
-            else if (angle >= 160 && angle <= 200) {
-                direction = 'e';
-            }
-            else if (angle > 200 && angle < 340) {
-                direction = 's';
-            }
-            else {
-                direction = 'w';
-            }
-            if (direction == directionBeforeChange)
+            direction = newDirection(angle);
+            if (direction == directionBeforeChange && force == false)
                 continue;
             else {
-                console.log("zmiana boża");
                 lines[i].right_node = this.connectTo[i].id + direction;
                 lines[i].left_node = this.id + reverseDirection(direction);
             }
@@ -265,7 +257,7 @@ class Block {
     getLines() {
         const lines = [];
         _lines.forEach((line) => {
-            if (line.left_node[0] == this.id) {
+            if (line.left_node_id == this.id) {
                 lines.push(line);
             }
         });

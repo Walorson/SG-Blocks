@@ -35,7 +35,10 @@ function importBlocks() {
 
                   blocksList.forEach((block: Block) => {
                     if(block != undefined)
-                      block.update();
+                    {
+                        block.update();
+                        block.updateDiv();
+                    }
                   });
 
                   lastBlocksList = [];

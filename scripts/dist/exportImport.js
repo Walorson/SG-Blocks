@@ -25,8 +25,10 @@ function importBlocks() {
                 JSONtoBlocks(json);
                 convertMapToConnectTo(blocksList);
                 blocksList.forEach((block) => {
-                    if (block != undefined)
+                    if (block != undefined) {
                         block.update();
+                        block.updateDiv();
+                    }
                 });
                 lastBlocksList = [];
                 restoredBlocksList = [];
