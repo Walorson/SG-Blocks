@@ -263,41 +263,47 @@ abstract class Block {
 
     addConnectPoints(): void {
         this.div.innerHTML += 
-        `<div class="connectPoint" id="n${this.id}"></div>
-        <div class="connectPoint" id="e${this.id}"></div>
-        <div class="connectPoint" id="s${this.id}"></div>
-        <div class="connectPoint" id="w${this.id}"></div>`;
+        `<div class="connectPoint" id="${this.id}n"></div>
+        <div class="connectPoint" id="${this.id}e"></div>
+        <div class="connectPoint" id="${this.id}s"></div>
+        <div class="connectPoint" id="${this.id}w"></div>`;
     }
 
     changeConnectPoint() {
         if(this.connectTo.length <= 0) return;
 
-        let angle = this.angleBetween(this.connectTo[0]);
-        let direction = _lines[0].right_node[0];
-        const directionBeforeChange = direction;
+        const lines: any = this.getLines();
 
-        if(angle > 20 && angle < 160) 
+        for(let i=0; i<lines.length; i++)
         {
-            direction = 'n';
-        }
-        else if(angle >= 160 && angle <= 200)
-        {
-            direction = 'e';
-        }
-        else if(angle > 200 && angle < 340)
-        {
-            direction = 's';
-        }
-        else
-        {
-            direction = 'w';
-        }
+            let angle = this.angleBetween(this.connectTo[i]);
+            let direction = lines[i].right_node[1];
+            const directionBeforeChange = direction;
 
-        if(direction == directionBeforeChange) return;
-        else 
-        {
-            console.log("zmiana boża")
-            _lines[0].right_node = direction+this.connectTo[0].id;
+            if(angle > 20 && angle < 160) 
+            {
+                direction = 'n';
+            }
+            else if(angle >= 160 && angle <= 200)
+            {
+                direction = 'e';
+            }
+            else if(angle > 200 && angle < 340)
+            {
+                direction = 's';
+            }
+            else
+            {
+                direction = 'w';
+            }
+
+            if(direction == directionBeforeChange) continue;
+            else 
+            {
+                console.log("zmiana boża");
+                lines[i].right_node = this.connectTo[i].id + direction;
+                lines[i].left_node = this.id + reverseDirection(direction);
+            }
         }
     }
 
@@ -336,7 +342,15 @@ abstract class Block {
         return angleDegree;
     }
 
-    getLines(): void {
+    getLines(): object[] {
+        const lines = [];
 
+        _lines.forEach((line: any) => {
+            if(line.left_node[0] == this.id) {
+                lines.push(line);
+            }
+        });
+
+        return lines;
     }
 }
