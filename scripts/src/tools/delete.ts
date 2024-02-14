@@ -99,7 +99,7 @@ function deleteSelectedBlocks(): void
 
     blocksList.forEach((block: Block) => {
         if(block.isSelected()) {
-            block.deleteBlock(false, true);
+            block.deleteBlock(false, true, true);
         }
     });
 
