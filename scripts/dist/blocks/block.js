@@ -71,9 +71,6 @@ class Block {
         let isdrag = false;
         let grabPointX;
         let grabPointY;
-        this.div.addEventListener("mousedown", (e) => {
-            mouseDown(e);
-        });
         this.div.onmousedown = (e) => {
             if (e.button == 0)
                 saveBlockState();

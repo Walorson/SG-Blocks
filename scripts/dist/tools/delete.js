@@ -73,7 +73,7 @@ function deleteSelectedBlocks() {
     saveBlockState();
     blocksList.forEach((block) => {
         if (block.isSelected()) {
-            block.deleteBlock(false, true);
+            block.deleteBlock(false, true, true);
         }
     });
     deleteLineMode = false;

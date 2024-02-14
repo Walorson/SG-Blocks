@@ -40,6 +40,8 @@
 #properties {
     font-size: 12pt;
     padding: 5px;
+    overflow-y: auto;
+    margin-bottom: 115px;
 }
 #controls {
     position: absolute;
@@ -192,4 +194,17 @@ label {
     position: absolute;
     display: flex;
     right: 5px;
+}
+
+::-webkit-scrollbar {
+    width: 7px; 
+}
+::-webkit-scrollbar-track {
+    background: #eee;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #777;
 }

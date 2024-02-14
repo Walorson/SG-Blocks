@@ -102,10 +102,6 @@ abstract class Block {
         let grabPointX: number;
         let grabPointY: number;
 
-        this.div.addEventListener("mousedown", (e: MouseEvent) => {
-            mouseDown(e);
-        });
-
         this.div.onmousedown = (e: MouseEvent) => {
             if(e.button == 0)
                 saveBlockState(); 
