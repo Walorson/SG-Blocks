@@ -8,7 +8,7 @@ new EndBlock(700, 650);
 function globalVariablesUpdate() {
     globalVariables.clear();
     for (let i = 0; i < blocksList.length; i++) {
-        if (blocksList[i] instanceof InputBlock || blocksList[i] instanceof OperationBlock) {
+        if (blocksList[i] instanceof InputBlock || blocksList[i] instanceof OperationBlock || blocksList[i] instanceof RandomBlock) {
             globalVariables.set(blocksList[i].variableName, null);
         }
     }
