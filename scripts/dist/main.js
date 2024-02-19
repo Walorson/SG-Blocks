@@ -5,6 +5,7 @@ let isInputFocus = false;
 new StartBlock(700, 100);
 new OutputBlock(650, 400, "Hello!");
 new EndBlock(700, 650);
+changeBlocksCategory("basic");
 function globalVariablesUpdate() {
     globalVariables.clear();
     for (let i = 0; i < blocksList.length; i++) {
