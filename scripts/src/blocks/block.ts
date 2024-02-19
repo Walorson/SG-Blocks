@@ -154,8 +154,6 @@ abstract class Block {
             isdrag = true;
             grabPointY = this.div.getBoundingClientRect().top - e.clientY;
             grabPointX = this.div.getBoundingClientRect().left - e.clientX;
-
-            globalVariablesUpdate();
         }
 
         const mouseMove = (e: MouseEvent): void =>

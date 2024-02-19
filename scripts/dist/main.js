@@ -11,10 +11,18 @@ function globalVariablesUpdate() {
         if (blocksList[i] instanceof InputBlock || blocksList[i] instanceof OperationBlock || blocksList[i] instanceof RandomBlock) {
             globalVariables.set(blocksList[i].variableName, null);
         }
+        else if (blocksList[i] instanceof VariableBlock) {
+            globalVariables.set(blocksList[i].variableName, blocksList[i].variableValue);
+        }
     }
 }
-function createSelectVariables(id = "property0", exclude = undefined) {
-    let select = `<select id='${id}'><option>---</option>`;
+function createSelectVariables(id = "property0", exclude = undefined, isClass = false) {
+    globalVariablesUpdate();
+    let select;
+    if (isClass == true)
+        select = `<select class='${id}'><option>---</option>`;
+    else
+        select = `<select id='${id}'><option>---</option>`;
     globalVariables.forEach((variable, key) => {
         if (!(exclude != undefined && exclude == key))
             select += `<option>${key}</option>`;

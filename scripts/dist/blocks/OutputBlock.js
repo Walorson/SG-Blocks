@@ -38,13 +38,9 @@ class OutputBlock extends Block {
     }
     properties() {
         this.div.addEventListener("mousedown", () => {
-            let select = `<p>Print Variable: <select class="property${this.id}"><option>---</option>`;
-            globalVariables.forEach((variable, key) => {
-                select += `<option>${key}</option>`;
-            });
             propertiesWindow.innerHTML = `
                 <p>Message: <input type="text" value="${this.message}" class="property${this.id}"></p>
-            ` + select;
+            Print Variable: ` + createSelectVariables("property" + this.id, undefined, true);
             const property = propertiesWindow.querySelectorAll(".property" + this.id);
             property[0].oninput = () => {
                 this.message = property[0].value;

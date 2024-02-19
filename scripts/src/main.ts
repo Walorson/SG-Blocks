@@ -16,12 +16,24 @@ function globalVariablesUpdate(): void
         {
             globalVariables.set(blocksList[i].variableName, null);
         }
+        else if(blocksList[i] instanceof VariableBlock)
+        {
+            globalVariables.set(blocksList[i].variableName, blocksList[i].variableValue);
+        }
     }
 }
 
-function createSelectVariables(id: string = "property0", exclude: any = undefined): string
+function createSelectVariables(id: string = "property0", exclude: any = undefined, isClass: boolean = false): string
 {
-    let select: string = `<select id='${id}'><option>---</option>`;
+    globalVariablesUpdate();
+
+    let select: string;
+
+    if(isClass == true) 
+        select = `<select class='${id}'><option>---</option>`;
+    else 
+        select = `<select id='${id}'><option>---</option>`;
+
     globalVariables.forEach((variable: any, key: string) => {
         if(!(exclude != undefined && exclude == key))
             select += `<option>${key}</option>`;

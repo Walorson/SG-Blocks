@@ -82,6 +82,9 @@ function JSONtoBlocks(json) {
         if (value && value.__type === 'RandomBlock') {
             return Object.assign(new RandomBlock(value.x, value.y, value.min, value.max), value);
         }
+        if (value && value.__type === 'VariableBlock') {
+            return Object.assign(new VariableBlock(value.x, value.y), value);
+        }
         if (value == null) {
             blocksList.push(null);
             delete blocksList[blocksList.length - 1];
