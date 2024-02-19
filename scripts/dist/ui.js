@@ -8,7 +8,8 @@ const buttons = {
     empty: document.getElementById("empty-block-button"),
     end: document.getElementById("end-block-button"),
     random: document.getElementById("random-block-button"),
-    text: document.getElementById("text-other-button"),
+    text: document.getElementById("text-misc-button"),
+    variable: document.getElementById("variable-misc-button"),
     run: document.getElementById("run-button"),
     autorun: document.getElementById("autorun-checkbox")
 };
@@ -16,6 +17,11 @@ const nav = {
     file: document.getElementById("nav-file-button"),
     edit: document.getElementById("nav-edit-button"),
     help: document.getElementById("nav-help-button")
+};
+const blocksCategories = {
+    basic: document.getElementById("blocks-categories-basic-button"),
+    special: document.getElementById("blocks-categories-special-button"),
+    misc: document.getElementById("blocks-categories-misc-button")
 };
 buttons.output.addEventListener("click", () => {
     saveBlockState();
@@ -48,6 +54,10 @@ buttons.random.addEventListener("click", () => {
 buttons.text.addEventListener("click", () => {
     saveBlockState();
     new TextBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y);
+});
+buttons.variable.addEventListener("click", () => {
+    saveBlockState();
+    new VariableBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y);
 });
 buttons.run.addEventListener("click", () => {
     run();
@@ -91,3 +101,18 @@ document.querySelectorAll(".sub-menu").forEach((subMenu) => {
         setTimeout(() => { subMenu.style.display = ''; }, 1);
     };
 });
+function changeBlocksCategory(category) {
+    document.querySelectorAll(".block-box").forEach((blockBox) => {
+        blockBox.style.display = 'none';
+    });
+    document.getElementById("block-box-" + category).style.display = '';
+}
+blocksCategories.basic.onclick = () => {
+    changeBlocksCategory("basic");
+};
+blocksCategories.special.onclick = () => {
+    changeBlocksCategory("special");
+};
+blocksCategories.misc.onclick = () => {
+    changeBlocksCategory("misc");
+};

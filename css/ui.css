@@ -14,12 +14,18 @@
     z-index: 10;
     background-color: #ccc;
 }
+.block-box-space {
+    height: 230px;
+}
 .block-box {
     display: flex;
     flex-direction: column;
     gap: 5px;
     margin: 10px 0;
     padding: 5px;
+    position: absolute;
+    top: 60px;
+    width: 210px;
 }
 .section-title {
     background-color: #aaa;
@@ -194,6 +200,19 @@ label {
     position: absolute;
     display: flex;
     right: 5px;
+}
+#blocks-categories {
+    display: flex;
+}
+#blocks-categories button {
+    border-radius: initial;
+    background-color: #bbb;
+    width: 33.3%;
+    border-left: none;
+}
+#blocks-categories button:hover {
+    letter-spacing: initial;
+    background-color: #cacaca;
 }
 
 ::-webkit-scrollbar {

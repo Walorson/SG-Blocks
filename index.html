@@ -119,21 +119,36 @@
 
     <div class="nav-side" id="ui">
         <h1 class="section-title">Blocks</h1>
-        <div class="block-box">
+        
+        <div id="blocks-categories">
+            <button id="blocks-categories-basic-button">BASIC</button>
+            <button id="blocks-categories-special-button">SPECIAL</button>
+            <button id="blocks-categories-misc-button">MISC</button>
+        </div>
+
+        <div class="block-box-space"></div>
+        <div class="block-box" id="block-box-basic">
             <button id="output-block-button">Output Block</button>
             <button id="input-block-button">Input Block</button>
             <button id="condition-block-button">Condition Block</button>
             <button id="operation-block-button">Operation Block</button>
             <button id="empty-block-button">Empty Block</button>
             <button id="end-block-button">End Block</button>
+        </div>
+
+        <div class="block-box" id="block-box-special">
             <button id="random-block-button">Random Block</button>
         </div>
-        <h1 class="section-title">Other</h1>
-        <div class="block-box" style="margin: 0;">
-            <button id="text-other-button">Text</button>
+
+        <div class="block-box" id="block-box-misc">
+            <button id="variable-misc-button">Variable</button>
+            <button id="text-misc-button">Text</button>
         </div>
+
         <h1 class="section-title">Properties</h1>
+
         <div id="properties"></div>
+
         <div class="run-box">
             <button id="run-button">Run</button><label><input type="checkbox" id="autorun-checkbox" checked>Autorun</label>
         </div>
