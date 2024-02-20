@@ -18,6 +18,7 @@ const buttons = {
 const nav = {
     file: document.getElementById("nav-file-button") as HTMLElement,
     edit: document.getElementById("nav-edit-button") as HTMLElement,
+    settings: document.getElementById("nav-settings-button") as HTMLElement,
     help: document.getElementById("nav-help-button") as HTMLElement
 }
 
@@ -98,12 +99,19 @@ nav.help.addEventListener("mouseleave", () => {
 
     option[7].onclick = () => { deleteSelectedBlocks(); }
 }
+
 {
     let option = nav.file.querySelectorAll("li");
     option[0].onclick = () => { window.location.reload(); }
     option[1].onclick = () => { exportBlocks(); }
     option[2].onclick = () => { importBlocks(); }
 }
+
+{
+    let option = nav.settings.querySelectorAll("li");
+    option[0].onclick = () => { settingsWindow.window.style.display = 'block'; }
+}
+
 document.querySelectorAll(".sub-menu").forEach((subMenu: HTMLElement) => {
     subMenu.onclick = () => { 
         subMenu.style.display = 'none'; 
