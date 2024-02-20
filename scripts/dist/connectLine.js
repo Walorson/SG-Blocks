@@ -20,14 +20,20 @@ function connectBegin(e) {
         if (blocksList[id].connectTo.length < blocksList[id].maxConnects) {
             blockStart = blocksList[id];
             connectStart = true;
-            lineController.drawLine({
-                left_node: blockStart.id,
-                right_node: "cursor",
-                col: "black",
-                colOriginal: "black",
-                width: 2,
-                gtype: "D"
-            });
+            if (!(blockStart instanceof ConditionBlock)) {
+                connectLineSimplex(String(blockStart.id), "cursor");
+            }
+            else {
+                if (keyPressed == 'Z') {
+                    connectLineSimplex(String(blockStart.id), "cursor", "green", 3);
+                }
+                else if (keyPressed == 'X') {
+                    connectLineSimplex(String(blockStart.id), "cursor", "orange", 3);
+                }
+                else {
+                    connectLineSimplex(String(blockStart.id), "cursor");
+                }
+            }
         }
     }
 }
@@ -84,59 +90,44 @@ function connectEnd(e) {
 function connectLine(start, end, type = "normal", noPush = false, point = "n") {
     if (start instanceof ConditionBlock) {
         if (type == "true") {
-            lineController.drawLine({
-                left_node: start.id + point,
-                right_node: end.id + point,
-                left_node_id: start.id,
-                right_node_id: end.id,
-                col: "green",
-                colOriginal: "green",
-                width: 3,
-                gtype: "D"
-            });
+            createLineTemplate("green", 3);
             start.connectToTRUE = end;
         }
         else if (type == "false") {
-            lineController.drawLine({
-                left_node: start.id + point,
-                right_node: end.id + point,
-                left_node_id: start.id,
-                right_node_id: end.id,
-                col: "orange",
-                colOriginal: "orange",
-                width: 3,
-                gtype: "D"
-            });
+            createLineTemplate("orange", 3);
             start.connectToFALSE = end;
         }
         else {
-            lineController.drawLine({
-                left_node: start.id + point,
-                right_node: end.id + point,
-                left_node_id: start.id,
-                right_node_id: end.id,
-                col: "black",
-                colOriginal: "black",
-                width: 2,
-                gtype: "D"
-            });
+            createLineTemplate("black", 2);
             if (noPush == false)
                 start.connectTo.push(end);
         }
     }
     else {
+        createLineTemplate("black", 2);
+        if (noPush == false)
+            start.connectTo.push(end);
+    }
+    start.updateConnectPoint(true);
+    function createLineTemplate(color = "black", width = 2, type = 'D') {
         lineController.drawLine({
             left_node: start.id + point,
             right_node: end.id + point,
             left_node_id: start.id,
             right_node_id: end.id,
-            col: "black",
-            colOriginal: "black",
-            width: 2,
-            gtype: "D"
+            col: color,
+            colOriginal: color,
+            width: width,
+            gtype: type
         });
-        if (noPush == false)
-            start.connectTo.push(end);
     }
-    start.updateConnectPoint(true);
+}
+function connectLineSimplex(startId, endId, color = "black", width = 2, type = "D") {
+    lineController.drawLine({
+        left_node: startId,
+        right_node: endId,
+        col: color,
+        width: width,
+        gtype: type
+    });
 }
