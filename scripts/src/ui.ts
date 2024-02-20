@@ -109,7 +109,7 @@ nav.help.addEventListener("mouseleave", () => {
 
 {
     let option = nav.settings.querySelectorAll("li");
-    option[0].onclick = () => { settingsWindow.window.style.display = 'block'; }
+    option[0].onclick = () => { settingsWindow.show(); }
 }
 
 document.querySelectorAll(".sub-menu").forEach((subMenu: HTMLElement) => {
