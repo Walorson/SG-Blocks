@@ -8,13 +8,14 @@ class OutputBlock extends Block {
     execute() {
         this.setActive();
         setTimeout(() => {
+            const message = this.replaceVariablesToValues(this.message);
             if (this.isVariable) {
-                console.log(this.message + globalVariables.get(this.variable));
-                alert(this.message + globalVariables.get(this.variable));
+                console.log(message + globalVariables.get(this.variable));
+                alert(message + globalVariables.get(this.variable));
             }
             else {
-                console.log(this.message);
-                alert(this.message);
+                console.log(message);
+                alert(message);
             }
             this.executeNextBlock();
         }, runSpeed / 5);
@@ -61,5 +62,36 @@ class OutputBlock extends Block {
                 property[1].value = this.variable;
             super.properties();
         });
+    }
+    replaceVariablesToValues(message) {
+        let readVariableMode = false;
+        const variables = [];
+        const variablesPosition = [];
+        let variable = "";
+        for (let i = 0; i < message.length; i++) {
+            if (message[i] == "}") {
+                readVariableMode = false;
+                variables.push(variable);
+                variable = "";
+            }
+            if (readVariableMode == true) {
+                variable += message[i];
+            }
+            if (message[i] == "{") {
+                readVariableMode = true;
+                variablesPosition.push(i);
+            }
+        }
+        if (variables.length <= 0)
+            return message;
+        let newMessage = "";
+        let startPos = 0;
+        for (let i = 0; i < variables.length; i++) {
+            newMessage += message.slice(startPos, variablesPosition[i]);
+            newMessage += globalVariables.get(variables[i]);
+            startPos = variablesPosition[i] + variables[i].length + 2;
+        }
+        newMessage += message.slice(startPos, message.length);
+        return newMessage;
     }
 }

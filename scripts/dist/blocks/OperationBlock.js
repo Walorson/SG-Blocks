@@ -51,6 +51,12 @@ class OperationBlock extends Block {
             case "%":
                 result = this.value[0] % this.value[1];
                 break;
+            case "^":
+                result = Math.pow(this.value[0], this.value[1]);
+                break;
+            case "=":
+                result = this.value[1];
+                break;
         }
         globalVariables.set(this.variableName, result);
         this.executeNextBlock();
@@ -69,6 +75,8 @@ class OperationBlock extends Block {
                         <option>*</option>
                         <option>/</option>
                         <option>%</option>
+                        <option>^</option>
+                        <option>=</option>
                     </select>
                 </p>
                 <p>Save to variable: <input type="text" value="${this.variableName}" class="property${this.id}"></p>

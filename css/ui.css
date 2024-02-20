@@ -201,16 +201,16 @@ label {
     display: flex;
     right: 5px;
 }
-#blocks-categories {
+.categories {
     display: flex;
 }
-#blocks-categories button {
+.categories button {
     border-radius: initial;
     background-color: #bbb;
     width: 33.3%;
     border-left: none;
 }
-#blocks-categories button:hover {
+.categories button:hover {
     letter-spacing: initial;
     background-color: #cacaca;
 }
