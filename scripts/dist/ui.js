@@ -16,6 +16,7 @@ const buttons = {
 const nav = {
     file: document.getElementById("nav-file-button"),
     edit: document.getElementById("nav-edit-button"),
+    settings: document.getElementById("nav-settings-button"),
     help: document.getElementById("nav-help-button")
 };
 const blocksCategories = {
@@ -94,6 +95,10 @@ nav.help.addEventListener("mouseleave", () => {
     option[0].onclick = () => { window.location.reload(); };
     option[1].onclick = () => { exportBlocks(); };
     option[2].onclick = () => { importBlocks(); };
+}
+{
+    let option = nav.settings.querySelectorAll("li");
+    option[0].onclick = () => { settingsWindow.window.style.display = 'block'; };
 }
 document.querySelectorAll(".sub-menu").forEach((subMenu) => {
     subMenu.onclick = () => {
