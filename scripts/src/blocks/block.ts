@@ -214,7 +214,7 @@ abstract class Block {
     }
 
     properties(): void {
-        document.querySelectorAll("input").forEach((input: HTMLElement) => {      
+        document.querySelectorAll("input, textarea").forEach((input: HTMLElement) => {      
             input.onfocus = () => { isInputFocus = true; }
             input.onblur = () => { isInputFocus = false;  }
         });

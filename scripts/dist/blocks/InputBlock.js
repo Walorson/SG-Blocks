@@ -35,7 +35,7 @@ class InputBlock extends Block {
         this.div.addEventListener("mousedown", () => {
             propertiesWindow.innerHTML = `
                 <p>Variable Name: <input type="text" value="${this.variableName}" class="property${this.id}"></p>
-                <p>Message: <input type="text" value="${this.message}" class="property${this.id}"></p>
+                <p>Message: <textarea class="property${this.id}">${this.message}</textarea></p>
             `;
             const property = propertiesWindow.querySelectorAll(".property" + this.id);
             property[0].oninput = () => {

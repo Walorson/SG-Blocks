@@ -40,7 +40,7 @@ class OutputBlock extends Block {
     properties() {
         this.div.addEventListener("mousedown", () => {
             propertiesWindow.innerHTML = `
-                <p>Message: <input type="text" value="${this.message}" class="property${this.id}"></p>
+                <p>Message: <textarea class="property${this.id}">${this.message}</textarea></p>
             Print Variable: ` + createSelectVariables("property" + this.id, undefined, true);
             const property = propertiesWindow.querySelectorAll(".property" + this.id);
             property[0].oninput = () => {

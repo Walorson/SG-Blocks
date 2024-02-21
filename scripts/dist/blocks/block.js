@@ -158,7 +158,7 @@ class Block {
         });
     }
     properties() {
-        document.querySelectorAll("input").forEach((input) => {
+        document.querySelectorAll("input, textarea").forEach((input) => {
             input.onfocus = () => { isInputFocus = true; };
             input.onblur = () => { isInputFocus = false; };
         });
