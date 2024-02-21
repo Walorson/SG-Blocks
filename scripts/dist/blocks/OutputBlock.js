@@ -8,7 +8,7 @@ class OutputBlock extends Block {
     execute() {
         this.setActive();
         setTimeout(() => {
-            const message = this.replaceVariablesToValues(this.message);
+            const message = replaceVariablesToValues(this.message);
             if (this.isVariable) {
                 console.log(message + globalVariables.get(this.variable));
                 alert(message + globalVariables.get(this.variable));
@@ -29,11 +29,12 @@ class OutputBlock extends Block {
             messageShort = this.message.slice(0, 18);
             messageShort += "... ";
         }
+        messageShort = boldVariables(messageShort);
         if (this.variable != undefined) {
             this.div.innerHTML = `<span>Print: ${messageShort}<b>${this.variable}</b></span>`;
         }
         else {
-            this.div.innerHTML = "<span>Print: " + messageShort + "</span>";
+            this.div.innerHTML = `<span>Print: ${messageShort}</span>`;
         }
         super.updateDiv();
     }
@@ -41,7 +42,7 @@ class OutputBlock extends Block {
         this.div.addEventListener("mousedown", () => {
             propertiesWindow.innerHTML = `
                 <p>Message: <textarea class="property${this.id}">${this.message}</textarea></p>
-            Print Variable: ` + createSelectVariables("property" + this.id, undefined, true);
+            Print Variable on End: ` + createSelectVariables("property" + this.id, undefined, true);
             const property = propertiesWindow.querySelectorAll(".property" + this.id);
             property[0].oninput = () => {
                 this.message = property[0].value;
@@ -62,36 +63,5 @@ class OutputBlock extends Block {
                 property[1].value = this.variable;
             super.properties();
         });
-    }
-    replaceVariablesToValues(message) {
-        let readVariableMode = false;
-        const variables = [];
-        const variablesPosition = [];
-        let variable = "";
-        for (let i = 0; i < message.length; i++) {
-            if (message[i] == "}") {
-                readVariableMode = false;
-                variables.push(variable);
-                variable = "";
-            }
-            if (readVariableMode == true) {
-                variable += message[i];
-            }
-            if (message[i] == "{") {
-                readVariableMode = true;
-                variablesPosition.push(i);
-            }
-        }
-        if (variables.length <= 0)
-            return message;
-        let newMessage = "";
-        let startPos = 0;
-        for (let i = 0; i < variables.length; i++) {
-            newMessage += message.slice(startPos, variablesPosition[i]);
-            newMessage += globalVariables.get(variables[i]);
-            startPos = variablesPosition[i] + variables[i].length + 2;
-        }
-        newMessage += message.slice(startPos, message.length);
-        return newMessage;
     }
 }

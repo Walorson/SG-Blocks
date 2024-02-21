@@ -15,7 +15,7 @@ class InputBlock extends Block {
         this.setActive();
         
         setTimeout(() => {
-            const variable: any = prompt(this.message);
+            const variable: any = prompt(replaceVariablesToValues(this.message));
             if(!isNaN(Number(variable))) {
               globalVariables.set(this.variableName, Number(variable));
               console.log("Input as number: "+variable);

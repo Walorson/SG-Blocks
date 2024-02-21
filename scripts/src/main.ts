@@ -86,3 +86,83 @@ function newDirection(angle: number): string
 
     return direction;
 }
+
+function replaceVariablesToValues(message: string): string
+{
+    let readVariableMode: boolean = false;
+    const variables: string[] = [];
+    const variablesPosition: number[] = [];
+    let variable: string = "";
+
+    for(let i=0; i<message.length; i++)
+    {
+        if(message[i] == "}")
+        {
+            readVariableMode = false;
+            variables.push(variable);
+            variable = "";
+        }
+
+        if(readVariableMode == true)
+        {
+            variable += message[i];
+        }
+
+        if(message[i] == "{")
+        {
+            readVariableMode = true;
+            variablesPosition.push(i);
+        }
+    }
+
+    if(variables.length <= 0) return message;
+
+    let newMessage: string = "";
+    let startPos: number = 0;
+
+    for(let i=0; i<variables.length; i++)
+    {
+        newMessage += message.slice(startPos, variablesPosition[i]);
+        newMessage += globalVariables.get(variables[i]);
+        startPos = variablesPosition[i] + variables[i].length + 2;
+    }
+
+    newMessage += message.slice(startPos, message.length);
+
+    return newMessage;
+}
+
+function boldVariables(message: string): string
+{
+    const variablesPositionStart: number[] = [];
+    const variablesPositionEnd: number[] = [];
+
+    for(let i=0; i<message.length; i++)
+    {
+        if(message[i] == "{")
+        {
+            variablesPositionStart.push(i);
+        }
+
+        if(message[i] == "}")
+        {
+            variablesPositionEnd.push(i);
+        }
+    }
+
+    if(variablesPositionStart.length <= 0 || variablesPositionStart.length != variablesPositionEnd.length) return message;
+
+    let newMessage = "";
+    let startPos = 0;
+
+    for(let i=0; i<variablesPositionStart.length; i++)
+    {
+        newMessage += message.slice(startPos, variablesPositionStart[i]);
+        newMessage += "<b>"+message.slice(variablesPositionStart[i] + 1, variablesPositionEnd[i])+"</b>";
+        startPos = variablesPositionEnd[i] + 1;
+    }
+
+    newMessage += message.slice(startPos, message.length);
+
+    return newMessage;
+}

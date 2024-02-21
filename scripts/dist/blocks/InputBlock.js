@@ -9,7 +9,7 @@ class InputBlock extends Block {
     execute() {
         this.setActive();
         setTimeout(() => {
-            const variable = prompt(this.message);
+            const variable = prompt(replaceVariablesToValues(this.message));
             if (!isNaN(Number(variable))) {
                 globalVariables.set(this.variableName, Number(variable));
                 console.log("Input as number: " + variable);
