@@ -8,7 +8,7 @@ abstract class Block {
     x: number;
     y: number;
     div: HTMLElement;
-    maxConnects: number = 10;
+    maxConnects: number = 64;
     connectTo: Block[] = [];
     executeOnSpacePress: any;
     isDeletable: boolean = true;
@@ -143,7 +143,7 @@ abstract class Block {
 
         const mouseDown = (e: MouseEvent): void =>
         {   
-            if(e.button == 2) {
+            if(e.button == 2 && this.connectTo.length < this.maxConnects) {
                 document.querySelectorAll(".block").forEach((block: HTMLElement) => block.style.cursor = 'cell');
                 _canvas.style.cursor = 'cell';
             }

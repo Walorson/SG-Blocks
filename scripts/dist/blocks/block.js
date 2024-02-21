@@ -4,7 +4,7 @@ let DEFAULT_BLOCK_Y = 75;
 let blocksList = [];
 class Block {
     constructor(x = 0, y = 0) {
-        this.maxConnects = 10;
+        this.maxConnects = 64;
         this.connectTo = [];
         this.isDeletable = true;
         this.id = blocksList.length;
@@ -101,7 +101,7 @@ class Block {
             mouseUp(e);
         });
         const mouseDown = (e) => {
-            if (e.button == 2) {
+            if (e.button == 2 && this.connectTo.length < this.maxConnects) {
                 document.querySelectorAll(".block").forEach((block) => block.style.cursor = 'cell');
                 _canvas.style.cursor = 'cell';
             }
