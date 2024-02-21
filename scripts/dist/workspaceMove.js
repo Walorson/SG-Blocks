@@ -39,14 +39,15 @@ _canvas.addEventListener("mousemove", (e) => {
     cursorY = e.offsetY - workspaceMove.translateY;
     DEFAULT_BLOCK_X = cursorX + 20;
     DEFAULT_BLOCK_Y = cursorY;
-    displayCoords();
+    if (workspaceMove.isMove == false)
+        displayCoords();
 });
 function displayCoords() {
-    coords.innerHTML = `X: ${Math.floor(cursorX)}, Y: ${Math.floor(-cursorY)}`;
+    coords.innerHTML = `X: ${Math.floor(cursorX)}, Y: ${Math.floor(cursorY)}`;
 }
 function moveWorkspaceTo(block) {
     workspaceMove.translateX = -block.x + 700;
-    workspaceMove.translateY = -block.y + 300;
+    workspaceMove.translateY = -block.y + 400;
     workspace.style.transform = `translate(${workspaceMove.translateX}px, ${workspaceMove.translateY}px) scale(${workspaceResize.size})`;
     document.body.style.backgroundPosition = `${workspaceMove.translateX}px ${workspaceMove.translateY}px`;
     lineController.redrawLines();

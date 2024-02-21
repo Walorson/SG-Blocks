@@ -2,9 +2,10 @@ let deleteLineMode = false;
 let executeHistory = [];
 let globalVariables = new Map();
 let isInputFocus = false;
-new StartBlock(700, 100);
-new OutputBlock(650, 400, "Hello!");
-new EndBlock(700, 650);
+new StartBlock(0, 0);
+new OutputBlock(-50, 300, "Hello!");
+new EndBlock(0, 550);
+moveWorkspaceTo(blocksList[1]);
 changeBlocksCategory("basic");
 function globalVariablesUpdate() {
     globalVariables.clear();
