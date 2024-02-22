@@ -34,8 +34,10 @@
     background-color: rgb(209, 0, 0);
     color: #fafafa;
     padding: 5px 20px;
+    transition: 0.15s;
 }
-.window-quit {
+.window-quit:hover {
+    background-color: rgb(222, 27, 27);
     cursor: pointer;
 }
 .confirmation-buttons {

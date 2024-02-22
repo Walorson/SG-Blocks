@@ -8,6 +8,7 @@
 - Added settings window
 - Added 2 Output Block's settings you can change
 - Added power calculation for Operation Block
+- Added line color when you connect TRUE or FALSE line
 
 ***CHANGES***
 - Blocks are divided into categories in blocks menu
