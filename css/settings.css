@@ -5,16 +5,27 @@
     transform: translate(-50%,-50%);
     height: 600px;
     width: 800px;
-    background-color: #aaa;
+    background-color: #ccc;
     z-index: 100;
     padding: 20px;
     display: none;
+    border: 22px solid #aaa
 }
 #settings-window h1 {
     font-family: 'bebas-neue';
     font-weight: 400;
     letter-spacing: 1px;
     font-size: 3rem;
+}
+#settings-window label {
+    margin-bottom: 5px;
+}
+#settings-window input[type=checkbox] {
+    margin-left: 0;
+}
+#settings-window input[type=number] {
+    margin-left: 5px;
+    width: 77px;
 }
 .window-quit {
     position: absolute;

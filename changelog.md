@@ -6,6 +6,7 @@
 - Added Variable Block
 - Added message expressions for output variables. For example: "Hello {name}, you are {age}!"
 - Added settings window
+- Added 2 Output Block's settings you can change
 - Added power calculation for Operation Block
 
 ***CHANGES***
