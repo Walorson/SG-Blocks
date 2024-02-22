@@ -16,3 +16,4 @@
 ***FIXES***
 - Fixed incorrect coords during workspace move
 - Removed connection cursor style when there is not able to connect
+- Fixed not displaying active shadow effect when block was selected and active

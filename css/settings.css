@@ -27,3 +27,23 @@
 .window-quit {
     cursor: pointer;
 }
+.confirmation-buttons {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+}
+.confirmation-buttons button {
+    width: 100px;
+}
+.apply-button {
+    background-color: #cee5cb;
+}
+.discard-button {
+    background-color: #e4c4c4;
+}
+.apply-button:hover {
+    background-color: #8fda85;
+}
+.discard-button:hover {
+    background-color: #dd9898;
+}

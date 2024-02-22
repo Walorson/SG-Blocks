@@ -37,9 +37,9 @@ class OutputBlock extends Block {
     updateDiv(): void {
         let messageShort: string = this.message;
 
-        if(this.message.length > 18)
+        if(this.message.length > settings.outputMessageLength && settings.shortOutputMessage == true)
         {
-            messageShort = this.message.slice(0, 18);
+            messageShort = this.message.slice(0, settings.outputMessageLength);
             messageShort += "... ";
         }
 
