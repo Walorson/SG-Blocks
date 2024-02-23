@@ -15,4 +15,4 @@ https://walorson.github.io/SG-Blocks/
 * Select Blocks - Left click and move (Hold SHIFT to select blocks with more than one move)
 * Next Block - Press Space
 * Move Map - Press Scroll and move
-* Message expressions - type {variable_name} in part of the measage property. For example:  "Hello {name}, you are {age}!"
+* Message expressions - type {variable_name} in part of the message property. For example:  "Hello {name}, you are {age}!"
