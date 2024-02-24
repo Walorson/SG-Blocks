@@ -2,7 +2,7 @@ let settings = {
     shortOutputMessage: true,
     outputMessageLength: 18
 };
-let settingsBeforeChange = Object.assign({}, settings);
+let settingsBeforeChange;
 const settingsInput = {
     shortOutputMessage: document.getElementById("settings-shortOutputMessage"),
     outputMessageLength: document.getElementById("settings-outputMessageLength")
@@ -46,6 +46,7 @@ settingsWindow.apply.addEventListener("click", () => {
             block.updateDiv();
         }
     });
+    localStorage.setItem("settings", JSON.stringify(settings));
     settingsWindow.hide();
 });
 settingsWindow.discard.addEventListener("click", () => {
@@ -72,4 +73,15 @@ settingsInput.shortOutputMessage.addEventListener("input", () => {
 });
 settingsInput.outputMessageLength.addEventListener("input", () => {
     settings.outputMessageLength = Number(settingsInput.outputMessageLength.value);
+});
+window.addEventListener("load", () => {
+    if (localStorage.getItem("settings") != null) {
+        settings = JSON.parse(localStorage.getItem("settings"));
+    }
+    settingsBeforeChange = Object.assign({}, settings);
+    blocksList.forEach((block) => {
+        if (block != undefined) {
+            block.updateDiv();
+        }
+    });
 });

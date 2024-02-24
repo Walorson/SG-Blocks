@@ -3,7 +3,7 @@ let settings = {
     outputMessageLength: 18 as number
 };
 
-let settingsBeforeChange = { ...settings };
+let settingsBeforeChange: any;
 
 const settingsInput = {
     shortOutputMessage: document.getElementById("settings-shortOutputMessage") as HTMLInputElement,
@@ -63,6 +63,7 @@ settingsWindow.apply.addEventListener("click", () => {
         }
     });
 
+    localStorage.setItem("settings", JSON.stringify(settings));
     settingsWindow.hide();
 });
 
@@ -96,4 +97,20 @@ settingsInput.shortOutputMessage.addEventListener("input",() => {
 
 settingsInput.outputMessageLength.addEventListener("input", () => {
     settings.outputMessageLength = Number(settingsInput.outputMessageLength.value);
+});
+
+window.addEventListener("load",() => {
+    if(localStorage.getItem("settings") != null)
+    {
+        settings = JSON.parse(localStorage.getItem("settings"));
+    }
+
+    settingsBeforeChange = { ...settings };
+
+    blocksList.forEach((block: Block) => {
+        if(block != undefined)
+        {
+            block.updateDiv();
+        }
+    });
 });
