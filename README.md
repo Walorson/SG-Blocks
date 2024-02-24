@@ -1,6 +1,7 @@
 # SG-Blocks
-App inspired by Java Block but in online version (and better) ;D
- ***E(x)plory momento (memento  mori)***
+
+Sg-Blocks is a web application for creating flowcharts so you can learn algorithmic thinking and programming. The application is quick to learn and easy to use once with a user-friendly interface.
+
 ## Use online (version in development state, so there can be many strange bugs)
 https://walorson.github.io/SG-Blocks/
 
@@ -14,7 +15,4 @@ https://walorson.github.io/SG-Blocks/
 * Select Blocks - Left click and move (Hold SHIFT to select blocks with more than one move)
 * Next Block - Press Space
 * Move Map - Press Scroll and move
-
-## In console
-* **run()** - to run algoritm (Or just click the button)
-* **endRun()** - manually stop the run. Use if run would be bugged
+* Message expressions - type {variable_name} in part of the message property. For example:  "Hello {name}, you are {age}!"
