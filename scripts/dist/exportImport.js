@@ -30,6 +30,11 @@ function importBlocks() {
                         block.updateDiv();
                     }
                 });
+                blocksList.forEach((block) => {
+                    if (block != undefined) {
+                        block.updateConnectPoint();
+                    }
+                });
                 lastBlocksList = [];
                 restoredBlocksList = [];
                 undoRedoStep = 0;
