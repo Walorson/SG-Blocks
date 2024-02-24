@@ -41,6 +41,13 @@ function importBlocks() {
                     }
                   });
 
+                  blocksList.forEach((block: Block) => {
+                    if(block != undefined)
+                    {
+                      block.updateConnectPoint();
+                    }
+                  });
+
                   lastBlocksList = [];
                   restoredBlocksList = [];
                   undoRedoStep = 0;
