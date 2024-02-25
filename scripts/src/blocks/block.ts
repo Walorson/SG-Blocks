@@ -158,7 +158,7 @@ abstract class Block {
 
         const mouseMove = (e: MouseEvent): void =>
         {
-            if(e.button != 0) return;
+            if(e.button != 0 || workspaceMove.isMove == true) return;
 
             if(isdrag)
             {

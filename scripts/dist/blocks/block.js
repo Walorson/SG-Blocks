@@ -113,7 +113,7 @@ class Block {
             grabPointX = this.div.getBoundingClientRect().left - e.clientX;
         };
         const mouseMove = (e) => {
-            if (e.button != 0)
+            if (e.button != 0 || workspaceMove.isMove == true)
                 return;
             if (isdrag) {
                 let x = e.clientX + grabPointX - workspaceMove.translateX;
