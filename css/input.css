@@ -58,6 +58,10 @@ textarea {
     display: flex;
     justify-content: space-around;
 }
+#add-condition-button {
+    width: 100%;
+    padding: 3px 0;
+}
 /*input[type=checkbox] {
     border: 2px solid black;
     cursor: pointer;

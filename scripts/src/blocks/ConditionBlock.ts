@@ -3,6 +3,7 @@ class ConditionBlock extends Block {
     operator: string = "==";
     isValueVariable: boolean[] = [false, false];
     valueName: string[] = [];
+    conditions: Condition[] = [new Condition(1)];
     connectToTRUE: Block | any;
     connectToFALSE: Block | any;
 
@@ -114,26 +115,19 @@ class ConditionBlock extends Block {
     properties(): void {
         this.div.addEventListener("mousedown", () => {
             propertiesWindow.innerHTML = `
-                <p class="condition-section">
-                    <span class="value"><input type="text" value="${this.value[0]}" class="property${this.id}"></span>
-                    <select class="property${this.id}">
-                                <option>==</option>
-                                <option>!=</option>
-                                <option>></option>
-                                <option><</option>
-                                <option>>=</option>
-                                <option><=</option>
-                    </select>
-                    <span class="value"><input type="text" value="${this.value[1]}" class="property${this.id}"></span>
-                </p>
-                <p class="condition-section-var">
-                    <label><input type="checkbox" class="property${this.id}">Var</label>
-                    <label><input type="checkbox" class="property${this.id}">Var</label>
-                </p>
+                <div id="conditions"></div>
+
+                <p><button id="add-condition-button">Add condition</button></p>
             `;
+
+            this.conditions.forEach((condition: Condition) => {
+                condition.add();
+            });
 
             let property: any = propertiesWindow.querySelectorAll(".property"+this.id);
             const value: any = propertiesWindow.querySelectorAll(".value");
+            const addCondition: HTMLElement = document.getElementById("add-condition-button");
+            const conditionsContainer: HTMLElement = document.getElementById("conditions");
 
             property[0].oninput = () => {
                 this.value[0] = property[0].value;
@@ -215,6 +209,19 @@ class ConditionBlock extends Block {
 
                 }
             }
+
+            addCondition.onclick = () => {
+                conditionsContainer.innerHTML += `
+                    <select>
+                        <option>AND</option>
+                        <option>OR</option>
+                    </select>
+                `;
+
+                this.conditions.push(new Condition(this.conditions.length));
+                this.conditions[this.conditions.length-1].add();
+            }
+
             super.properties();
         });
     }
@@ -266,5 +273,44 @@ class ConditionBlock extends Block {
                 lines[i].left_node = this.id + reverseDirection(direction);
             }
         }
+    }
+}
+
+class Condition {
+    id: number;
+    value1: any;
+    value2: any;
+    isValue1Variable: boolean;
+    isValue2Variable: boolean;
+    operator: string;
+
+    constructor(id: number) {
+        this.id = id;
+        this.value1 = 0;
+        this.value2 = 0;
+        this.isValue1Variable = false;
+        this.isValue2Variable = false;
+        this.operator = "==";
+    }
+
+    add() {
+        document.getElementById("conditions").innerHTML += `
+            <p class="condition-section">
+            <span class="value"><input type="text" value="${this.value1}" class="property${this.id}"></span>
+            <select class="property${this.id}">
+                        <option>==</option>
+                        <option>!=</option>
+                        <option>></option>
+                        <option><</option>
+                        <option>>=</option>
+                        <option><=</option>
+            </select>
+            <span class="value"><input type="text" value="${this.value2}" class="property${this.id}"></span>
+            </p>
+            <p class="condition-section-var">
+                <label><input type="checkbox" class="property${this.id}">Var</label>
+                <label><input type="checkbox" class="property${this.id}">Var</label>
+            </p>
+        `;
     }
 }
