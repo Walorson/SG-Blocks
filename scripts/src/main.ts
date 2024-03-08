@@ -35,7 +35,7 @@ function createSelectVariables(id: string = "property0", exclude: any = undefine
     if(isClass == true) 
         select = `<select class='${id}'><option>---</option>`;
     else 
-        select = `<select id='${id}'><option>---</option>`;
+        select = `<select id='${id}' style="width:83px;"><option>---</option>`;
 
     globalVariables.forEach((variable: any, key: string) => {
         if(!(exclude != undefined && exclude == key))

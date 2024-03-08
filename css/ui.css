@@ -85,7 +85,6 @@ select:hover {
 }
 select:focus {
     background-color: #eeeeee;
-    border: black solid 2px;
 }
 .run-box {
     position: absolute;

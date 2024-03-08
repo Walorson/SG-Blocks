@@ -114,18 +114,22 @@ class ConditionBlock extends Block {
     properties(): void {
         this.div.addEventListener("mousedown", () => {
             propertiesWindow.innerHTML = `
-                <p>Value 1: <span class="value"><input type="text" value="${this.value[0]}" class="property${this.id}"></span></p>
-                <p><label><input type="checkbox" class="property${this.id}">Variable<label></p>
-                <p>Value 2: <span class="value"><input type="text" value="${this.value[1]}" class="property${this.id}"></span></p>
-                <p><label><input type="checkbox" class="property${this.id}">Variable<label></p>
-                <p>Operator: <select class="property${this.id}">
+                <p class="condition-section">
+                    <span class="value"><input type="text" value="${this.value[0]}" class="property${this.id}"></span>
+                    <select class="property${this.id}">
                                 <option>==</option>
                                 <option>!=</option>
                                 <option>></option>
                                 <option><</option>
                                 <option>>=</option>
                                 <option><=</option>
-                            </select></p>
+                    </select>
+                    <span class="value"><input type="text" value="${this.value[1]}" class="property${this.id}"></span>
+                </p>
+                <p class="condition-section-var">
+                    <label><input type="checkbox" class="property${this.id}">Var</label>
+                    <label><input type="checkbox" class="property${this.id}">Var</label>
+                </p>
             `;
 
             let property: any = propertiesWindow.querySelectorAll(".property"+this.id);
@@ -137,7 +141,7 @@ class ConditionBlock extends Block {
             }
             for(let i=0; i<this.isValueVariable.length; i++)
             {
-                let id = 2*i+1;
+                let id = 3+i;
 
                 property[id].onchange = () => {
                     if(property[id].checked)
@@ -179,17 +183,17 @@ class ConditionBlock extends Block {
                 this.updateDiv();
             }
 
-            property[4].oninput = () => {
-                this.operator = property[4].value;
+            property[1].oninput = () => {
+                this.operator = property[1].value;
                 this.updateDiv();
             }
-            property[4].value = this.operator;
+            property[1].value = this.operator;
 
             for(let i=0; i<this.isValueVariable.length; i++)
             {
                 if(this.isValueVariable[i] == true) 
                 {
-                    property[2*i+1].checked = true; 
+                    property[i+3].checked = true; 
                     value[i].innerHTML = createSelectVariables("property"+i);
 
                     let propertyX: any = document.getElementById("property"+i);
