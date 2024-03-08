@@ -2,7 +2,7 @@
 
 SG-Blocks is a web application for creating flowcharts so you can learn algorithmic thinking and programming. The application is quick to learn and easy to use once with a user-friendly interface.
 
-## Use online (version in development state, so there can be many strange bugs)
+## Use online (Latest Version)
 https://walorson.github.io/SG-Blocks/
 
 ## Controls
