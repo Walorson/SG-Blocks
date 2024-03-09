@@ -8,6 +8,7 @@ class ConditionBlock extends Block {
 
         this.init();
         this.conditions = [new Condition(this.id)];
+        this.updateDiv();
     }
 
     connectToExecute(): void {
@@ -21,7 +22,15 @@ class ConditionBlock extends Block {
                 condition.compare();
             });
 
-            let result: boolean = this.conditions[0].result;
+            let result: boolean = true;
+
+            for(let i=0; i<this.conditions.length; i++)
+            {
+                if(this.conditions[i].result == false) {
+                    result = false;
+                    break;
+                }
+            }
 
             if(result == true && this.connectToTRUE != undefined) this.connectToTRUE.execute();
             else if(result == false && this.connectToFALSE != undefined) this.connectToFALSE.execute();
@@ -39,30 +48,19 @@ class ConditionBlock extends Block {
 
     createBlock(): void {
         workspace.innerHTML += 
-        `<div class="block condition" id="${this.id}" title="Z - Linia prawda\nX - Linia Fałsz">
-            <span>0==0</span>
-        </div>`;
+        `<div class="block condition" id="${this.id}" title="Z - Linia prawda\nX - Linia Fałsz"></div>`;
     }
 
     updateDiv(): void {
-        /*if(this.isValueVariable[0] == true && this.isValueVariable[1] == true)
-        {
-            this.div.innerHTML = `<span><b>${this.valueName[0]}</b>${this.operator}<b>${this.valueName[1]}</b></span>`;;
-        }
-        else if(this.isValueVariable[0] == true)
-        {
-            this.div.innerHTML = `<span><b>${this.valueName[0]}</b>${this.operator}${this.value[1]}</span>`;;
-        }
-        else if(this.isValueVariable[1] == true)
-        {
-            this.div.innerHTML = `<span>${this.value[0]}${this.operator}<b>${this.valueName[1]}</b></span>`;;
-        }
-        else
-        {
-            this.div.innerHTML = `<span>${this.value[0]}${this.operator}${this.value[1]}</span>`;;
-        }
+        let conditions: string = "";
+        this.conditions.forEach((condition: Condition, index: number) => {
+            conditions += `${condition.value[0]}${condition.operator}${condition.value[1]}`;
+            if(index < this.conditions.length-1) conditions += ' && ';
+        });
 
-        this.resize();*/
+        this.div.innerHTML = `<span>${conditions}</span>`;
+
+        this.resize();
         super.updateDiv();
     }
 
@@ -87,7 +85,16 @@ class ConditionBlock extends Block {
             addCondition.onclick = () => {
                 this.conditions.push(new Condition(this.id));
                 this.conditions[this.conditions.length-1].add();
+
+                this.conditions.forEach((condition: Condition) => {
+                    condition.update();
+                    this.updateDiv();
+                });
             }
+
+            this.conditions.forEach((condition: Condition) => {
+                condition.update();
+            });
 
             super.properties();
         });
@@ -195,9 +202,15 @@ class Condition {
                 <label><input type="checkbox" class="property${this.id}">Var</label>
             </p>
         `;
+    }
 
+    update() {
         let property: any = propertiesWindow.querySelectorAll(".property"+this.id);
         const value: any = propertiesWindow.querySelectorAll(".value");
+
+        property[0].value = this.value[0];
+        property[1].value = this.operator;
+        property[2].value = this.value[1];
 
         property[0].oninput = () => {
             this.value[0] = property[0].value;
@@ -251,7 +264,6 @@ class Condition {
             this.operator = property[1].value;
             blocksList[this.idBlock].updateDiv();
         }
-        property[1].value = this.operator;
 
         for(let i=0; i<this.isValueVariable.length; i++)
         {
@@ -279,7 +291,6 @@ class Condition {
 
             }
         }
-        
     }
 
     compare() {

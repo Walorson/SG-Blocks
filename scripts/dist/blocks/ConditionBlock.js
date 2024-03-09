@@ -4,6 +4,7 @@ class ConditionBlock extends Block {
         this.conditions = [];
         this.init();
         this.conditions = [new Condition(this.id)];
+        this.updateDiv();
     }
     connectToExecute() {
         window.removeEventListener("keypress", this.executeOnSpacePress);
@@ -13,7 +14,13 @@ class ConditionBlock extends Block {
             this.conditions.forEach((condition) => {
                 condition.compare();
             });
-            let result = this.conditions[0].result;
+            let result = true;
+            for (let i = 0; i < this.conditions.length; i++) {
+                if (this.conditions[i].result == false) {
+                    result = false;
+                    break;
+                }
+            }
             if (result == true && this.connectToTRUE != undefined)
                 this.connectToTRUE.execute();
             else if (result == false && this.connectToFALSE != undefined)
@@ -29,29 +36,17 @@ class ConditionBlock extends Block {
     }
     createBlock() {
         workspace.innerHTML +=
-            `<div class="block condition" id="${this.id}" title="Z - Linia prawda\nX - Linia Fałsz">
-            <span>0==0</span>
-        </div>`;
+            `<div class="block condition" id="${this.id}" title="Z - Linia prawda\nX - Linia Fałsz"></div>`;
     }
     updateDiv() {
-        /*if(this.isValueVariable[0] == true && this.isValueVariable[1] == true)
-        {
-            this.div.innerHTML = `<span><b>${this.valueName[0]}</b>${this.operator}<b>${this.valueName[1]}</b></span>`;;
-        }
-        else if(this.isValueVariable[0] == true)
-        {
-            this.div.innerHTML = `<span><b>${this.valueName[0]}</b>${this.operator}${this.value[1]}</span>`;;
-        }
-        else if(this.isValueVariable[1] == true)
-        {
-            this.div.innerHTML = `<span>${this.value[0]}${this.operator}<b>${this.valueName[1]}</b></span>`;;
-        }
-        else
-        {
-            this.div.innerHTML = `<span>${this.value[0]}${this.operator}${this.value[1]}</span>`;;
-        }
-
-        this.resize();*/
+        let conditions = "";
+        this.conditions.forEach((condition, index) => {
+            conditions += `${condition.value[0]}${condition.operator}${condition.value[1]}`;
+            if (index < this.conditions.length - 1)
+                conditions += ' && ';
+        });
+        this.div.innerHTML = `<span>${conditions}</span>`;
+        this.resize();
         super.updateDiv();
     }
     resize() {
@@ -71,7 +66,14 @@ class ConditionBlock extends Block {
             addCondition.onclick = () => {
                 this.conditions.push(new Condition(this.id));
                 this.conditions[this.conditions.length - 1].add();
+                this.conditions.forEach((condition) => {
+                    condition.update();
+                    this.updateDiv();
+                });
             };
+            this.conditions.forEach((condition) => {
+                condition.update();
+            });
             super.properties();
         });
     }
@@ -152,8 +154,13 @@ class Condition {
                 <label><input type="checkbox" class="property${this.id}">Var</label>
             </p>
         `;
+    }
+    update() {
         let property = propertiesWindow.querySelectorAll(".property" + this.id);
         const value = propertiesWindow.querySelectorAll(".value");
+        property[0].value = this.value[0];
+        property[1].value = this.operator;
+        property[2].value = this.value[1];
         property[0].oninput = () => {
             this.value[0] = property[0].value;
             blocksList[this.idBlock].updateDiv();
@@ -195,7 +202,6 @@ class Condition {
             this.operator = property[1].value;
             blocksList[this.idBlock].updateDiv();
         };
-        property[1].value = this.operator;
         for (let i = 0; i < this.isValueVariable.length; i++) {
             if (this.isValueVariable[i] == true) {
                 property[i + 3].checked = true;
