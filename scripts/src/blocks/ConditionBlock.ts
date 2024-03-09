@@ -179,14 +179,13 @@ class Condition {
             document.getElementById("conditions").innerHTML += `
             <select>
                 <option>AND</option>
-                <option>OR</option>
             </select>
             `;
         }
 
         document.getElementById("conditions").innerHTML += `
             <p class="condition-section">
-            <span class="value"><input type="text" value="${this.value[0]}" class="property${this.id}"></span>
+            <span class="value${this.id}"><input type="text" value="${this.value[0]}" class="property${this.id}"></span>
             <select class="property${this.id}">
                         <option>==</option>
                         <option>!=</option>
@@ -195,7 +194,7 @@ class Condition {
                         <option>>=</option>
                         <option><=</option>
             </select>
-            <span class="value"><input type="text" value="${this.value[1]}" class="property${this.id}"></span>
+            <span class="value${this.id}"><input type="text" value="${this.value[1]}" class="property${this.id}"></span>
             </p>
             <p class="condition-section-var">
                 <label><input type="checkbox" class="property${this.id}">Var</label>
@@ -206,7 +205,7 @@ class Condition {
 
     update() {
         let property: any = propertiesWindow.querySelectorAll(".property"+this.id);
-        const value: any = propertiesWindow.querySelectorAll(".value");
+        const value: any = propertiesWindow.querySelectorAll(".value"+this.id);
 
         property[0].value = this.value[0];
         property[1].value = this.operator;
@@ -218,15 +217,15 @@ class Condition {
         }
         for(let i=0; i<this.isValueVariable.length; i++)
         {
-            let id = 3+i;
+            let id: number = 3+i;
 
             property[id].onchange = () => {
                 if(property[id].checked)
                 {
-                    value[i].innerHTML = createSelectVariables("property"+i);
+                    value[i].innerHTML = createSelectVariables("property"+this.id, undefined, true);
 
-                    const property: any = document.getElementById("property"+i);
-                    property.oninput = () => {
+                    property = propertiesWindow.querySelectorAll(".property"+this.id);
+                    property[id].oninput = () => {
                         if(property.value != "---")
                         {
                             this.isValueVariable[i] = true;
@@ -244,9 +243,9 @@ class Condition {
                 {
                     this.isValueVariable[i] = false;
 
-                    value[i].innerHTML = `<input type="text" value="${this.value[i]}" id="property${i}">`;
-                    const property: any = document.getElementById("property"+i);
-                    property.oninput = () => {
+                    value[i].innerHTML = `<input type="text" value="${this.value[i]}" class="property${this.id}">`;
+                    property = propertiesWindow.querySelectorAll(".property"+this.id);
+                    property[id].oninput = () => {
                         this.value[i] = property.value;
                         blocksList[this.idBlock].updateDiv();
                     }
@@ -265,14 +264,16 @@ class Condition {
             blocksList[this.idBlock].updateDiv();
         }
 
-        for(let i=0; i<this.isValueVariable.length; i++)
+        /*for(let i=0; i<this.isValueVariable.length; i++)
         {
+            let id: number = i+3;
+
             if(this.isValueVariable[i] == true) 
             {
-                property[i+3].checked = true; 
-                value[i].innerHTML = createSelectVariables("property"+i);
+                property[id].checked = true; 
+                value[i].innerHTML = createSelectVariables("property"+this.id, undefined, true);
 
-                let propertyX: any = document.getElementById("property"+i);
+                let propertyX: any = document.getElementById("property"+this.id);
                 propertyX.value = this.valueName[i];
 
                 propertyX.oninput = () => {
@@ -290,7 +291,7 @@ class Condition {
                 }
 
             }
-        }
+        }*/
     }
 
     compare() {

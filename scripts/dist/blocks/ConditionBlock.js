@@ -132,13 +132,12 @@ class Condition {
             document.getElementById("conditions").innerHTML += `
             <select>
                 <option>AND</option>
-                <option>OR</option>
             </select>
             `;
         }
         document.getElementById("conditions").innerHTML += `
             <p class="condition-section">
-            <span class="value"><input type="text" value="${this.value[0]}" class="property${this.id}"></span>
+            <span class="value${this.id}"><input type="text" value="${this.value[0]}" class="property${this.id}"></span>
             <select class="property${this.id}">
                         <option>==</option>
                         <option>!=</option>
@@ -147,7 +146,7 @@ class Condition {
                         <option>>=</option>
                         <option><=</option>
             </select>
-            <span class="value"><input type="text" value="${this.value[1]}" class="property${this.id}"></span>
+            <span class="value${this.id}"><input type="text" value="${this.value[1]}" class="property${this.id}"></span>
             </p>
             <p class="condition-section-var">
                 <label><input type="checkbox" class="property${this.id}">Var</label>
@@ -157,7 +156,7 @@ class Condition {
     }
     update() {
         let property = propertiesWindow.querySelectorAll(".property" + this.id);
-        const value = propertiesWindow.querySelectorAll(".value");
+        const value = propertiesWindow.querySelectorAll(".value" + this.id);
         property[0].value = this.value[0];
         property[1].value = this.operator;
         property[2].value = this.value[1];
@@ -169,9 +168,9 @@ class Condition {
             let id = 3 + i;
             property[id].onchange = () => {
                 if (property[id].checked) {
-                    value[i].innerHTML = createSelectVariables("property" + i);
-                    const property = document.getElementById("property" + i);
-                    property.oninput = () => {
+                    value[i].innerHTML = createSelectVariables("property" + this.id, undefined, true);
+                    property = propertiesWindow.querySelectorAll(".property" + this.id);
+                    property[id].oninput = () => {
                         if (property.value != "---") {
                             this.isValueVariable[i] = true;
                             this.valueName[i] = property.value;
@@ -184,9 +183,9 @@ class Condition {
                 }
                 else {
                     this.isValueVariable[i] = false;
-                    value[i].innerHTML = `<input type="text" value="${this.value[i]}" id="property${i}">`;
-                    const property = document.getElementById("property" + i);
-                    property.oninput = () => {
+                    value[i].innerHTML = `<input type="text" value="${this.value[i]}" class="property${this.id}">`;
+                    property = propertiesWindow.querySelectorAll(".property" + this.id);
+                    property[id].oninput = () => {
                         this.value[i] = property.value;
                         blocksList[this.idBlock].updateDiv();
                     };
@@ -202,25 +201,34 @@ class Condition {
             this.operator = property[1].value;
             blocksList[this.idBlock].updateDiv();
         };
-        for (let i = 0; i < this.isValueVariable.length; i++) {
-            if (this.isValueVariable[i] == true) {
-                property[i + 3].checked = true;
-                value[i].innerHTML = createSelectVariables("property" + i);
-                let propertyX = document.getElementById("property" + i);
+        /*for(let i=0; i<this.isValueVariable.length; i++)
+        {
+            let id: number = i+3;
+
+            if(this.isValueVariable[i] == true)
+            {
+                property[id].checked = true;
+                value[i].innerHTML = createSelectVariables("property"+this.id, undefined, true);
+
+                let propertyX: any = document.getElementById("property"+this.id);
                 propertyX.value = this.valueName[i];
+
                 propertyX.oninput = () => {
-                    if (property.value != "---") {
+                    if(property.value != "---")
+                    {
                         this.isValueVariable[i] = true;
                         this.valueName[i] = propertyX.value;
                     }
-                    else {
+                    else
+                    {
                         this.isValueVariable[i] = false;
                         this.value[i] = 0;
                     }
                     blocksList[this.idBlock].updateDiv();
-                };
+                }
+
             }
-        }
+        }*/
     }
     compare() {
         for (let i = 0; i < this.isValueVariable.length; i++) {
