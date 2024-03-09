@@ -1,21 +1,13 @@
 class ConditionBlock extends Block {
-    value: any[] = [0,0]
-    operator: string = "==";
-    isValueVariable: boolean[] = [false, false];
-    valueName: string[] = [];
-    conditions: Condition[] = [new Condition(1)];
+    conditions: Condition[] = [];
     connectToTRUE: Block | any;
     connectToFALSE: Block | any;
 
     constructor(x: number = 0, y: number = 0) {
         super(x, y);
 
-        for(let i=0; i<this.isValueVariable.length; i++)
-        {
-            if(this.isValueVariable[i] == true) this.valueName[i] = this.value[i];
-        }
-
-        this.init()
+        this.init();
+        this.conditions = [new Condition(this.id)];
     }
 
     connectToExecute(): void {
@@ -25,45 +17,11 @@ class ConditionBlock extends Block {
             executeHistory.push(this);
             this.unsetActive();
 
-            for(let i=0; i<this.isValueVariable.length; i++)
-            {
-                if(this.isValueVariable[i] == true) this.value[i] = globalVariables.get(this.valueName[i]);
-            }
-            
-            let result: boolean = false;
+            this.conditions.forEach((condition: Condition) => {
+                condition.compare();
+            });
 
-            if(isNaN(Number(this.value[0])) == false)
-                this.value[0] = Number(this.value[0]);
-            
-            if(isNaN(Number(this.value[1])) == false)
-                this.value[1] = Number(this.value[1]);
-
-            switch(this.operator)
-            {
-                case "==":
-                    if(this.value[0] == this.value[1]) result = true;
-                break;
-
-                case "!=":
-                    if(this.value[0] != this.value[1]) result = true;
-                break;
-
-                case ">":
-                    if(this.value[0] > this.value[1]) result = true;
-                break;
-
-                case "<":
-                    if(this.value[0] < this.value[1]) result = true;
-                break;
-
-                case "<=":
-                    if(this.value[0] <= this.value[1]) result = true;
-                break;
-
-                case ">=":
-                    if(this.value[0] >= this.value[1]) result = true;
-                break;
-            }
+            let result: boolean = this.conditions[0].result;
 
             if(result == true && this.connectToTRUE != undefined) this.connectToTRUE.execute();
             else if(result == false && this.connectToFALSE != undefined) this.connectToFALSE.execute();
@@ -82,12 +40,12 @@ class ConditionBlock extends Block {
     createBlock(): void {
         workspace.innerHTML += 
         `<div class="block condition" id="${this.id}" title="Z - Linia prawda\nX - Linia Fałsz">
-            0==0
+            <span>0==0</span>
         </div>`;
     }
 
     updateDiv(): void {
-        if(this.isValueVariable[0] == true && this.isValueVariable[1] == true)
+        /*if(this.isValueVariable[0] == true && this.isValueVariable[1] == true)
         {
             this.div.innerHTML = `<span><b>${this.valueName[0]}</b>${this.operator}<b>${this.valueName[1]}</b></span>`;;
         }
@@ -104,7 +62,7 @@ class ConditionBlock extends Block {
             this.div.innerHTML = `<span>${this.value[0]}${this.operator}${this.value[1]}</span>`;;
         }
 
-        this.resize();
+        this.resize();*/
         super.updateDiv();
     }
 
@@ -124,101 +82,10 @@ class ConditionBlock extends Block {
                 condition.add();
             });
 
-            let property: any = propertiesWindow.querySelectorAll(".property"+this.id);
-            const value: any = propertiesWindow.querySelectorAll(".value");
             const addCondition: HTMLElement = document.getElementById("add-condition-button");
-            const conditionsContainer: HTMLElement = document.getElementById("conditions");
-
-            property[0].oninput = () => {
-                this.value[0] = property[0].value;
-                this.updateDiv();
-            }
-            for(let i=0; i<this.isValueVariable.length; i++)
-            {
-                let id = 3+i;
-
-                property[id].onchange = () => {
-                    if(property[id].checked)
-                    {
-                        value[i].innerHTML = createSelectVariables("property"+i);
-    
-                        const property: any = document.getElementById("property"+i);
-                        property.oninput = () => {
-                            if(property.value != "---")
-                            {
-                                this.isValueVariable[i] = true;
-                                this.valueName[i] = property.value;
-                            }
-                            else
-                            {
-                                this.isValueVariable[i] = false;
-                            }
-
-                            this.updateDiv();
-                        }
-                    }
-                    else
-                    {
-                        this.isValueVariable[i] = false;
-
-                        value[i].innerHTML = `<input type="text" value="${this.value[i]}" id="property${i}">`;
-                        const property: any = document.getElementById("property"+i);
-                        property.oninput = () => {
-                            this.value[i] = property.value;
-                            this.updateDiv();
-                        }
-                    }
-
-                    this.updateDiv();
-                }
-            }
-            property[2].oninput = () => {
-                this.value[1] = property[2].value;
-                this.updateDiv();
-            }
-
-            property[1].oninput = () => {
-                this.operator = property[1].value;
-                this.updateDiv();
-            }
-            property[1].value = this.operator;
-
-            for(let i=0; i<this.isValueVariable.length; i++)
-            {
-                if(this.isValueVariable[i] == true) 
-                {
-                    property[i+3].checked = true; 
-                    value[i].innerHTML = createSelectVariables("property"+i);
-
-                    let propertyX: any = document.getElementById("property"+i);
-                    propertyX.value = this.valueName[i];
-
-                    propertyX.oninput = () => {
-                        if(property.value != "---")
-                        {
-                            this.isValueVariable[i] = true;
-                            this.valueName[i] = propertyX.value;
-                        }
-                        else
-                        {
-                            this.isValueVariable[i] = false;
-                            this.value[i] = 0;
-                        }
-                        this.updateDiv();
-                    }
-
-                }
-            }
 
             addCondition.onclick = () => {
-                conditionsContainer.innerHTML += `
-                    <select>
-                        <option>AND</option>
-                        <option>OR</option>
-                    </select>
-                `;
-
-                this.conditions.push(new Condition(this.conditions.length));
+                this.conditions.push(new Condition(this.id));
                 this.conditions[this.conditions.length-1].add();
             }
 
@@ -278,25 +145,41 @@ class ConditionBlock extends Block {
 
 class Condition {
     id: number;
-    value1: any;
-    value2: any;
-    isValue1Variable: boolean;
-    isValue2Variable: boolean;
+    idBlock: number;
+    value: any[];
     operator: string;
+    isValueVariable: boolean[];
+    valueName: string[];
+    result: boolean;
 
-    constructor(id: number) {
-        this.id = id;
-        this.value1 = 0;
-        this.value2 = 0;
-        this.isValue1Variable = false;
-        this.isValue2Variable = false;
+    constructor(idBlock: number) {
+        this.idBlock = idBlock;
+        this.id = blocksList[idBlock].conditions.length;
+        this.value = [0, 0]
+        this.isValueVariable = [false, false];
         this.operator = "==";
+        this.valueName = [];
+
+        for(let i=0; i<this.isValueVariable.length; i++)
+        {
+            if(this.isValueVariable[i] == true) this.valueName[i] = this.value[i];
+        }
     }
 
     add() {
+        if(this.id > 0)
+        {
+            document.getElementById("conditions").innerHTML += `
+            <select>
+                <option>AND</option>
+                <option>OR</option>
+            </select>
+            `;
+        }
+
         document.getElementById("conditions").innerHTML += `
             <p class="condition-section">
-            <span class="value"><input type="text" value="${this.value1}" class="property${this.id}"></span>
+            <span class="value"><input type="text" value="${this.value[0]}" class="property${this.id}"></span>
             <select class="property${this.id}">
                         <option>==</option>
                         <option>!=</option>
@@ -305,12 +188,139 @@ class Condition {
                         <option>>=</option>
                         <option><=</option>
             </select>
-            <span class="value"><input type="text" value="${this.value2}" class="property${this.id}"></span>
+            <span class="value"><input type="text" value="${this.value[1]}" class="property${this.id}"></span>
             </p>
             <p class="condition-section-var">
                 <label><input type="checkbox" class="property${this.id}">Var</label>
                 <label><input type="checkbox" class="property${this.id}">Var</label>
             </p>
         `;
+
+        let property: any = propertiesWindow.querySelectorAll(".property"+this.id);
+        const value: any = propertiesWindow.querySelectorAll(".value");
+
+        property[0].oninput = () => {
+            this.value[0] = property[0].value;
+            blocksList[this.idBlock].updateDiv();
+        }
+        for(let i=0; i<this.isValueVariable.length; i++)
+        {
+            let id = 3+i;
+
+            property[id].onchange = () => {
+                if(property[id].checked)
+                {
+                    value[i].innerHTML = createSelectVariables("property"+i);
+
+                    const property: any = document.getElementById("property"+i);
+                    property.oninput = () => {
+                        if(property.value != "---")
+                        {
+                            this.isValueVariable[i] = true;
+                            this.valueName[i] = property.value;
+                        }
+                        else
+                        {
+                            this.isValueVariable[i] = false;
+                        }
+
+                        blocksList[this.idBlock].updateDiv();
+                    }
+                }
+                else
+                {
+                    this.isValueVariable[i] = false;
+
+                    value[i].innerHTML = `<input type="text" value="${this.value[i]}" id="property${i}">`;
+                    const property: any = document.getElementById("property"+i);
+                    property.oninput = () => {
+                        this.value[i] = property.value;
+                        blocksList[this.idBlock].updateDiv();
+                    }
+                }
+
+                blocksList[this.idBlock].updateDiv();
+            }
+        }
+        property[2].oninput = () => {
+            this.value[1] = property[2].value;
+            blocksList[this.idBlock].updateDiv();
+        }
+
+        property[1].oninput = () => {
+            this.operator = property[1].value;
+            blocksList[this.idBlock].updateDiv();
+        }
+        property[1].value = this.operator;
+
+        for(let i=0; i<this.isValueVariable.length; i++)
+        {
+            if(this.isValueVariable[i] == true) 
+            {
+                property[i+3].checked = true; 
+                value[i].innerHTML = createSelectVariables("property"+i);
+
+                let propertyX: any = document.getElementById("property"+i);
+                propertyX.value = this.valueName[i];
+
+                propertyX.oninput = () => {
+                    if(property.value != "---")
+                    {
+                        this.isValueVariable[i] = true;
+                        this.valueName[i] = propertyX.value;
+                    }
+                    else
+                    {
+                        this.isValueVariable[i] = false;
+                        this.value[i] = 0;
+                    }
+                    blocksList[this.idBlock].updateDiv();
+                }
+
+            }
+        }
+        
+    }
+
+    compare() {
+        for(let i=0; i<this.isValueVariable.length; i++)
+        {
+            if(this.isValueVariable[i] == true) this.value[i] = globalVariables.get(this.valueName[i]);
+        }
+
+        if(isNaN(Number(this.value[0])) == false)
+            this.value[0] = Number(this.value[0]);
+        
+        if(isNaN(Number(this.value[1])) == false)
+            this.value[1] = Number(this.value[1]);
+
+        this.result = false;
+
+        switch(this.operator)
+        {
+            case "==":
+                if(this.value[0] == this.value[1]) this.result = true;
+            break;
+
+            case "!=":
+                if(this.value[0] != this.value[1]) this.result = true;
+            break;
+
+            case ">":
+                if(this.value[0] > this.value[1]) this.result = true;
+            break;
+
+            case "<":
+                if(this.value[0] < this.value[1]) this.result = true;
+            break;
+
+            case "<=":
+                if(this.value[0] <= this.value[1]) this.result = true;
+            break;
+
+            case ">=":
+                if(this.value[0] >= this.value[1]) this.result = true;
+            break;
+        }
     }
 }
