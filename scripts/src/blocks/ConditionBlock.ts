@@ -88,8 +88,9 @@ class ConditionBlock extends Block {
 
                 this.conditions.forEach((condition: Condition) => {
                     condition.update();
-                    this.updateDiv();
                 });
+
+                this.updateDiv();
             }
 
             this.conditions.forEach((condition: Condition) => {
@@ -225,7 +226,8 @@ class Condition {
                     value[i].innerHTML = createSelectVariables("property"+this.id, undefined, true);
 
                     property = propertiesWindow.querySelectorAll(".property"+this.id);
-                    property[id].oninput = () => {
+                    property[i*2].oninput = () => {
+                        
                         if(property.value != "---")
                         {
                             this.isValueVariable[i] = true;
@@ -245,7 +247,7 @@ class Condition {
 
                     value[i].innerHTML = `<input type="text" value="${this.value[i]}" class="property${this.id}">`;
                     property = propertiesWindow.querySelectorAll(".property"+this.id);
-                    property[id].oninput = () => {
+                    property[i*2].oninput = () => {
                         this.value[i] = property.value;
                         blocksList[this.idBlock].updateDiv();
                     }
@@ -264,7 +266,7 @@ class Condition {
             blocksList[this.idBlock].updateDiv();
         }
 
-        /*for(let i=0; i<this.isValueVariable.length; i++)
+        for(let i=0; i<this.isValueVariable.length; i++)
         {
             let id: number = i+3;
 
@@ -273,14 +275,14 @@ class Condition {
                 property[id].checked = true; 
                 value[i].innerHTML = createSelectVariables("property"+this.id, undefined, true);
 
-                let propertyX: any = document.getElementById("property"+this.id);
-                propertyX.value = this.valueName[i];
+                property = propertiesWindow.querySelectorAll(".property"+this.id);
+                property[i*2].value = this.valueName[i];
 
-                propertyX.oninput = () => {
+                property[i*2].oninput = () => {
                     if(property.value != "---")
                     {
                         this.isValueVariable[i] = true;
-                        this.valueName[i] = propertyX.value;
+                        this.valueName[i] = property[i*2].value;
                     }
                     else
                     {
@@ -291,7 +293,7 @@ class Condition {
                 }
 
             }
-        }*/
+        }
     }
 
     compare() {

@@ -68,8 +68,8 @@ class ConditionBlock extends Block {
                 this.conditions[this.conditions.length - 1].add();
                 this.conditions.forEach((condition) => {
                     condition.update();
-                    this.updateDiv();
                 });
+                this.updateDiv();
             };
             this.conditions.forEach((condition) => {
                 condition.update();
@@ -170,7 +170,7 @@ class Condition {
                 if (property[id].checked) {
                     value[i].innerHTML = createSelectVariables("property" + this.id, undefined, true);
                     property = propertiesWindow.querySelectorAll(".property" + this.id);
-                    property[id].oninput = () => {
+                    property[i * 2].oninput = () => {
                         if (property.value != "---") {
                             this.isValueVariable[i] = true;
                             this.valueName[i] = property.value;
@@ -185,7 +185,7 @@ class Condition {
                     this.isValueVariable[i] = false;
                     value[i].innerHTML = `<input type="text" value="${this.value[i]}" class="property${this.id}">`;
                     property = propertiesWindow.querySelectorAll(".property" + this.id);
-                    property[id].oninput = () => {
+                    property[i * 2].oninput = () => {
                         this.value[i] = property.value;
                         blocksList[this.idBlock].updateDiv();
                     };
@@ -201,34 +201,26 @@ class Condition {
             this.operator = property[1].value;
             blocksList[this.idBlock].updateDiv();
         };
-        /*for(let i=0; i<this.isValueVariable.length; i++)
-        {
-            let id: number = i+3;
-
-            if(this.isValueVariable[i] == true)
-            {
+        for (let i = 0; i < this.isValueVariable.length; i++) {
+            let id = i + 3;
+            if (this.isValueVariable[i] == true) {
                 property[id].checked = true;
-                value[i].innerHTML = createSelectVariables("property"+this.id, undefined, true);
-
-                let propertyX: any = document.getElementById("property"+this.id);
-                propertyX.value = this.valueName[i];
-
-                propertyX.oninput = () => {
-                    if(property.value != "---")
-                    {
+                value[i].innerHTML = createSelectVariables("property" + this.id, undefined, true);
+                property = propertiesWindow.querySelectorAll(".property" + this.id);
+                property[i * 2].value = this.valueName[i];
+                property[i * 2].oninput = () => {
+                    if (property.value != "---") {
                         this.isValueVariable[i] = true;
-                        this.valueName[i] = propertyX.value;
+                        this.valueName[i] = property[i * 2].value;
                     }
-                    else
-                    {
+                    else {
                         this.isValueVariable[i] = false;
                         this.value[i] = 0;
                     }
                     blocksList[this.idBlock].updateDiv();
-                }
-
+                };
             }
-        }*/
+        }
     }
     compare() {
         for (let i = 0; i < this.isValueVariable.length; i++) {
