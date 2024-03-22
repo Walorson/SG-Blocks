@@ -119,3 +119,14 @@
     background-color: gainsboro;
     padding-bottom: 1px;
 }
+.remove-condition {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+.remove-condition:hover {
+    cursor: pointer;
+}
+.condition-setting {
+    position: relative;
+}

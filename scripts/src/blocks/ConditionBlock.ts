@@ -184,16 +184,18 @@ class Condition {
     }
 
     add() {
+        document.getElementById("conditions").innerHTML += `<div id="condition${this.id}" class="condition-setting"></div>`;
+
         if(this.id > 0)
         {
-            document.getElementById("conditions").innerHTML += `
-            <select>
+            document.getElementById("condition"+this.id).innerHTML += `
+            <select id="operator${this.id}">
                 <option>AND</option>
             </select>
             `;
         }
 
-        document.getElementById("conditions").innerHTML += `
+        document.getElementById("condition"+this.id).innerHTML += `
             <p class="condition-section">
             <span class="value${this.id}"><input type="text" value="${this.value[0]}" class="property${this.id}"></span>
             <select class="property${this.id}">
@@ -210,6 +212,7 @@ class Condition {
                 <label><input type="checkbox" class="property${this.id}">Var</label>
                 <label><input type="checkbox" class="property${this.id}">Var</label>
             </p>
+            <div class="remove-condition" id="remove-condition${this.id}"><img src="img/remove.png"></div>
         `;
     }
 
@@ -301,6 +304,25 @@ class Condition {
                     blocksList[this.idBlock].updateDiv();
                 }
             }
+        }
+
+        document.getElementById(`remove-condition${this.id}`).onclick = () => 
+        {
+            document.getElementById(`condition${this.id}`).remove();
+            delete blocksList[this.idBlock].conditions[this.id];
+            blocksList[this.idBlock].updateDiv();
+
+            for(let i=0; i < blocksList[this.idBlock].conditions.length; i++)
+            {
+                if(blocksList[this.idBlock].conditions[i] != null) {
+                    try {
+                        document.getElementById("operator"+blocksList[this.idBlock].conditions[i].id).remove();
+                    } catch{};
+                    return; //end the function if there aren't only emptys
+                }
+            }
+
+            blocksList[this.idBlock].conditions = [];
         }
     }
 
