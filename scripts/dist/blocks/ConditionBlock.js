@@ -40,17 +40,26 @@ class ConditionBlock extends Block {
     }
     updateDiv() {
         let conditions = "";
-        this.conditions.forEach((condition, index) => {
-            if (condition.isValueVariable[0] == true && condition.isValueVariable[1] == true)
+        let conditionsWithoutEmptys = [];
+        for (let i = 0; i < this.conditions.length; i++) {
+            if (this.conditions[i] != null)
+                conditionsWithoutEmptys.push(this.conditions[i]);
+        }
+        conditionsWithoutEmptys.forEach((condition, index) => {
+            if (condition.isValueVariable[0] == true && condition.isValueVariable[1] == true) {
                 conditions += `<b>${condition.valueName[0]}</b>${condition.operator}<b>${condition.valueName[1]}</b>`;
-            else if (condition.isValueVariable[0] == true)
+            }
+            else if (condition.isValueVariable[0] == true) {
                 conditions += `<b>${condition.valueName[0]}</b>${condition.operator}${condition.value[1]}`;
-            else if (condition.isValueVariable[1] == true)
+            }
+            else if (condition.isValueVariable[1] == true) {
                 conditions += `${condition.value[0]}${condition.operator}<b>${condition.valueName[1]}</b>`;
-            else
+            }
+            else {
                 conditions += `${condition.value[0]}${condition.operator}${condition.value[1]}`;
-            if (index < this.conditions.length - 1)
-                conditions += ' && ';
+            }
+            if (index < conditionsWithoutEmptys.length - 1)
+                conditions += ` ${conditionsWithoutEmptys[index + 1].logicalOperator} `;
         });
         this.div.innerHTML = `<span>${conditions}</span>`;
         this.resize();
@@ -128,6 +137,12 @@ class Condition {
         this.value = [0, 0];
         this.isValueVariable = [false, false];
         this.operator = "==";
+        if (this.id > 0) {
+            this.logicalOperator = 'AND';
+        }
+        else {
+            this.logicalOperator = null;
+        }
         this.valueName = [];
         for (let i = 0; i < this.isValueVariable.length; i++) {
             if (this.isValueVariable[i] == true)
@@ -138,8 +153,9 @@ class Condition {
         document.getElementById("conditions").innerHTML += `<div id="condition${this.id}" class="condition-setting"></div>`;
         if (this.id > 0) {
             document.getElementById("condition" + this.id).innerHTML += `
-            <select id="operator${this.id}">
+            <select id="logicalOperator${this.id}">
                 <option>AND</option>
+                <option>OR</option>
             </select>
             `;
         }
@@ -237,7 +253,7 @@ class Condition {
             for (let i = 0; i < blocksList[this.idBlock].conditions.length; i++) {
                 if (blocksList[this.idBlock].conditions[i] != null) {
                     try {
-                        document.getElementById("operator" + blocksList[this.idBlock].conditions[i].id).remove();
+                        document.getElementById("logicalOperator" + blocksList[this.idBlock].conditions[i].id).remove();
                     }
                     catch (_a) { }
                     ;
@@ -246,6 +262,14 @@ class Condition {
             }
             blocksList[this.idBlock].conditions = [];
         };
+        if (this.id > 0) {
+            const logicalOperator = document.getElementById(`logicalOperator${this.id}`);
+            logicalOperator.value = this.logicalOperator;
+            logicalOperator.oninput = () => {
+                this.logicalOperator = logicalOperator.value;
+                blocksList[this.idBlock].updateDiv();
+            };
+        }
     }
     compare() {
         for (let i = 0; i < this.isValueVariable.length; i++) {
