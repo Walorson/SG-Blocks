@@ -53,8 +53,17 @@ class ConditionBlock extends Block {
 
     updateDiv(): void {
         let conditions: string = "";
-        this.conditions.forEach((condition: Condition, index: number) => {
-            conditions += `${condition.value[0]}${condition.operator}${condition.value[1]}`;
+        this.conditions.forEach((condition: Condition, index: number) => 
+        {
+            if(condition.isValueVariable[0] == true && condition.isValueVariable[1] == true)
+                conditions += `<b>${condition.valueName[0]}</b>${condition.operator}<b>${condition.valueName[1]}</b>`;
+            else if(condition.isValueVariable[0] == true)
+                conditions += `<b>${condition.valueName[0]}</b>${condition.operator}${condition.value[1]}`;
+            else if(condition.isValueVariable[1] == true)
+                conditions += `${condition.value[0]}${condition.operator}<b>${condition.valueName[1]}</b>`;
+            else
+                conditions += `${condition.value[0]}${condition.operator}${condition.value[1]}`;
+
             if(index < this.conditions.length-1) conditions += ' && ';
         });
 
@@ -228,10 +237,10 @@ class Condition {
                     property = propertiesWindow.querySelectorAll(".property"+this.id);
                     property[i*2].oninput = () => {
                         
-                        if(property.value != "---")
+                        if(property[i*2].value != "---")
                         {
                             this.isValueVariable[i] = true;
-                            this.valueName[i] = property.value;
+                            this.valueName[i] = property[i*2].value;
                         }
                         else
                         {
@@ -279,7 +288,7 @@ class Condition {
                 property[i*2].value = this.valueName[i];
 
                 property[i*2].oninput = () => {
-                    if(property.value != "---")
+                    if(property[i*2].value != "---")
                     {
                         this.isValueVariable[i] = true;
                         this.valueName[i] = property[i*2].value;
@@ -291,7 +300,6 @@ class Condition {
                     }
                     blocksList[this.idBlock].updateDiv();
                 }
-
             }
         }
     }

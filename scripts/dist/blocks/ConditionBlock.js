@@ -41,7 +41,14 @@ class ConditionBlock extends Block {
     updateDiv() {
         let conditions = "";
         this.conditions.forEach((condition, index) => {
-            conditions += `${condition.value[0]}${condition.operator}${condition.value[1]}`;
+            if (condition.isValueVariable[0] == true && condition.isValueVariable[1] == true)
+                conditions += `<b>${condition.valueName[0]}</b>${condition.operator}<b>${condition.valueName[1]}</b>`;
+            else if (condition.isValueVariable[0] == true)
+                conditions += `<b>${condition.valueName[0]}</b>${condition.operator}${condition.value[1]}`;
+            else if (condition.isValueVariable[1] == true)
+                conditions += `${condition.value[0]}${condition.operator}<b>${condition.valueName[1]}</b>`;
+            else
+                conditions += `${condition.value[0]}${condition.operator}${condition.value[1]}`;
             if (index < this.conditions.length - 1)
                 conditions += ' && ';
         });
@@ -171,9 +178,9 @@ class Condition {
                     value[i].innerHTML = createSelectVariables("property" + this.id, undefined, true);
                     property = propertiesWindow.querySelectorAll(".property" + this.id);
                     property[i * 2].oninput = () => {
-                        if (property.value != "---") {
+                        if (property[i * 2].value != "---") {
                             this.isValueVariable[i] = true;
-                            this.valueName[i] = property.value;
+                            this.valueName[i] = property[i * 2].value;
                         }
                         else {
                             this.isValueVariable[i] = false;
@@ -209,7 +216,7 @@ class Condition {
                 property = propertiesWindow.querySelectorAll(".property" + this.id);
                 property[i * 2].value = this.valueName[i];
                 property[i * 2].oninput = () => {
-                    if (property.value != "---") {
+                    if (property[i * 2].value != "---") {
                         this.isValueVariable[i] = true;
                         this.valueName[i] = property[i * 2].value;
                     }
