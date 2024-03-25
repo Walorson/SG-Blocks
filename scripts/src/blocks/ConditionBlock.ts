@@ -22,15 +22,22 @@ class ConditionBlock extends Block {
                 condition.compare();
             });
 
-            let result: boolean = true;
+            let result: boolean = false;
+            let conditionsResult: string = "";
+            let op: string = '&&';
+            const conditions: Condition[] = this.conditions.filter((condition: Condition) => condition != null);
 
-            for(let i=0; i<this.conditions.length; i++)
+            for(let i=0; i<conditions.length-1; i++)
             {
-                if(this.conditions[i].result == false) {
-                    result = false;
-                    break;
-                }
+                if(conditions[i+1].logicalOperator == 'OR') op = '||';
+
+                conditionsResult += conditions[i].result + " " + op + " ";
             }
+            conditionsResult += conditions[conditions.length-1].result;
+
+            /////////////////////////////////////////
+            if(eval(conditionsResult)) result = true;
+            /////////////////////////////////////////
 
             if(result == true && this.connectToTRUE != undefined) this.connectToTRUE.execute();
             else if(result == false && this.connectToFALSE != undefined) this.connectToFALSE.execute();
@@ -54,11 +61,7 @@ class ConditionBlock extends Block {
     updateDiv(): void {
         let conditions: string = "";
 
-        let conditionsWithoutEmptys: Condition[] = [];
-        for(let i=0; i<this.conditions.length; i++)
-        {
-            if(this.conditions[i] != null) conditionsWithoutEmptys.push(this.conditions[i]);
-        }
+        let conditionsWithoutEmptys: Condition[] = this.conditions.filter((condition: Condition) => condition != null);
 
         conditionsWithoutEmptys.forEach((condition: Condition, index: number) => 
         {
@@ -89,7 +92,7 @@ class ConditionBlock extends Block {
     }
 
     resize(): void {
-        this.div.style.width = (this.div.textContent.length*14)+"px";
+        this.div.style.width = (this.div.textContent.length*16)+"px";
     }
 
     properties(): void {

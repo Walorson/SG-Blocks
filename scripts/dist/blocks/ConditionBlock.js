@@ -14,13 +14,20 @@ class ConditionBlock extends Block {
             this.conditions.forEach((condition) => {
                 condition.compare();
             });
-            let result = true;
-            for (let i = 0; i < this.conditions.length; i++) {
-                if (this.conditions[i].result == false) {
-                    result = false;
-                    break;
-                }
+            let result = false;
+            let conditionsResult = "";
+            let op = '&&';
+            const conditions = this.conditions.filter((condition) => condition != null);
+            for (let i = 0; i < conditions.length - 1; i++) {
+                if (conditions[i + 1].logicalOperator == 'OR')
+                    op = '||';
+                conditionsResult += conditions[i].result + " " + op + " ";
             }
+            conditionsResult += conditions[conditions.length - 1].result;
+            /////////////////////////////////////////
+            if (eval(conditionsResult))
+                result = true;
+            /////////////////////////////////////////
             if (result == true && this.connectToTRUE != undefined)
                 this.connectToTRUE.execute();
             else if (result == false && this.connectToFALSE != undefined)
@@ -40,11 +47,7 @@ class ConditionBlock extends Block {
     }
     updateDiv() {
         let conditions = "";
-        let conditionsWithoutEmptys = [];
-        for (let i = 0; i < this.conditions.length; i++) {
-            if (this.conditions[i] != null)
-                conditionsWithoutEmptys.push(this.conditions[i]);
-        }
+        let conditionsWithoutEmptys = this.conditions.filter((condition) => condition != null);
         conditionsWithoutEmptys.forEach((condition, index) => {
             if (condition.isValueVariable[0] == true && condition.isValueVariable[1] == true) {
                 conditions += `<b>${condition.valueName[0]}</b>${condition.operator}<b>${condition.valueName[1]}</b>`;
@@ -66,7 +69,7 @@ class ConditionBlock extends Block {
         super.updateDiv();
     }
     resize() {
-        this.div.style.width = (this.div.textContent.length * 14) + "px";
+        this.div.style.width = (this.div.textContent.length * 16) + "px";
     }
     properties() {
         this.div.addEventListener("mousedown", () => {

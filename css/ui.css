@@ -48,6 +48,8 @@
     padding: 5px;
     overflow-y: auto;
     margin-bottom: 115px;
+    overflow-x: hidden;
+    max-height: 47.5vh;
 }
 #controls {
     position: absolute;
