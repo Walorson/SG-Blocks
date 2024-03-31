@@ -88,7 +88,7 @@ function JSONtoBlocks(json: string) {
         return Object.assign(new OutputBlock(value.x, value.y, value.message, value.isVariable), value);
       }
       if (value && value.__type === 'ConditionBlock') {
-        return Object.assign(new ConditionBlock(value.x, value.y), value);
+        return Object.assign(new ConditionBlock(value.x, value.y, value.conditions), value);
       }
       if (value && value.__type === 'OperationBlock') {
           return Object.assign(new OperationBlock(value.x, value.y), value);

@@ -1,9 +1,17 @@
 class ConditionBlock extends Block {
-    constructor(x = 0, y = 0) {
+    constructor(x = 0, y = 0, conditions = null) {
         super(x, y);
         this.conditions = [];
         this.init();
-        this.conditions = [new Condition(this.id)];
+        if (conditions == null)
+            this.conditions = [new Condition(this.id)];
+        else {
+            this.conditions = [];
+            for (let i = 0; i < conditions.length; i++) {
+                this.conditions.push(new Condition(...Object.values(conditions[i])));
+            }
+            console.log(this.conditions);
+        }
         this.updateDiv();
     }
     connectToExecute() {

@@ -3,11 +3,19 @@ class ConditionBlock extends Block {
     connectToTRUE: Block | any;
     connectToFALSE: Block | any;
 
-    constructor(x: number = 0, y: number = 0) {
+    constructor(x: number = 0, y: number = 0, conditions: Condition[] = null) {
         super(x, y);
 
         this.init();
-        this.conditions = [new Condition(this.id)];
+        if(conditions == null)
+            this.conditions = [new Condition(this.id)];
+        else {
+            for(let i=0; i<conditions.length; i++) {
+                
+            }
+        }
+            
+        
         this.updateDiv();
     }
 
