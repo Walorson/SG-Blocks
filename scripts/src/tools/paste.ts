@@ -11,7 +11,6 @@ function pasteBlocks()
 
     let len = blocksList.length;
     JSONtoBlocks(blocksToCopy);
-
     for(let i=blocksList.length-1; i>=len; i--)
     {
         blocksList[i].id = i;

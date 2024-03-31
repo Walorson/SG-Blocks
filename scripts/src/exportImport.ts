@@ -88,6 +88,7 @@ function JSONtoBlocks(json: string) {
         return Object.assign(new OutputBlock(value.x, value.y, value.message, value.isVariable), value);
       }
       if (value && value.__type === 'ConditionBlock') {
+        console.log('tworze')
         return Object.assign(new ConditionBlock(value.x, value.y, value.conditions), value);
       }
       if (value && value.__type === 'OperationBlock') {
@@ -108,10 +109,10 @@ function JSONtoBlocks(json: string) {
       if (value && value.__type === 'VariableBlock') {
         return Object.assign(new VariableBlock(value.x, value.y), value);
       }
-      if(value == null) {
+      /*if(value == null) {
           blocksList.push(null);
           delete blocksList[blocksList.length-1];
-      }
+      }*/
       return value;
     });
 }

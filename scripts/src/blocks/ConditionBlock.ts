@@ -10,9 +10,14 @@ class ConditionBlock extends Block {
         if(conditions == null)
             this.conditions = [new Condition(this.id)];
         else {
-            for(let i=0; i<conditions.length; i++) {
-                
-            }
+            setTimeout(() => {
+                this.conditions = [];
+                for(let i=0; i<conditions.length; i++) {
+                    // @ts-ignore
+                    this.conditions.push(new Condition(...Object.values(conditions[i])));
+                }
+                console.log(this.conditions, this.id);
+            },20);
         }
             
         
