@@ -15,6 +15,12 @@ function pasteBlocks()
     {
         blocksList[i].id = i;
         blocksList[i].connectTo = [];
+
+        if(blocksList[i] instanceof ConditionBlock)
+        {
+            blocksList[i].connectToFALSE = undefined;
+            blocksList[i].connectToTRUE = undefined;
+        }
     }
 
     blocksList.forEach((block: Block) => {

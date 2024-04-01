@@ -10,6 +10,10 @@ function pasteBlocks() {
     for (let i = blocksList.length - 1; i >= len; i--) {
         blocksList[i].id = i;
         blocksList[i].connectTo = [];
+        if (blocksList[i] instanceof ConditionBlock) {
+            blocksList[i].connectToFALSE = undefined;
+            blocksList[i].connectToTRUE = undefined;
+        }
     }
     blocksList.forEach((block) => {
         if (block != undefined)

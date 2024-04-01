@@ -14,9 +14,10 @@ class ConditionBlock extends Block {
                 this.conditions = [];
                 for(let i=0; i<conditions.length; i++) {
                     // @ts-ignore
-                    this.conditions.push(new Condition(...Object.values(conditions[i])));
+                    this.conditions.push(new Condition(this.id, conditions[i].value, conditions[i].isValueVariable, conditions[i].operator, conditions[i].logicalOperator));
                 }
-                console.log(this.conditions, this.id);
+                
+                this.updateDiv();
             },20);
         }
             
@@ -201,17 +202,17 @@ class Condition {
     result: boolean;
     logicalOperator: string;
 
-    constructor(idBlock: number) {
+    constructor(idBlock: number, value: any[] = [0, 0], isValueVariable: boolean[] = [false, false], operator: string = "==", logicalOperator: string = 'AND') {
         this.idBlock = idBlock;
         this.id = blocksList[idBlock].conditions.length;
-        this.value = [0, 0]
-        this.isValueVariable = [false, false];
-        this.operator = "==";
+        this.value = value;
+        this.isValueVariable = isValueVariable;
+        this.operator = operator;
         if(this.id > 0) {
-            this.logicalOperator = 'AND';
+            this.logicalOperator = logicalOperator;
         }
         else {
-            this.logicalOperator = null;
+            this.logicalOperator = undefined;
         }
         this.valueName = [];
 

@@ -91,10 +91,10 @@ function JSONtoBlocks(json) {
         if (value && value.__type === 'VariableBlock') {
             return Object.assign(new VariableBlock(value.x, value.y), value);
         }
-        /*if(value == null) {
+        if (value === null) {
             blocksList.push(null);
-            delete blocksList[blocksList.length-1];
-        }*/
+            delete blocksList[blocksList.length - 1];
+        }
         return value;
     });
 }
