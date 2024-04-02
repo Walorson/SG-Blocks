@@ -19,6 +19,8 @@ class Block {
     init() {
         this.createBlock();
         blocksList.push(this);
+        if (copyMode == true)
+            return;
         blocksList.forEach((block) => {
             block.update();
         });
@@ -26,6 +28,8 @@ class Block {
         this.updateDiv();
     }
     update() {
+        if (copyMode == true)
+            return;
         this.getID();
         this.dragAndDrop();
         this.selectEvent();

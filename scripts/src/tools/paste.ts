@@ -7,10 +7,15 @@ window.addEventListener("keydown", (e: KeyboardEvent) => {
 
 function pasteBlocks()
 {
+    copyMode = true;
+
     unselectAllBlocks();
 
     let len = blocksList.length;
     JSONtoBlocks(blocksToCopy);
+
+    copyMode = false;
+
     for(let i=blocksList.length-1; i>=len; i--)
     {
         blocksList[i].id = i;

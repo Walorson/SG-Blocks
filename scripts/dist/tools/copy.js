@@ -1,4 +1,5 @@
 let blocksToCopy = "";
+let copyMode = false;
 window.addEventListener("keydown", (e) => {
     if (e.ctrlKey == true && e.key == "c" && isInputFocus == false) {
         copySelectedBlock();

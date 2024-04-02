@@ -26,8 +26,10 @@ abstract class Block {
     init(): void 
     {
         this.createBlock();
-
         blocksList.push(this);
+
+        if(copyMode == true) return;
+
         blocksList.forEach((block: Block) => 
         {
             block.update();
@@ -39,6 +41,7 @@ abstract class Block {
 
     update(): void 
     {
+        if(copyMode == true) return;
         this.getID();
         this.dragAndDrop();
         this.selectEvent();

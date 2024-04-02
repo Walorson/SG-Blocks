@@ -1,4 +1,5 @@
 let blocksToCopy: string = "";
+let copyMode: boolean = false;
 
 window.addEventListener("keydown", (e: KeyboardEvent) => 
 {
