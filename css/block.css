@@ -112,6 +112,9 @@
     padding: 0;
     line-height: 90%;
 }
+.text {
+    white-space: pre-wrap;
+}
 .random {
     background-color: rgb(170, 144, 235);
 }
