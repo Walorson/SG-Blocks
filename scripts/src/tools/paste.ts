@@ -34,6 +34,11 @@ function pasteBlocks()
             block.update();
     });
 
+    blocksList.forEach((block: Block) => {
+        if(block != undefined)
+            block.updateDiv();
+    });
+
     for(let i=blocksList.length-1; i>=len; i--)
     {
         blocksList[i].move(blocksList[i].x, blocksList[i].y - 60);
