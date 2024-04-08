@@ -23,6 +23,10 @@ function pasteBlocks() {
         if (block != undefined)
             block.update();
     });
+    blocksList.forEach((block) => {
+        if (block != undefined)
+            block.updateDiv();
+    });
     for (let i = blocksList.length - 1; i >= len; i--) {
         blocksList[i].move(blocksList[i].x, blocksList[i].y - 60);
         blocksList[i].setSelected();
