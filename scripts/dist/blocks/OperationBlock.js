@@ -24,7 +24,7 @@ class OperationBlock extends Block {
         this.div.addEventListener("mousedown", () => {
             propertiesWindow.innerHTML = `
                 <p>Mathematical Operations: <textarea class="property${this.id}">${this.mathOperation}</textarea></p>
-                <p>Save to Variable: <input type="text" value="${this.variableName}" class="property${this.id}"></p>
+                <p>Save to Variable: <br> = <input type="text" value="${this.variableName}" class="property${this.id}"></p>
             `;
             const property = propertiesWindow.querySelectorAll(".property" + this.id);
             property[0].oninput = () => {
