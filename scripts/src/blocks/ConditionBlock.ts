@@ -13,16 +13,15 @@ class ConditionBlock extends Block {
             setTimeout(() => {
                 this.conditions = [];
                 for(let i=0; i<conditions.length; i++) {
-                    // @ts-ignore
-                    this.conditions.push(new Condition(this.id, conditions[i].value, conditions[i].isValueVariable, conditions[i].operator, conditions[i].logicalOperator));
+                    this.conditions.push(new Condition(this.id, conditions[i].value, conditions[i].isValueVariable, conditions[i].valueName, conditions[i].operator, conditions[i].logicalOperator));
                 }
                 
                 this.updateDiv();
             },20);
         }
-            
-        
-        this.updateDiv();
+
+        if(copyMode == false)
+            this.updateDiv();
     }
 
     connectToExecute(): void {
@@ -202,7 +201,7 @@ class Condition {
     result: boolean;
     logicalOperator: string;
 
-    constructor(idBlock: number, value: any[] = [0, 0], isValueVariable: boolean[] = [false, false], operator: string = "==", logicalOperator: string = 'AND') {
+    constructor(idBlock: number, value: any[] = [0, 0], isValueVariable: boolean[] = [false, false], valueName: string[] = [], operator: string = "==", logicalOperator: string = 'AND') {
         this.idBlock = idBlock;
         this.id = blocksList[idBlock].conditions.length;
         this.value = value;
@@ -214,12 +213,7 @@ class Condition {
         else {
             this.logicalOperator = undefined;
         }
-        this.valueName = [];
-
-        for(let i=0; i<this.isValueVariable.length; i++)
-        {
-            if(this.isValueVariable[i] == true) this.valueName[i] = this.value[i];
-        }
+        this.valueName = valueName;
     }
 
     add() {

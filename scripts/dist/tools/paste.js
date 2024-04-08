@@ -4,6 +4,8 @@ window.addEventListener("keydown", (e) => {
     }
 });
 function pasteBlocks() {
+    if (blocksToCopy == '')
+        return;
     copyMode = true;
     unselectAllBlocks();
     let len = blocksList.length;

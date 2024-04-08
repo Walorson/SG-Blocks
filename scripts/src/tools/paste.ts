@@ -7,8 +7,9 @@ window.addEventListener("keydown", (e: KeyboardEvent) => {
 
 function pasteBlocks()
 {
+    if(blocksToCopy == '') return;
     copyMode = true;
-
+    
     unselectAllBlocks();
 
     let len = blocksList.length;
