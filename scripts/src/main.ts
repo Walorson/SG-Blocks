@@ -87,6 +87,43 @@ function newDirection(angle: number): string
     return direction;
 }
 
+function sanitizeOperation(operation: string): string {
+    let allowed_operations = "+-*/";
+    let prevOperation = -1;
+    let buffer: string[] = []
+
+    operation = operation.replace(/ /g, "");
+
+    for (let i = 0; i < operation.length; i++) {
+        let char = operation.charAt(i);
+        if (allowed_operations.includes(char)) {
+            buffer.push(operation.substring(prevOperation+1, i));
+            buffer.push(char);
+            prevOperation = i;
+        }
+    }
+
+    buffer.push(operation.substring(prevOperation+1, operation.length));
+    console.log(buffer);
+
+    for (let i = 0; i < buffer.length; i++) {
+        if (buffer[i].search(/[a-zA-Z\[\]]/g) > -1) {
+            if (!buffer[i].startsWith("{")) {
+                buffer[i] = "{" + buffer[i];
+            }
+
+            if (!buffer[i].endsWith("}")) {
+                buffer[i] = buffer[i] + "}";
+            }
+        }
+    }
+    console.log(buffer);
+
+    let output = buffer.join("");
+
+    return output;
+}
+
 function replaceVariablesToValues(message: string): string
 {
     let readVariableMode: boolean = false;
