@@ -8,7 +8,7 @@ class OperationBlock extends Block {
     }
     execute() {
         this.setActive();
-        const result = eval(replaceVariablesToValues(this.mathOperation));
+        const result = eval(replaceVariablesToValues(sanitizeOperation(this.mathOperation)));
         globalVariables.set(this.variableName, result);
         this.executeNextBlock();
     }

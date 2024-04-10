@@ -13,7 +13,7 @@ class OperationBlock extends Block {
     execute(): void {
         this.setActive();
         
-        const result = eval(replaceVariablesToValues(this.mathOperation));
+        const result = eval(replaceVariablesToValues(sanitizeOperation(this.mathOperation)));
         globalVariables.set(this.variableName, result);
 
         this.executeNextBlock();
