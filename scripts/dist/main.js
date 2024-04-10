@@ -76,7 +76,6 @@ function sanitizeOperation(operation) {
         }
     }
     buffer.push(operation.substring(prevOperation + 1, operation.length));
-    console.log(buffer);
     for (let i = 0; i < buffer.length; i++) {
         if (buffer[i].search(/[a-zA-Z\[\]]/g) > -1) {
             if (!buffer[i].startsWith("{")) {
@@ -87,7 +86,6 @@ function sanitizeOperation(operation) {
             }
         }
     }
-    console.log(buffer);
     let output = buffer.join("");
     return output;
 }

@@ -104,7 +104,6 @@ function sanitizeOperation(operation: string): string {
     }
 
     buffer.push(operation.substring(prevOperation+1, operation.length));
-    console.log(buffer);
 
     for (let i = 0; i < buffer.length; i++) {
         if (buffer[i].search(/[a-zA-Z\[\]]/g) > -1) {
@@ -117,7 +116,6 @@ function sanitizeOperation(operation: string): string {
             }
         }
     }
-    console.log(buffer);
 
     let output = buffer.join("");
 
