@@ -88,7 +88,7 @@ function newDirection(angle: number): string
 }
 
 function sanitizeOperation(operation: string): string {
-    let allowed_operations = "+-*/";
+    let allowed_operations = "+-*/()%&|";
     let prevOperation = -1;
     let buffer: string[] = []
 
