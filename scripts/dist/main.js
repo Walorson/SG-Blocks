@@ -63,7 +63,7 @@ function newDirection(angle) {
     return direction;
 }
 function sanitizeOperation(operation) {
-    let allowed_operations = "+-*/%()&|";
+    let allowed_operations = "+-*/()%&|";
     let prevOperation = -1;
     let buffer = [];
     operation = operation.replace(/ /g, "");

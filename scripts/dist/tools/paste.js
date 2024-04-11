@@ -11,6 +11,7 @@ function pasteBlocks() {
     let len = blocksList.length;
     JSONtoBlocks(blocksToCopy);
     copyMode = false;
+    const copiedBlocksCount = Math.abs(len - blocksList.length);
     for (let i = blocksList.length - 1; i >= len; i--) {
         blocksList[i].id = i;
         blocksList[i].connectTo = [];
@@ -27,8 +28,27 @@ function pasteBlocks() {
         if (block != undefined)
             block.updateDiv();
     });
+    let avg = {
+        x: 0,
+        y: 0
+    };
     for (let i = blocksList.length - 1; i >= len; i--) {
-        blocksList[i].move(blocksList[i].x, blocksList[i].y - 60);
+        avg.x += blocksList[i].x;
+        avg.y += blocksList[i].y;
         blocksList[i].setSelected();
+    }
+    avg.x /= copiedBlocksCount;
+    avg.y /= copiedBlocksCount;
+    console.log(avg);
+    for (let i = blocksList.length - 1; i >= len; i--) {
+        let moveX = (blocksList[i].x + (cursorX - avg.x));
+        let moveY = (blocksList[i].y + (cursorY - avg.y));
+        if (copiedBlocksCount <= 1) {
+            moveX -= blocksList[i].div.offsetWidth / 2;
+            moveY -= blocksList[i].div.offsetHeight / 2;
+        }
+        else
+            moveX -= 50;
+        blocksList[i].move(moveX, moveY);
     }
 }

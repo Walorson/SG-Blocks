@@ -1,13 +1,12 @@
-# SG-Blocks Beta 1.4
+# SG-Blocks Beta 1.4.1
 ## 8th April 2024
 
 ***NEWS***
-- Added multi conditions in Condition Block
+- Added sanitizing for operation block
+- Added new example "quadratic function"
 
 ***CHANGES***
-- Operation Block is now possible to do complex operations (with using Math library from Javascript) on numbers and variables
-- Changed input text to textarea in Text Block
+- Ported old examples to newest version of SG-Blocks
 
 ***FIXES***
-- Removed block move during workspace move
-- Fixed multiple cut
+
