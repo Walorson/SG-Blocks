@@ -39,7 +39,6 @@ function pasteBlocks() {
     }
     avg.x /= copiedBlocksCount;
     avg.y /= copiedBlocksCount;
-    console.log(avg);
     for (let i = blocksList.length - 1; i >= len; i--) {
         let moveX = (blocksList[i].x + (cursorX - avg.x));
         let moveY = (blocksList[i].y + (cursorY - avg.y));

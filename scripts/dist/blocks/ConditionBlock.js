@@ -221,7 +221,7 @@ class Condition {
                     value[i].innerHTML = `<input type="text" value="${this.value[i]}" class="property${this.id}">`;
                     property = propertiesWindow.querySelectorAll(".property" + this.id);
                     property[i * 2].oninput = () => {
-                        this.value[i] = property.value;
+                        this.value[i] = property[i * 2].value;
                         blocksList[this.idBlock].updateDiv();
                     };
                 }
