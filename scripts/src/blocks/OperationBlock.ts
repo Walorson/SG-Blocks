@@ -1,5 +1,6 @@
 class OperationBlock extends Block {
     mathOperation: string = '2+2';
+    roundingMode: string = "None";
     variableName: string;
 
     constructor(x: number = 0, y: number = 0) {
@@ -13,7 +14,7 @@ class OperationBlock extends Block {
     execute(): void {
         this.setActive();
         
-        const result = eval(replaceVariablesToValues(sanitizeOperation(this.mathOperation)));
+        const result = this.round(eval(replaceVariablesToValues(sanitizeOperation(this.mathOperation))));
         globalVariables.set(this.variableName, result);
 
         this.executeNextBlock();
@@ -30,11 +31,29 @@ class OperationBlock extends Block {
         super.updateDiv();
     }
 
+    round(number: number): number
+    {
+        switch(this.roundingMode) {
+            case "Round": return Math.round(number);
+            case "Floor": return Math.floor(number);
+            case "Ceil": return Math.ceil(number);
+            default: return number;
+        }
+    }
+
     properties(): void {
     
         this.div.addEventListener("mousedown", () => {
             propertiesWindow.innerHTML = `
                 <p>Mathematical Operations: <textarea class="property${this.id}">${this.mathOperation}</textarea></p>
+                <p>Rounding: 
+                    <select class="property${this.id}">
+                        <option>None</option>
+                        <option>Round</option>
+                        <option>Floor</option>
+                        <option>Ceil</option>
+                    </select>
+                </p>
                 <p>Save to Variable: <br> = <input type="text" value="${this.variableName}" class="property${this.id}"></p>
             `;
 
@@ -47,7 +66,11 @@ class OperationBlock extends Block {
             }
 
             property[1].oninput = () => {
-                this.variableName = property[1].value; 
+                this.roundingMode = property[1].value;
+            }
+
+            property[2].oninput = () => {
+                this.variableName = property[2].value; 
             };
 
             super.properties();
