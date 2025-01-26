@@ -1,6 +1,7 @@
 class OperationBlock extends Block {
     mathOperation: string = '2+2';
     roundingMode: string = "None";
+    toDecimalPlaces: number = 0;
     variableName: string;
 
     constructor(x: number = 0, y: number = 0) {
@@ -33,10 +34,11 @@ class OperationBlock extends Block {
 
     round(number: number): number
     {
+        const pow: number = Math.pow(10, this.toDecimalPlaces);
         switch(this.roundingMode) {
-            case "Round": return Math.round(number);
-            case "Floor": return Math.floor(number);
-            case "Ceil": return Math.ceil(number);
+            case "Normal": return Math.round(number * pow) / pow;
+            case "Floor": return Math.floor(number * pow) / pow;
+            case "Ceil": return Math.ceil(number * pow) / pow;
             default: return number;
         }
     }
@@ -49,11 +51,12 @@ class OperationBlock extends Block {
                 <p>Rounding: 
                     <select class="property${this.id}">
                         <option>None</option>
-                        <option>Round</option>
+                        <option>Normal</option>
                         <option>Floor</option>
                         <option>Ceil</option>
                     </select>
                 </p>
+                <p>to decimal places: <input type="number" value="${this.toDecimalPlaces}" class="property${this.id}"></p>
                 <p>Save to Variable: <br> = <input type="text" value="${this.variableName}" class="property${this.id}"></p>
             `;
 
@@ -70,7 +73,11 @@ class OperationBlock extends Block {
             }
 
             property[2].oninput = () => {
-                this.variableName = property[2].value; 
+                this.toDecimalPlaces = property[2].value; 
+            };
+
+            property[3].oninput = () => {
+                this.variableName = property[3].value; 
             };
 
             super.properties();
