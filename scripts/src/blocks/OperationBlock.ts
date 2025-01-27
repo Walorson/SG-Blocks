@@ -2,6 +2,7 @@ class OperationBlock extends Block {
     mathOperation: string = '2+2';
     roundingMode: string = "None";
     toDecimalPlaces: number = 0;
+    toDecimalPlacesStatus: string = "disabled";
     variableName: string;
 
     constructor(x: number = 0, y: number = 0) {
@@ -49,14 +50,14 @@ class OperationBlock extends Block {
             propertiesWindow.innerHTML = `
                 <p>Mathematical Operations: <textarea class="property${this.id}">${this.mathOperation}</textarea></p>
                 <p>Rounding: 
-                    <select class="property${this.id}">
+                    <select class="property${this.id}" selected="${this.roundingMode}">
                         <option>None</option>
                         <option>Normal</option>
                         <option>Floor</option>
                         <option>Ceil</option>
                     </select>
                 </p>
-                <p>to decimal places: <input type="number" value="${this.toDecimalPlaces}" class="property${this.id}"></p>
+                <p>to decimal places: <input type="number" value="${this.toDecimalPlaces}" class="property${this.id}" ${this.toDecimalPlacesStatus}></p>
                 <p>Save to Variable: <br> = <input type="text" value="${this.variableName}" class="property${this.id}"></p>
             `;
 
@@ -68,8 +69,25 @@ class OperationBlock extends Block {
                 this.updateDiv();
             }
 
+            property[1].value = this.roundingMode;
+
             property[1].oninput = () => {
                 this.roundingMode = property[1].value;
+
+                if(this.roundingMode == 'None') 
+                {
+                    if(this.toDecimalPlacesStatus == "") {
+                        this.toDecimalPlacesStatus = "disabled";
+                        property[2].setAttribute("disabled",";");
+                    }
+                }
+                else
+                {
+                    if(this.toDecimalPlacesStatus == "disabled") {
+                        this.toDecimalPlacesStatus = "";
+                        property[2].removeAttribute("disabled");
+                    }
+                }
             }
 
             property[2].oninput = () => {
