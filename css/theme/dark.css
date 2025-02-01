@@ -1,0 +1,69 @@
+body {
+    background: url("../../img/grid-dark.png");
+    background-color: #111;
+    color: #eee;
+}
+
+.nav-top {
+    background-image: linear-gradient(to top, #212121, #252525, #282828, #2c2c2c, #303030);
+}
+
+.nav-side {
+    background-color: #202020;
+}
+
+.categories button {
+    background-color: #333;
+    color: #eee;
+}
+
+.categories button:hover {
+    background-color: #444;
+}
+
+button {
+    background-color: #222;
+    color: #eee;
+    border: 2px outset #aaa;
+}
+
+button:hover {
+    background-color: #333;
+}
+
+.section-title {
+    background-color: #0a0a0a;
+}
+
+.block {
+    color: initial;
+}
+
+.nav-button {
+    color: #ddd;
+}
+
+.nav-button:hover {
+    background-color: #111;
+}
+
+.sub-menu {
+    background-color: #242424;
+}
+
+#coords {
+    color: #eee;
+}
+
+textarea, input, select {
+    background-color: #090909;
+    color: #eee;
+}
+
+select:hover, select:focus {
+    background-color: #161616;
+}
+
+#settings-window {
+    background-color: #1a1a1a;
+}

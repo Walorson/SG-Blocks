@@ -83,7 +83,7 @@ select {
     font-size: 13pt;
 }
 select:hover {
-    background-color: #dddddd;
+    background-color: #ddd;
 }
 select:focus {
     background-color: #eeeeee;
@@ -123,7 +123,7 @@ label {
     align-items: center;
     cursor: pointer;
 }
-#nav-top {
+.nav-top {
     display: flex;
     position: absolute;
     width: 100%;
@@ -131,8 +131,9 @@ label {
     align-items: center;
     z-index: 10;
     font-family: 'bebas-neue', sans-serif;
+    top: 0; left: 0;
 }
-#nav-top img {
+.nav-top img {
     width: 48px;
     height: 48px;
 }

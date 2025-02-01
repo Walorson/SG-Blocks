@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/input.css">
     <link rel="stylesheet" href="css/ui.css">
     <link rel="stylesheet" href="css/settings.css">
+    <link rel="stylesheet" href="css/theme/dark.css">
 
     <!-- EXTERNAL SCRIPTS -->
     <script src="scripts/dist/Line.js" defer></script>
@@ -64,15 +65,21 @@
 <body>
     <div class="cursor" id="cursor"></div>
 
-    <div id="version-info">BETA 1.4.1</div>
+    <div id="version-info">BETA 1.5 EXP</div>
     <div id="coords"></div>
 
     <div id="settings-window">
-        <div class="window-quit">X</div>
+        <div class="nav-top"><span class="title-window" style="opacity:0;">.</span><div class="window-quit">X</div></div>
         
-        <h1>Settings</h1>
+        <h1 style="margin-top: 15px;">Settings</h1>
         <label><input type="checkbox" id="settings-shortOutputMessage" checked>Short Output Messages</label>
         <label>Max Length: <input type="number" id="settings-outputMessageLength" value="18" min="0"></label>
+        <label>Theme: 
+            <select>
+                <option>Light</option>
+                <option>Dark</option>
+            </select>
+        </label>
 
         <div class="confirmation-buttons">
             <button class="discard-button" id="settings-discard">Discard</button>
@@ -80,7 +87,7 @@
         </div>
     </div>
 
-    <div id="nav-top">
+    <div id="nav-top" class="nav-top">
         <img src="favicon.ico">
         <span class="title">
             <span class="title-letter">B</span>
