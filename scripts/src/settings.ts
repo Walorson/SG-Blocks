@@ -1,13 +1,15 @@
 let settings = {
     shortOutputMessage: true as boolean,
-    outputMessageLength: 18 as number
+    outputMessageLength: 18 as number,
+    theme: "Light" as string
 };
 
 let settingsBeforeChange: any;
 
 const settingsInput = {
     shortOutputMessage: document.getElementById("settings-shortOutputMessage") as HTMLInputElement,
-    outputMessageLength: document.getElementById("settings-outputMessageLength") as HTMLInputElement
+    outputMessageLength: document.getElementById("settings-outputMessageLength") as HTMLInputElement,
+    theme: document.getElementById("settings-theme") as HTMLInputElement
 };
 
 const settingsWindow = {
@@ -99,6 +101,11 @@ settingsInput.outputMessageLength.addEventListener("input", () => {
     settings.outputMessageLength = Number(settingsInput.outputMessageLength.value);
 });
 
+settingsInput.theme.addEventListener("input", () => {
+    settings.theme = settingsInput.theme.value;
+    theme.setAttribute("href", `css/theme/${settings.theme.toLowerCase()}.css`);
+});
+
 window.addEventListener("load",() => {
     if(localStorage.getItem("settings") != null)
     {
@@ -113,4 +120,6 @@ window.addEventListener("load",() => {
             block.updateDiv();
         }
     });
+
+    theme.setAttribute("href", `css/theme/${settings.theme.toLowerCase()}.css`);
 });

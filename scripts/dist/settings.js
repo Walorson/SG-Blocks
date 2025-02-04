@@ -1,11 +1,13 @@
 let settings = {
     shortOutputMessage: true,
-    outputMessageLength: 18
+    outputMessageLength: 18,
+    theme: "Light"
 };
 let settingsBeforeChange;
 const settingsInput = {
     shortOutputMessage: document.getElementById("settings-shortOutputMessage"),
-    outputMessageLength: document.getElementById("settings-outputMessageLength")
+    outputMessageLength: document.getElementById("settings-outputMessageLength"),
+    theme: document.getElementById("settings-theme")
 };
 const settingsWindow = {
     window: document.getElementById("settings-window"),
@@ -74,6 +76,10 @@ settingsInput.shortOutputMessage.addEventListener("input", () => {
 settingsInput.outputMessageLength.addEventListener("input", () => {
     settings.outputMessageLength = Number(settingsInput.outputMessageLength.value);
 });
+settingsInput.theme.addEventListener("input", () => {
+    settings.theme = settingsInput.theme.value;
+    theme.setAttribute("href", `css/theme/${settings.theme.toLowerCase()}.css`);
+});
 window.addEventListener("load", () => {
     if (localStorage.getItem("settings") != null) {
         settings = JSON.parse(localStorage.getItem("settings"));
@@ -84,4 +90,5 @@ window.addEventListener("load", () => {
             block.updateDiv();
         }
     });
+    theme.setAttribute("href", `css/theme/${settings.theme.toLowerCase()}.css`);
 });

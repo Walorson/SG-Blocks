@@ -2,6 +2,7 @@ let deleteLineMode: boolean = false;
 let executeHistory: Block[] = [];
 let globalVariables: Map<string, any> = new Map();
 let isInputFocus: boolean = false;
+const theme: HTMLElement = document.getElementById("theme");
 
 new StartBlock(0, 0);
 new OutputBlock(-50, 300, "Hello!");
