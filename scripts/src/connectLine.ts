@@ -1,6 +1,7 @@
 let lineController: any = connect();
 let connectStart: boolean = false;
 let blockStart: Block;
+let defaultLineColor: string = "white";
 
 function connectBegin(e: MouseEvent): void
 {
@@ -132,20 +133,20 @@ function connectLine(start: Block, end: Block, type: string = "normal", noPush: 
                 start.connectToFALSE = end;
             }
             else {
-                createLineTemplate("black", 2);
+                createLineTemplate(defaultLineColor, 2);
 
                 if(noPush == false) start.connectTo.push(end);
             }
     }
     else {
-        createLineTemplate("black", 2);
+        createLineTemplate(defaultLineColor, 2);
 
         if(noPush == false) start.connectTo.push(end);
     }
 
     start.updateConnectPoint(true);
 
-    function createLineTemplate(color: string = "black", width: number = 2, type: string = 'D')
+    function createLineTemplate(color: string = defaultLineColor, width: number = 2, type: string = 'D')
     {
         lineController.drawLine({
 
@@ -162,7 +163,7 @@ function connectLine(start: Block, end: Block, type: string = "normal", noPush: 
     }
 }
 
-function connectLineSimplex(startId: string, endId: string, color: string = "black", width: number = 2, type: string = "D"): void
+function connectLineSimplex(startId: string, endId: string, color: string = defaultLineColor, width: number = 2, type: string = "D"): void
 {
     lineController.drawLine({    
         left_node: startId,

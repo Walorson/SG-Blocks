@@ -1,6 +1,7 @@
 let lineController = connect();
 let connectStart = false;
 let blockStart;
+let defaultLineColor = "white";
 function connectBegin(e) {
     if (e.button != 2)
         return;
@@ -98,18 +99,18 @@ function connectLine(start, end, type = "normal", noPush = false, point = "n") {
             start.connectToFALSE = end;
         }
         else {
-            createLineTemplate("black", 2);
+            createLineTemplate(defaultLineColor, 2);
             if (noPush == false)
                 start.connectTo.push(end);
         }
     }
     else {
-        createLineTemplate("black", 2);
+        createLineTemplate(defaultLineColor, 2);
         if (noPush == false)
             start.connectTo.push(end);
     }
     start.updateConnectPoint(true);
-    function createLineTemplate(color = "black", width = 2, type = 'D') {
+    function createLineTemplate(color = defaultLineColor, width = 2, type = 'D') {
         lineController.drawLine({
             left_node: start.id + point,
             right_node: end.id + point,
@@ -122,7 +123,7 @@ function connectLine(start, end, type = "normal", noPush = false, point = "n") {
         });
     }
 }
-function connectLineSimplex(startId, endId, color = "black", width = 2, type = "D") {
+function connectLineSimplex(startId, endId, color = defaultLineColor, width = 2, type = "D") {
     lineController.drawLine({
         left_node: startId,
         right_node: endId,

@@ -67,3 +67,27 @@ select:hover, select:focus {
 #settings-window {
     background-color: #1a1a1a;
 }
+
+#controls {
+    background-color: #111;
+}
+
+.block {
+    filter: brightness(90%);
+}
+
+.apply-button {
+    background-color: rgb(19, 124, 0);
+}
+
+.apply-button:hover {
+    background-color: rgb(22, 144, 0);
+}
+
+.discard-button {
+    background-color: rgb(199, 2, 2);
+}
+
+.discard-button:hover {
+    background-color: rgb(255, 48, 48);
+}
