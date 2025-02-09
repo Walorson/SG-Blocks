@@ -1,7 +1,7 @@
 let lineController = connect();
 let connectStart = false;
 let blockStart;
-let defaultLineColor = "white";
+let defaultLineColor = "black";
 function connectBegin(e) {
     if (e.button != 2)
         return;

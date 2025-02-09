@@ -1,7 +1,7 @@
 let lineController: any = connect();
 let connectStart: boolean = false;
 let blockStart: Block;
-let defaultLineColor: string = "white";
+let defaultLineColor: string = "black";
 
 function connectBegin(e: MouseEvent): void
 {

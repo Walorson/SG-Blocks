@@ -1,3 +1,5 @@
+:root { --line-color: white; }
+
 body {
     background: url("../../img/grid-dark.png");
     background-color: #111;

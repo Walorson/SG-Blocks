@@ -1,0 +1,78 @@
+body {
+    background: url("../../img/grid-blue.png");
+    background-color: #004fb0;
+    color: #eee;
+}
+
+.nav-top {
+    background-image: linear-gradient(to top, #003366, #00376e, #003b76, #003f7f, #004387);
+}
+
+.nav-side {
+    background-image: linear-gradient(0deg, #003b73, #004c99);
+}
+
+.categories button {
+    background-color: #003066;
+    color: #eee;
+    border: outset 2px black;
+}
+
+button {
+    background-color: #007acc;
+    color: #eee;
+    border: outset 2px rgb(0, 20, 68);
+}
+
+button:hover {
+    background-color: rgb(31, 134, 230);
+}
+
+.section-title, .nav-button:hover, .categories button:hover {
+    background-color: #002550;
+}
+
+.block {
+    color: initial;
+}
+
+.nav-button {
+    color: #ddd;
+}
+
+.sub-menu, #controls {
+    background-color: #003366;
+}
+
+#coords {
+    color: #eee;
+}
+
+textarea, input, select, select:hover, select:focus {
+    background-color: #001c39;
+    color: #eee;
+}
+
+#settings-window {
+    background-color: #002a54;
+}
+
+.block {
+    filter: brightness(90%);
+}
+
+.apply-button {
+    background-color: rgb(19, 124, 0);
+}
+
+.apply-button:hover {
+    background-color: rgb(22, 144, 0);
+}
+
+.discard-button {
+    background-color: rgb(199, 2, 2);
+}
+
+.discard-button:hover {
+    background-color: rgb(255, 48, 48);
+}

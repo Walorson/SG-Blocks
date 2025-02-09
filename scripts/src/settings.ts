@@ -104,6 +104,7 @@ settingsInput.outputMessageLength.addEventListener("input", () => {
 settingsInput.theme.addEventListener("input", () => {
     settings.theme = settingsInput.theme.value;
     theme.setAttribute("href", `css/theme/${settings.theme.toLowerCase()}.css`);
+    defaultLineColor = getComputedStyle(document.documentElement).getPropertyValue('--line-color');
 });
 
 window.addEventListener("load",() => {
@@ -122,4 +123,5 @@ window.addEventListener("load",() => {
     });
 
     theme.setAttribute("href", `css/theme/${settings.theme.toLowerCase()}.css`);
+    defaultLineColor = getComputedStyle(document.documentElement).getPropertyValue('--line-color');
 });
