@@ -2,7 +2,7 @@ class VariableBlock extends Block {
     constructor(x = 0, y = 0) {
         super(x, y);
         this.maxConnects = 0;
-        this.variableName = "a" + this.id;
+        this.variableName = defaultVariablePrefix + (globalVariables.size + 1);
         this.variableValue = 0;
         globalVariables.set(this.variableName, this.variableValue);
         this.init();

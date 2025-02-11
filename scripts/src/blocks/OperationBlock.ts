@@ -7,7 +7,7 @@ class OperationBlock extends Block {
 
     constructor(x: number = 0, y: number = 0) {
         super(x, y);
-        this.variableName = "a"+this.id;
+        this.variableName = defaultVariablePrefix + (globalVariables.size+1);
 
         globalVariables.set(this.variableName, null);
         this.init();

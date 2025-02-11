@@ -30,7 +30,7 @@ buttons.output.addEventListener("click", () => {
 });
 buttons.input.addEventListener("click", () => {
     saveBlockState();
-    new InputBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y, "a" + blocksList.length);
+    new InputBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y, defaultVariablePrefix + (globalVariables.size + 1));
 });
 buttons.condition.addEventListener("click", () => {
     saveBlockState();

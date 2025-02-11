@@ -2,6 +2,7 @@ let deleteLineMode = false;
 let executeHistory = [];
 let globalVariables = new Map();
 let isInputFocus = false;
+let defaultVariablePrefix = "var";
 const theme = document.getElementById("theme");
 new StartBlock(0, 0);
 new OutputBlock(-50, 300, "Hello!");

@@ -2,6 +2,7 @@ let deleteLineMode: boolean = false;
 let executeHistory: Block[] = [];
 let globalVariables: Map<string, any> = new Map();
 let isInputFocus: boolean = false;
+let defaultVariablePrefix: string = "var";
 const theme: HTMLElement = document.getElementById("theme");
 
 new StartBlock(0, 0);
