@@ -1,7 +1,8 @@
 let settings = {
     shortOutputMessage: true as boolean,
     outputMessageLength: 18 as number,
-    theme: "Light" as string
+    theme: "Light" as string,
+    defaultVariablePrefix: "var" as string
 };
 
 let settingsBeforeChange: any;
@@ -9,7 +10,8 @@ let settingsBeforeChange: any;
 const settingsInput = {
     shortOutputMessage: document.getElementById("settings-shortOutputMessage") as HTMLInputElement,
     outputMessageLength: document.getElementById("settings-outputMessageLength") as HTMLInputElement,
-    theme: document.getElementById("settings-theme") as HTMLInputElement
+    theme: document.getElementById("settings-theme") as HTMLInputElement,
+    defaultVariablePrefix: document.getElementById("settings-defaultVariablePrefix") as HTMLInputElement
 };
 
 const settingsWindow = {
@@ -112,6 +114,10 @@ settingsInput.theme.addEventListener("input", () => {
             line.colOriginal = defaultLineColor;
         });
     }, 50);
+});
+
+settingsInput.defaultVariablePrefix.addEventListener("input", () => {
+    settings.defaultVariablePrefix = settingsInput.defaultVariablePrefix.value;
 });
 
 window.addEventListener("load",() => {

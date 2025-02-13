@@ -1,13 +1,15 @@
 let settings = {
     shortOutputMessage: true,
     outputMessageLength: 18,
-    theme: "Light"
+    theme: "Light",
+    defaultVariablePrefix: "var"
 };
 let settingsBeforeChange;
 const settingsInput = {
     shortOutputMessage: document.getElementById("settings-shortOutputMessage"),
     outputMessageLength: document.getElementById("settings-outputMessageLength"),
-    theme: document.getElementById("settings-theme")
+    theme: document.getElementById("settings-theme"),
+    defaultVariablePrefix: document.getElementById("settings-defaultVariablePrefix")
 };
 const settingsWindow = {
     window: document.getElementById("settings-window"),
@@ -86,6 +88,9 @@ settingsInput.theme.addEventListener("input", () => {
             line.colOriginal = defaultLineColor;
         });
     }, 50);
+});
+settingsInput.defaultVariablePrefix.addEventListener("input", () => {
+    settings.defaultVariablePrefix = settingsInput.defaultVariablePrefix.value;
 });
 window.addEventListener("load", () => {
     if (localStorage.getItem("settings") != null) {

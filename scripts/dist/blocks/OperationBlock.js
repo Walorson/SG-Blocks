@@ -5,7 +5,7 @@ class OperationBlock extends Block {
         this.roundingMode = "None";
         this.toDecimalPlaces = 0;
         this.toDecimalPlacesStatus = "disabled";
-        this.variableName = defaultVariablePrefix + (globalVariables.size + 1);
+        this.variableName = settings.defaultVariablePrefix + (globalVariables.size + 1);
         globalVariables.set(this.variableName, null);
         this.init();
     }
