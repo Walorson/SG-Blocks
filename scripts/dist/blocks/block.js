@@ -223,6 +223,8 @@ class Block {
     }
     setActive() {
         this.div.classList.add("active");
+        if (settings.workspaceMoveDuringRun == true)
+            moveWorkspaceTo(this);
     }
     unsetActive() {
         this.div.classList.remove("active");

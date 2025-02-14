@@ -295,6 +295,8 @@ abstract class Block {
 
     setActive(): void {
         this.div.classList.add("active");
+        
+        if(settings.workspaceMoveDuringRun == true) moveWorkspaceTo(this);
     }
     unsetActive(): void {
         this.div.classList.remove("active");

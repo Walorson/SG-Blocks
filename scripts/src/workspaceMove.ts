@@ -58,10 +58,26 @@ function displayCoords(): void
     coords.innerHTML = `X: ${Math.floor(cursorX)}, Y: ${Math.floor(cursorY)}`;
 }
 
-function moveWorkspaceTo(block: Block)
+function moveWorkspaceTo(block: Block): void
 {
-    workspaceMove.translateX = -block.x + 700;
-    workspaceMove.translateY = -block.y + 400;
+    const coords: any = block.getCenter();
+
+    workspaceMove.translateX = -coords.x + window.innerWidth / 2 - 50;
+    workspaceMove.translateY = -coords.y + window.innerHeight / 2 - 100;
+    
+    translateWorkspace();
+}
+
+function moveWorkspace(x: number, y: number): void 
+{
+    workspaceMove.translateX = -x;
+    workspaceMove.translateY = -y;
+
+    translateWorkspace();
+}
+
+function translateWorkspace(): void
+{
     workspace.style.transform = `translate(${workspaceMove.translateX}px, ${workspaceMove.translateY}px) scale(${workspaceResize.size})`;
     document.body.style.backgroundPosition = `${workspaceMove.translateX}px ${workspaceMove.translateY}px`;
 

@@ -11,13 +11,14 @@ class OutputBlock extends Block {
             const message = replaceVariablesToValues(this.message);
             if (this.isVariable) {
                 console.log(message + globalVariables.get(this.variable));
-                alert(message + globalVariables.get(this.variable));
+                const msg = new messageBox(message + globalVariables.get(this.variable));
+                msg.okBtn.addEventListener("click", () => this.executeNextBlock());
             }
             else {
                 console.log(message);
-                alert(message);
+                const msg = new messageBox(message);
+                msg.okBtn.addEventListener("click", () => this.executeNextBlock());
             }
-            this.executeNextBlock();
         }, runSpeed / 5);
     }
     createBlock() {

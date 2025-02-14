@@ -46,8 +46,17 @@ function displayCoords() {
     coords.innerHTML = `X: ${Math.floor(cursorX)}, Y: ${Math.floor(cursorY)}`;
 }
 function moveWorkspaceTo(block) {
-    workspaceMove.translateX = -block.x + 700;
-    workspaceMove.translateY = -block.y + 400;
+    const coords = block.getCenter();
+    workspaceMove.translateX = -coords.x + window.innerWidth / 2 - 50;
+    workspaceMove.translateY = -coords.y + window.innerHeight / 2 - 100;
+    translateWorkspace();
+}
+function moveWorkspace(x, y) {
+    workspaceMove.translateX = -x;
+    workspaceMove.translateY = -y;
+    translateWorkspace();
+}
+function translateWorkspace() {
     workspace.style.transform = `translate(${workspaceMove.translateX}px, ${workspaceMove.translateY}px) scale(${workspaceResize.size})`;
     document.body.style.backgroundPosition = `${workspaceMove.translateX}px ${workspaceMove.translateY}px`;
     lineController.redrawLines();

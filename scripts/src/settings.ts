@@ -2,7 +2,8 @@ let settings = {
     shortOutputMessage: true as boolean,
     outputMessageLength: 18 as number,
     theme: "Light" as string,
-    defaultVariablePrefix: "var" as string
+    defaultVariablePrefix: "var" as string,
+    workspaceMoveDuringRun: true as boolean
 };
 
 let settingsBeforeChange: any;
@@ -11,7 +12,8 @@ const settingsInput = {
     shortOutputMessage: document.getElementById("settings-shortOutputMessage") as HTMLInputElement,
     outputMessageLength: document.getElementById("settings-outputMessageLength") as HTMLInputElement,
     theme: document.getElementById("settings-theme") as HTMLInputElement,
-    defaultVariablePrefix: document.getElementById("settings-defaultVariablePrefix") as HTMLInputElement
+    defaultVariablePrefix: document.getElementById("settings-defaultVariablePrefix") as HTMLInputElement,
+    workspaceMoveDuringRun: document.getElementById("settings-workspaceMoveDuringRun") as HTMLInputElement
 };
 
 const settingsWindow = {
@@ -96,6 +98,15 @@ settingsInput.shortOutputMessage.addEventListener("input",() => {
     {
         settings.shortOutputMessage = false;
         settingsInput.outputMessageLength.setAttribute("disabled",";");
+    }
+});
+
+settingsInput.workspaceMoveDuringRun.addEventListener("input", () => {
+    if(settingsInput.workspaceMoveDuringRun.checked) {
+        settings.workspaceMoveDuringRun = true;
+    }
+    else {
+        settings.workspaceMoveDuringRun = false;
     }
 });
 

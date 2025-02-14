@@ -6,7 +6,7 @@ const theme = document.getElementById("theme");
 new StartBlock(0, 0);
 new OutputBlock(-50, 300, "Hello!");
 new EndBlock(0, 550);
-moveWorkspaceTo(blocksList[1]);
+moveWorkspace(-750, -125);
 changeBlocksCategory("basic");
 function globalVariablesUpdate() {
     globalVariables.clear();

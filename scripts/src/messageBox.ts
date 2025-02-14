@@ -1,6 +1,7 @@
 class messageBox {
     message: string;
     title: string;
+    okBtn: HTMLElement;
 
     constructor(message: string, title: string = "MESSAGE_BOX") {
         this.message = message;
@@ -13,10 +14,15 @@ class messageBox {
             <p class="window-p">${this.message}</p>
 
             <div class="confirmation-buttons">
-                <button onclick='parentElement.parentElement.remove()'>OK</button>
+                <button id="messageBox-OK">OK</button>
             </div>
         </div>
  
         `);
+
+        this.okBtn = document.getElementById("messageBox-OK");
+        this.okBtn.addEventListener("click", () => {
+            this.okBtn.parentElement.parentElement.remove()
+        });
     }
 }
