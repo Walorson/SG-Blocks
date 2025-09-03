@@ -1,13 +1,15 @@
-# SG-Blocks Beta 1.4.1
-## 13th April 2024
+# SG-Blocks Beta 1.5
+## 13th April 2025
 
 ***NEWS***
-- Added sanitizing for operation block
-- Added new example "quadratic function"
+- Added themes (Black, Ocean)
+- Added result rounding in Operation Block (Default, Floor, Ceil, None)
+- Added customizating rounding to decimal places
+- New settings: (custom default variable name)
+- Workspace move on active block during run
 
 ***CHANGES***
-- Copied blocks moves to the cursor position
-- Ported old examples to newest version of SG-Blocks
+- Default name of variable changed from "a" to "var"
 
 ***FIXES***
 - Fixed value saving after uncheck variable checkbox in Condition Block

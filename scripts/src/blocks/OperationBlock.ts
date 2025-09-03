@@ -37,7 +37,7 @@ class OperationBlock extends Block {
     {
         const pow: number = Math.pow(10, this.toDecimalPlaces);
         switch(this.roundingMode) {
-            case "Normal": return Math.round(number * pow) / pow;
+            case "Default": return Math.round(number * pow) / pow;
             case "Floor": return Math.floor(number * pow) / pow;
             case "Ceil": return Math.ceil(number * pow) / pow;
             default: return number;
@@ -52,7 +52,7 @@ class OperationBlock extends Block {
                 <p>Rounding: 
                     <select class="property${this.id}" selected="${this.roundingMode}">
                         <option>None</option>
-                        <option>Normal</option>
+                        <option>Default</option>
                         <option>Floor</option>
                         <option>Ceil</option>
                     </select>

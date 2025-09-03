@@ -102,3 +102,7 @@ select:hover, select:focus {
 .text {
     color: whitesmoke;
 }
+
+.messageBox {
+    background-color: #020202;
+}

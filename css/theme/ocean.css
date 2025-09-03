@@ -76,3 +76,7 @@ textarea, input, select, select:hover, select:focus {
 .discard-button:hover {
     background-color: rgb(255, 48, 48);
 }
+
+.messageBox {
+    background-color: #002141;
+}
