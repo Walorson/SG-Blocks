@@ -41,8 +41,10 @@
     cursor: pointer;
 }
 .window-p {
-    margin-top: 35px;
+    margin: 35px 0;
     font-size: 1.1rem;
     user-select: text;
     cursor: text;
+    overflow-y: auto;
+    max-height: 520px;
 }

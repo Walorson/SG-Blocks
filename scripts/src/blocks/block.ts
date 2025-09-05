@@ -1,6 +1,6 @@
 const workspace: HTMLElement = document.getElementById("workspace");
-let DEFAULT_BLOCK_X = 250;
-let DEFAULT_BLOCK_Y = 75;
+let DEFAULT_BLOCK_X: number = 250;
+let DEFAULT_BLOCK_Y: number = 75;
 let blocksList = [];
 
 abstract class Block {

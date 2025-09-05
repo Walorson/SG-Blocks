@@ -10,6 +10,12 @@ const workspaceMove = {
     cursor: document.getElementById("workspace-cursor") as HTMLElement
 }
 
+window.addEventListener("keypress", (e: KeyboardEvent) => {
+    if(e.key == 'r' && isInputFocus == false) {
+        moveWorkspaceTo(blocksList[0]);
+    }
+})
+
 window.addEventListener("mousedown", (e: MouseEvent) => {
     if(e.button != 1 || select.start == true) return;
 

@@ -7,6 +7,7 @@
 - Added customizating rounding to decimal places
 - New settings: (custom default variable name)
 - Workspace move on active block during run
+- Added a new pop-up window (Message Box)
 
 ***CHANGES***
 - Default name of variable changed from "a" to "var"

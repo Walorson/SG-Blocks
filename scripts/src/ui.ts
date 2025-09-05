@@ -66,6 +66,7 @@ buttons.variable.addEventListener("click", () => {
 });
 buttons.run.addEventListener("click",() => {
     run();
+    buttons.run.blur();
 });
 buttons.autorun.addEventListener("input", () => {
     if(buttons.autorun.checked)
