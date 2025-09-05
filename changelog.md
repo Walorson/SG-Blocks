@@ -1,5 +1,5 @@
 # SG-Blocks Beta 1.5
-## 13th April 2025
+## 5th September 2025
 
 ***NEWS***
 - Added themes (Black, Ocean)
