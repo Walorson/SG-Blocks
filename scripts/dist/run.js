@@ -8,7 +8,7 @@ function run() {
         runStatus = true;
         executeHistory = [];
         buttons.run.textContent = "Stop Run";
-        buttons.run.style.backgroundColor = "#6eadcd";
+        buttons.run.classList.add("run-while-run");
         blocksList[0].execute();
         console.log("");
         console.log("%cSTART", "font-weight:bolder;");
@@ -19,7 +19,7 @@ function run() {
 function endRun() {
     runStatus = false;
     buttons.run.textContent = "Run";
-    buttons.run.style.backgroundColor = '';
+    buttons.run.classList.remove("run-while-run");
     blocksList.forEach((block) => {
         window.removeEventListener("keypress", block.executeOnSpacePress);
     });

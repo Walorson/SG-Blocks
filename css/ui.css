@@ -98,6 +98,9 @@ select:focus {
     width: 200px;
     height: 40px;
 }
+.run-while-run {
+    background-color: #6eadcd;
+}
 #controls {
     position: absolute;
     display: none;

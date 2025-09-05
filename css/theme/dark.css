@@ -60,6 +60,12 @@ button:hover {
 textarea, input, select {
     background-color: #090909;
     color: #eee;
+    border: 1px solid #a0a0a0 !important;
+}
+
+input:focus {
+    outline: 1px solid white !important;
+    border: 1px solid white !important;
 }
 
 select:hover, select:focus {
@@ -105,4 +111,8 @@ select:hover, select:focus {
 
 .messageBox {
     background-color: #020202;
+}
+
+.run-while-run {
+    background-color: #044261;
 }
