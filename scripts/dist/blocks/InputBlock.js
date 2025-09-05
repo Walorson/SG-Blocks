@@ -10,18 +10,18 @@ class InputBlock extends Block {
         this.setActive();
         setTimeout(() => {
             const message = replaceVariablesToValues(this.message);
-            //if(!isNaN(Number(variable))) {
-            //  globalVariables.set(this.variableName, Number(variable));
-            //  console.log("Input as number: "+variable);
-            //} 
-            //else {
-            //console.log("Input: "+variable);
             const msg = new InputBox(message);
             msg.okBtn.addEventListener("click", () => {
-                globalVariables.set(this.variableName, msg.inputValue);
+                if (!isNaN(Number(msg.inputValue))) {
+                    globalVariables.set(this.variableName, Number(msg.inputValue));
+                    console.log("Input as number: " + msg.inputValue);
+                }
+                else {
+                    globalVariables.set(this.variableName, msg.inputValue);
+                    console.log("Input: " + msg.inputValue);
+                }
                 this.executeNextBlock();
             });
-            //}
         }, runSpeed / 5);
     }
     createBlock() {
