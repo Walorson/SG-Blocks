@@ -6,7 +6,9 @@
 - Added result rounding in Operation Block (Default, Floor, Ceil, None)
 - Added customizating rounding to decimal places
 - New settings: (custom default variable name)
-- Workspace move on active block during run
+- Workspace move on active block during run (you can change this in the options)
+- Added author's messageBox for output block and input block
+- Added reset workspace position by pressing "R"
 
 ***CHANGES***
 - Default name of variable changed from "a" to "var"
