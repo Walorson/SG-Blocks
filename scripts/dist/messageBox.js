@@ -4,13 +4,18 @@ class MessageBox {
         this.title = title;
         this.createWindow();
         this.okBtn = document.getElementById("messageBox-OK");
+        this.quitBtn = document.getElementById("messageBox-quit");
         this.okBtn.addEventListener("click", () => {
             this.okBtnEvent();
+            window.removeEventListener("keypress", enterToCloseTheWindow);
+        });
+        this.quitBtn.addEventListener("click", () => {
+            this.quitBtnEvent();
+            window.removeEventListener("keypress", enterToCloseTheWindow);
         });
         const enterToCloseTheWindow = (e) => {
             if (e.key == 'Enter') {
                 this.okBtn.click();
-                window.removeEventListener("keypress", enterToCloseTheWindow);
             }
         };
         window.addEventListener("keypress", enterToCloseTheWindow);
@@ -18,7 +23,7 @@ class MessageBox {
     createWindow() {
         document.body.insertAdjacentHTML("afterbegin", `
         <div class="window messageBox" id="messageBox">
-            <div class="nav-top"><span class="title-window">${this.title}</span><div class="window-quit" onclick='parentElement.parentElement.remove()'>X</div></div>
+            <div class="nav-top"><span class="title-window">${this.title}</span><div class="window-quit" id="messageBox-quit">X</div></div>
 
             <p class="window-p">${this.message}</p>
 
@@ -32,6 +37,10 @@ class MessageBox {
     okBtnEvent() {
         this.okBtn.parentElement.parentElement.remove();
     }
+    quitBtnEvent() {
+        this.quitBtn.parentElement.parentElement.remove();
+        endRun();
+    }
 }
 class InputBox extends MessageBox {
     constructor(message, title = "INPUT_BOX") {
@@ -40,7 +49,7 @@ class InputBox extends MessageBox {
     createWindow() {
         document.body.insertAdjacentHTML("afterbegin", `
          <div class="window messageBox" id="messageBox">
-            <div class="nav-top"><span class="title-window">${this.title}</span><div class="window-quit" onclick='parentElement.parentElement.remove()'>X</div></div>
+            <div class="nav-top"><span class="title-window">${this.title}</span><div class="window-quit" id="messageBox-quit">X</div></div>
 
             <p class="window-p">${this.message}</p>
             <p class="window-p"><input type="text" id="messageBox-input" placeholder="Type..."></p>

@@ -2,6 +2,7 @@ class MessageBox {
     message: string;
     title: string;
     okBtn: HTMLElement;
+    quitBtn: HTMLElement;
 
     constructor(message: string, title: string = "MESSAGE_BOX") {
         this.message = message;
@@ -10,14 +11,19 @@ class MessageBox {
         this.createWindow();
 
         this.okBtn = document.getElementById("messageBox-OK");
+        this.quitBtn = document.getElementById("messageBox-quit");
         this.okBtn.addEventListener("click", () => {
             this.okBtnEvent();
+            window.removeEventListener("keypress", enterToCloseTheWindow);
+        });
+        this.quitBtn.addEventListener("click", () => {
+            this.quitBtnEvent();
+            window.removeEventListener("keypress", enterToCloseTheWindow);
         });
 
         const enterToCloseTheWindow = (e: KeyboardEvent) => {
             if(e.key == 'Enter') {
                 this.okBtn.click();
-                window.removeEventListener("keypress", enterToCloseTheWindow);
             }
         }
 
@@ -27,7 +33,7 @@ class MessageBox {
     createWindow(): void {
         document.body.insertAdjacentHTML("afterbegin", `
         <div class="window messageBox" id="messageBox">
-            <div class="nav-top"><span class="title-window">${this.title}</span><div class="window-quit" onclick='parentElement.parentElement.remove()'>X</div></div>
+            <div class="nav-top"><span class="title-window">${this.title}</span><div class="window-quit" id="messageBox-quit">X</div></div>
 
             <p class="window-p">${this.message}</p>
 
@@ -42,6 +48,11 @@ class MessageBox {
     okBtnEvent(): void {
         this.okBtn.parentElement.parentElement.remove();
     }
+    
+    quitBtnEvent(): void {
+        this.quitBtn.parentElement.parentElement.remove()
+        endRun();
+    }
 }
 
 class InputBox extends MessageBox {
@@ -53,7 +64,7 @@ class InputBox extends MessageBox {
     createWindow(): void {
          document.body.insertAdjacentHTML("afterbegin", `
          <div class="window messageBox" id="messageBox">
-            <div class="nav-top"><span class="title-window">${this.title}</span><div class="window-quit" onclick='parentElement.parentElement.remove()'>X</div></div>
+            <div class="nav-top"><span class="title-window">${this.title}</span><div class="window-quit" id="messageBox-quit">X</div></div>
 
             <p class="window-p">${this.message}</p>
             <p class="window-p"><input type="text" id="messageBox-input" placeholder="Type..."></p>
