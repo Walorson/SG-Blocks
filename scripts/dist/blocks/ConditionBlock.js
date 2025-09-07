@@ -83,7 +83,9 @@ class ConditionBlock extends Block {
         this.div.style.width = (this.div.textContent.length * 16) + "px";
     }
     properties() {
-        this.div.addEventListener("mousedown", () => {
+        this.div.addEventListener("mousedown", (e) => {
+            if (e.button == 1)
+                return;
             propertiesWindow.innerHTML = `
                 <div id="conditions"></div>
 

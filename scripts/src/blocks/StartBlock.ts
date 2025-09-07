@@ -11,7 +11,9 @@ class StartBlock extends Block {
     }
 
     properties(): void {
-        this.div.addEventListener("mousedown", () => {
+        this.div.addEventListener("mousedown", (e: MouseEvent) => {
+            if(e.button == 1) return;
+            
             propertiesWindow.innerHTML = `
                 <p>Run Speed (ms): <input type="number" value="${runSpeed}" class="property${this.id}"></p>
             `;

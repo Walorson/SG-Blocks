@@ -49,7 +49,9 @@ class InputBlock extends Block {
 
     properties(): void {
     
-        this.div.addEventListener("mousedown", () => {
+        this.div.addEventListener("mousedown", (e: MouseEvent) => {
+            if(e.button == 1) return;
+
             propertiesWindow.innerHTML = `
                 <p>Variable Name: <input type="text" value="${this.variableName}" class="property${this.id}"></p>
                 <p>Message: <textarea class="property${this.id}">${this.message}</textarea></p>

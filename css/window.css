@@ -47,4 +47,5 @@
     cursor: text;
     overflow-y: auto;
     max-height: 520px;
+    white-space: pre-wrap;
 }

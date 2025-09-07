@@ -33,7 +33,9 @@ class OperationBlock extends Block {
         }
     }
     properties() {
-        this.div.addEventListener("mousedown", () => {
+        this.div.addEventListener("mousedown", (e) => {
+            if (e.button == 1)
+                return;
             propertiesWindow.innerHTML = `
                 <p>Mathematical Operations: <textarea class="property${this.id}">${this.mathOperation}</textarea></p>
                 <p>Rounding: 

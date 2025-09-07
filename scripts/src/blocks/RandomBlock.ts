@@ -33,7 +33,9 @@ class RandomBlock extends Block {
 
     properties(): void {
     
-        this.div.addEventListener("mousedown", () => {
+        this.div.addEventListener("mousedown", (e: MouseEvent) => {
+            if(e.button == 1) return;
+            
             propertiesWindow.innerHTML = `
                 <p>Min: <input type="number" value="${this.min}" class="property${this.id}"></p>
                 <p>Max: <input type="number" value="${this.max}" class="property${this.id}"></p>

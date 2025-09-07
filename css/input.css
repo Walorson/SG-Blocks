@@ -46,6 +46,7 @@ textarea {
     resize: vertical;
     min-height: 62px;
     margin-bottom: 5px;
+    width: 200px;
 }
 
 .condition-section {

@@ -249,7 +249,8 @@ abstract class Block {
 
     selectEvent() {
         this.div.addEventListener("mousedown", (e: MouseEvent) => {
-            if(shiftPressed == false && e.button != 1 && this.isSelected() == false) unselectAllBlocks();
+            if(e.button == 1) return;
+            if(shiftPressed == false && this.isSelected() == false) unselectAllBlocks();
 
             this.setSelected(); 
         });

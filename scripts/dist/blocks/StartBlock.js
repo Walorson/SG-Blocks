@@ -9,7 +9,9 @@ class StartBlock extends Block {
         workspace.innerHTML += `<div class="block start" id="${this.id}">Start</div>`;
     }
     properties() {
-        this.div.addEventListener("mousedown", () => {
+        this.div.addEventListener("mousedown", (e) => {
+            if (e.button == 1)
+                return;
             propertiesWindow.innerHTML = `
                 <p>Run Speed (ms): <input type="number" value="${runSpeed}" class="property${this.id}"></p>
             `;

@@ -186,7 +186,9 @@ class Block {
     }
     selectEvent() {
         this.div.addEventListener("mousedown", (e) => {
-            if (shiftPressed == false && e.button != 1 && this.isSelected() == false)
+            if (e.button == 1)
+                return;
+            if (shiftPressed == false && this.isSelected() == false)
                 unselectAllBlocks();
             this.setSelected();
         });

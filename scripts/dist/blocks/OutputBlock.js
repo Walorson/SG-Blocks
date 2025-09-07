@@ -40,7 +40,9 @@ class OutputBlock extends Block {
         super.updateDiv();
     }
     properties() {
-        this.div.addEventListener("mousedown", () => {
+        this.div.addEventListener("mousedown", (e) => {
+            if (e.button == 1)
+                return;
             propertiesWindow.innerHTML = `
                 <p>Message: <textarea class="property${this.id}">${this.message}</textarea></p>
             Print Variable on End: ` + createSelectVariables("property" + this.id, undefined, true);
