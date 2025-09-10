@@ -45,7 +45,7 @@ class OutputBlock extends Block {
                 return;
             propertiesWindow.innerHTML = `
                 <p>Message: <textarea class="property${this.id}">${this.message}</textarea></p>
-            Print Variable on End: ` + createSelectVariables("property" + this.id, undefined, true);
+            Print Variable at the End: ` + createSelectVariables("property" + this.id, undefined, true);
             const property = propertiesWindow.querySelectorAll(".property" + this.id);
             property[0].oninput = () => {
                 this.message = property[0].value;

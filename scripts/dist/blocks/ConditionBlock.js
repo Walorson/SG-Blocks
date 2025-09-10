@@ -89,7 +89,7 @@ class ConditionBlock extends Block {
             propertiesWindow.innerHTML = `
                 <div id="conditions"></div>
 
-                <p><button id="add-condition-button">Add condition</button></p>
+                <p><button id="add-condition-button">Add a condition</button></p>
             `;
             this.conditions.forEach((condition) => {
                 condition.add();

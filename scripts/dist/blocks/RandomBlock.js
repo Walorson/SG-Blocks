@@ -3,7 +3,7 @@ class RandomBlock extends Block {
         super(x, y);
         this.min = min;
         this.max = max;
-        this.variableName = "a" + this.id;
+        this.variableName = settings.defaultVariablePrefix + (globalVariables.size + 1);
         globalVariables.set(this.variableName, null);
         this.init();
     }

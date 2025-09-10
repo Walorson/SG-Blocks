@@ -1,35 +1,39 @@
 body {
-    background: url("../../img/grid-blue.png");
-    background-color: #004fb0;
+    background: url("../../img/grid-green.png");
+    background-color: #006d26;
     color: #eee;
 }
 
 .nav-top {
-    background-image: linear-gradient(to top, #003366, #00376e, #003b76, #003f7f, #004387);
+    background-image: linear-gradient(to top, #198b00, #169001, #119503, #0a9a05, #009f07);
 }
 
 .nav-side {
-    background-image: linear-gradient(0deg, #003b73, #004c99);
+    background-image: linear-gradient(0deg, #198b00, #009f07);
 }
 
 .categories button {
-    background-color: #003066;
+    background-color: #006607;
     color: #eee;
     border: outset 2px black;
 }
 
+.categories button:hover {
+    background-color: #005c06 !important;
+}
+
 button {
-    background-color: #007acc;
+    background-color: #007608;
     color: #eee;
-    border: outset 2px rgb(0, 20, 68);
+    border: solid 2px rgb(1, 68, 0);
 }
 
 button:hover {
-    background-color: rgb(31, 134, 230);
+    background-color: #006d07;
 }
 
 .section-title, .nav-button:hover, .categories button:hover {
-    background-color: #002550;
+    background-color: #006405;
 }
 
 .block {
@@ -41,7 +45,7 @@ button:hover {
 }
 
 .sub-menu, #controls {
-    background-color: #003366;
+    background-color: #004b1e;
 }
 
 #coords {
@@ -49,7 +53,7 @@ button:hover {
 }
 
 textarea, input, select, select:hover, select:focus {
-    background-color: #001c39;
+    background-color: #005105;
     color: #eee;
     border: 1px solid #a0a0a0 !important;
 }
@@ -60,7 +64,7 @@ input:focus {
 }
 
 #settings-window {
-    background-color: #002a54;
+    background-color: #0c3e19;
 }
 
 .block {
@@ -84,11 +88,11 @@ input:focus {
 }
 
 .messageBox {
-    background-color: #002141;
+    background-color: #0e3e0c;
 }
 
 .run-while-run {
-    background-color: #5593b2;
+    background-color: #4ca059;
 }
 
 .block + .text {
@@ -96,5 +100,9 @@ input:focus {
 }
 
 .active {
-    box-shadow: 0px 0px 50px 5px rgba(75, 236, 66, 0.86) !important;
+    box-shadow: 0px 0px 50px 5px rgba(148, 227, 63, 0.86) !important;
+}
+
+.nav-button, .title, .categories, .block-box {
+    color: white;
 }
