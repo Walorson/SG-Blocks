@@ -3,6 +3,8 @@
 
 ***NEWS***
 - Added formatted text to MessageBoxes
+- Added "Leafy" theme
+- Added new example "Fibonacci"
 
 ***CHANGES***
 - Mouse Scroll Button can't select blocks anymore
@@ -13,3 +15,5 @@
 - Fixed messageBoxes
 - Improved examples
 - Fixed prefix variable in Random Block
+- Fixed problem with variable replacement by blocks
+- Fixed Start Block's run speed saving

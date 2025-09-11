@@ -14,7 +14,9 @@ function globalVariablesUpdate() {
         if (blocksList[i] instanceof InputBlock || blocksList[i] instanceof OperationBlock || blocksList[i] instanceof RandomBlock) {
             globalVariables.set(blocksList[i].variableName, null);
         }
-        else if (blocksList[i] instanceof VariableBlock) {
+    }
+    for (let i = 0; i < blocksList.length; i++) {
+        if (blocksList[i] instanceof VariableBlock) {
             globalVariables.set(blocksList[i].variableName, blocksList[i].variableValue);
         }
     }

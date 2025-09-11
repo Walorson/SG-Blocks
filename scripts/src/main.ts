@@ -20,7 +20,10 @@ function globalVariablesUpdate(): void
         {
             globalVariables.set(blocksList[i].variableName, null);
         }
-        else if(blocksList[i] instanceof VariableBlock)
+    }
+    for(let i=0; i<blocksList.length; i++)
+    {
+        if(blocksList[i] instanceof VariableBlock)
         {
             globalVariables.set(blocksList[i].variableName, blocksList[i].variableValue);
         }

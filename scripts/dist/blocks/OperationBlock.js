@@ -6,7 +6,9 @@ class OperationBlock extends Block {
         this.toDecimalPlaces = 0;
         this.toDecimalPlacesStatus = "disabled";
         this.variableName = settings.defaultVariablePrefix + (globalVariables.size + 1);
-        globalVariables.set(this.variableName, null);
+        if (globalVariables.has(this.variableName) == false) {
+            globalVariables.set(this.variableName, null);
+        }
         this.init();
     }
     execute() {

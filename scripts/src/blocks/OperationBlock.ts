@@ -9,7 +9,10 @@ class OperationBlock extends Block {
         super(x, y);
         this.variableName = settings.defaultVariablePrefix + (globalVariables.size+1);
 
-        globalVariables.set(this.variableName, null);
+        if(globalVariables.has(this.variableName) == false)
+        {
+            globalVariables.set(this.variableName, null);
+        }
         this.init();
     }
 

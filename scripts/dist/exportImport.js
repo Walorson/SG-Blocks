@@ -61,7 +61,7 @@ function blocksToJSON(blocks) {
 function JSONtoBlocks(json) {
     JSON.parse(json, (key, value) => {
         if (value && value.__type === 'StartBlock') {
-            return Object.assign(new StartBlock(value.x, value.y), value);
+            return Object.assign(new StartBlock(value.x, value.y, value.runSpeed), value);
         }
         if (value && value.__type === 'InputBlock') {
             return Object.assign(new InputBlock(value.x, value.y, value.variableName, value.message), value);

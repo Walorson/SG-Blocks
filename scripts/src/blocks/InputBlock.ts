@@ -7,7 +7,10 @@ class InputBlock extends Block {
         this.message = message;
         this.variableName = variableName;
 
-        globalVariables.set(this.variableName, null);
+        if(globalVariables.has(this.variableName) == false)
+        {
+            globalVariables.set(this.variableName, null);
+        }
         this.init();
     }
 
