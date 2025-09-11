@@ -118,6 +118,9 @@
 .random {
     background-color: rgb(170, 144, 235);
 }
+.sound {
+    background-color: rgb(72, 202, 159);
+}
 .variable {
     background-color: gainsboro;
     padding-bottom: 1px;
