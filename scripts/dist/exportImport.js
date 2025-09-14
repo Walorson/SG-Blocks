@@ -93,6 +93,9 @@ function JSONtoBlocks(json) {
         if (value && value.__type === 'SoundBlock') {
             return Object.assign(new SoundBlock(value.x, value.y, value.sound, value.waitMode, value.waitTime, value.category), value);
         }
+        if (value && value.__type === 'DelayBlock') {
+            return Object.assign(new DelayBlock(value.x, value.y, value.delay), value);
+        }
         if (value === null) {
             blocksList.push(null);
             delete blocksList[blocksList.length - 1];

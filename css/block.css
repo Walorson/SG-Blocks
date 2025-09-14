@@ -121,6 +121,9 @@
 .sound {
     background-color: rgb(72, 202, 159);
 }
+.delay {
+    background-color: rgb(148, 94, 43);
+}
 .variable {
     background-color: gainsboro;
     padding-bottom: 1px;

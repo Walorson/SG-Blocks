@@ -10,6 +10,7 @@ const buttons = {
     end: document.getElementById("end-block-button"),
     random: document.getElementById("random-block-button"),
     sound: document.getElementById("sound-block-button"),
+    delay: document.getElementById("delay-block-button"),
     text: document.getElementById("text-misc-button"),
     variable: document.getElementById("variable-misc-button"),
     run: document.getElementById("run-button"),
@@ -60,6 +61,10 @@ buttons.random.addEventListener("click", () => {
 buttons.sound.addEventListener("click", () => {
     saveBlockState();
     new SoundBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y);
+});
+buttons.delay.addEventListener("click", () => {
+    saveBlockState();
+    new DelayBlock(DEFAULT_BLOCK_X, DEFAULT_BLOCK_Y);
 });
 buttons.text.addEventListener("click", () => {
     saveBlockState();
