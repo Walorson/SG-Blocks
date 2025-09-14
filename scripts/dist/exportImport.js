@@ -91,7 +91,7 @@ function JSONtoBlocks(json) {
             return Object.assign(new VariableBlock(value.x, value.y), value);
         }
         if (value && value.__type === 'SoundBlock') {
-            return Object.assign(new SoundBlock(value.x, value.y, value.sound, value.waitMode, value.waitTime, value.category));
+            return Object.assign(new SoundBlock(value.x, value.y, value.sound, value.waitMode, value.waitTime, value.category), value);
         }
         if (value === null) {
             blocksList.push(null);
