@@ -96,6 +96,9 @@ function JSONtoBlocks(json) {
         if (value && value.__type === 'DelayBlock') {
             return Object.assign(new DelayBlock(value.x, value.y, value.delay), value);
         }
+        if (value && value.__type === 'ProbalityBlock') {
+            return Object.assign(new ProbalityBlock(value.x, value.y, value.probality), value);
+        }
         if (value === null) {
             blocksList.push(null);
             delete blocksList[blocksList.length - 1];

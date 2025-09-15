@@ -33,7 +33,7 @@ function connectBegin(e: MouseEvent): void
             blockStart = blocksList[id];
             connectStart = true;
 
-            if(!(blockStart instanceof ConditionBlock))
+            if(!(blockStart instanceof ConditionBlock) && !(blockStart instanceof ProbalityBlock))
             {
                 connectLineSimplex(String(blockStart.id), "cursor");
             }
@@ -99,7 +99,7 @@ function connectEnd(e: MouseEvent)
 
         saveBlockState();
 
-        if(blockStart instanceof ConditionBlock && keyPressed != null)
+        if((blockStart instanceof ConditionBlock || blockStart instanceof ProbalityBlock) && keyPressed != null)
         {
             if(keyPressed == 'Z' && blockStart.connectToTRUE == undefined)
             {
@@ -120,7 +120,7 @@ function connectEnd(e: MouseEvent)
 
 function connectLine(start: Block, end: Block, type: string = "normal", noPush: boolean = false, point: string = "n"): void
 {
-    if(start instanceof ConditionBlock)
+    if(start instanceof ConditionBlock || start instanceof ProbalityBlock)
     {   
             if(type == "true") {
                 createLineTemplate("green", 3);

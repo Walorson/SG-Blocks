@@ -122,7 +122,10 @@
     background-color: rgb(72, 202, 159);
 }
 .delay {
-    background-color: rgb(148, 94, 43);
+    background-color: rgb(169, 127, 87);
+}
+.probality {
+    background-color: rgb(161, 192, 38);
 }
 .variable {
     background-color: gainsboro;

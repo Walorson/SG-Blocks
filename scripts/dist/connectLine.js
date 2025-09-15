@@ -21,7 +21,7 @@ function connectBegin(e) {
         if (blocksList[id].connectTo.length < blocksList[id].maxConnects) {
             blockStart = blocksList[id];
             connectStart = true;
-            if (!(blockStart instanceof ConditionBlock)) {
+            if (!(blockStart instanceof ConditionBlock) && !(blockStart instanceof ProbalityBlock)) {
                 connectLineSimplex(String(blockStart.id), "cursor");
             }
             else {
@@ -74,7 +74,7 @@ function connectEnd(e) {
         if (isDeadLoop == true)
             return;
         saveBlockState();
-        if (blockStart instanceof ConditionBlock && keyPressed != null) {
+        if ((blockStart instanceof ConditionBlock || blockStart instanceof ProbalityBlock) && keyPressed != null) {
             if (keyPressed == 'Z' && blockStart.connectToTRUE == undefined) {
                 connectLine(blockStart, blockEnd, "true");
             }
@@ -89,7 +89,7 @@ function connectEnd(e) {
     connectStart = false;
 }
 function connectLine(start, end, type = "normal", noPush = false, point = "n") {
-    if (start instanceof ConditionBlock) {
+    if (start instanceof ConditionBlock || start instanceof ProbalityBlock) {
         if (type == "true") {
             createLineTemplate("green", 3);
             start.connectToTRUE = end;
