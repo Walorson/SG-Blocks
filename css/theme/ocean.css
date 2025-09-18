@@ -98,3 +98,7 @@ input:focus {
 .active {
     box-shadow: 0px 0px 50px 5px rgba(75, 236, 66, 0.86) !important;
 }
+
+.no-hover:hover {
+    background-color: #002141;   
+}

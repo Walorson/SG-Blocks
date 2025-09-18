@@ -106,3 +106,7 @@ input:focus {
 .nav-button, .title, .categories, .block-box {
     color: white;
 }
+
+.no-hover:hover {
+    background-color: #0e3e0c;   
+}
