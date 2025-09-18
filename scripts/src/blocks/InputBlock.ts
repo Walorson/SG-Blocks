@@ -1,11 +1,13 @@
 class InputBlock extends Block {
     message: string;
     variableName: string;
+    mode: string;
 
-    constructor(x: number = 0, y: number = 0, variableName: any = undefined, message: string = "Enter variable") {
+    constructor(x: number = 0, y: number = 0, variableName: any = undefined, message: string = "Enter variable", mode: string = "textarea") {
         super(x, y);
         this.message = message;
         this.variableName = variableName;
+        this.mode = mode;
 
         if(globalVariables.has(this.variableName) == false)
         {
@@ -20,19 +22,40 @@ class InputBlock extends Block {
         setTimeout(() => {
             const message: string = replaceVariablesToValues(this.message);
 
-            const msg: InputBox = new InputBox(message);
+            if(this.mode == "textarea")
+            {
+                const msg: InputBox = new InputBox(message);
 
-            msg.okBtn.addEventListener("click", () => {
-                if(!isNaN(Number(msg.inputValue))) {
-                    globalVariables.set(this.variableName, Number(msg.inputValue));
-                    console.log("Input as number: "+msg.inputValue);
-                }
-                else {
-                    globalVariables.set(this.variableName, msg.inputValue);
-                    console.log("Input: "+msg.inputValue);
-                }
-                this.executeNextBlock();
-            });
+                msg.okBtn.addEventListener("click", () => {
+                    if(!isNaN(Number(msg.inputValue))) {
+                        globalVariables.set(this.variableName, Number(msg.inputValue));
+                        console.log("Input as number: "+msg.inputValue);
+                    }
+                    else {
+                        globalVariables.set(this.variableName, msg.inputValue);
+                        console.log("Input: "+msg.inputValue);
+                    }
+                    this.executeNextBlock();
+                });
+            }
+            else if(this.mode == "boolean")
+            {
+                const msg: BooleanBox = new BooleanBox(message);
+
+                msg.yesBtn.addEventListener("click", () => {
+                    globalVariables.set(this.variableName, "yes");
+                    console.log("Input as boolean: yes");
+
+                    this.executeNextBlock();
+                });
+
+                msg.noBtn.addEventListener("click", () => {
+                    globalVariables.set(this.variableName, "no");
+                    console.log("Input as boolean: no");
+
+                    this.executeNextBlock();
+                });
+            }
             
         }, runSpeed/5);
     }
@@ -59,8 +82,8 @@ class InputBlock extends Block {
                 <p>Variable Name: <input type="text" value="${this.variableName}" class="property${this.id}"></p>
                 <p>Message: <textarea class="property${this.id}">${this.message}</textarea></p>
                 <p>Input Mode: <select class="property${this.id}">
-                    <option>Textarea</option>
-                    <option>Boolean</option>
+                    <option>textarea</option>
+                    <option>boolean</option>
                 </select></p>
             `;
 
@@ -74,6 +97,11 @@ class InputBlock extends Block {
             property[1].oninput = () => {
                 this.message = property[1].value;
             };
+
+            property[2].value = this.mode;
+            property[2].oninput = () => {
+                this.mode = property[2].value;
+            }
 
             super.properties();
         });

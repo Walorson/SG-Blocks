@@ -3,22 +3,7 @@ class MessageBox {
         this.message = message;
         this.title = title;
         this.createWindow();
-        this.okBtn = document.getElementById("messageBox-OK");
-        this.quitBtn = document.getElementById("messageBox-quit");
-        this.okBtn.addEventListener("click", () => {
-            this.okBtnEvent();
-            window.removeEventListener("keypress", enterToCloseTheWindow);
-        });
-        this.quitBtn.addEventListener("click", () => {
-            this.quitBtnEvent();
-            window.removeEventListener("keypress", enterToCloseTheWindow);
-        });
-        const enterToCloseTheWindow = (e) => {
-            if (e.key == 'Enter') {
-                this.okBtn.click();
-            }
-        };
-        window.addEventListener("keypress", enterToCloseTheWindow);
+        this.initWindowEvents();
     }
     createWindow() {
         document.body.insertAdjacentHTML("afterbegin", `
@@ -33,6 +18,24 @@ class MessageBox {
         </div>
  
         `);
+    }
+    initWindowEvents() {
+        this.quitBtn = document.getElementById("messageBox-quit");
+        this.okBtn = document.getElementById("messageBox-OK");
+        this.okBtn.addEventListener("click", () => {
+            this.okBtnEvent();
+            window.removeEventListener("keypress", enterToCloseTheWindow);
+        });
+        this.quitBtn.addEventListener("click", () => {
+            this.quitBtnEvent();
+            window.removeEventListener("keypress", enterToCloseTheWindow);
+        });
+        const enterToCloseTheWindow = (e) => {
+            if (e.key == 'Enter') {
+                this.okBtn.click();
+            }
+        };
+        window.addEventListener("keypress", enterToCloseTheWindow);
     }
     okBtnEvent() {
         this.okBtn.parentElement.parentElement.remove();
@@ -68,5 +71,53 @@ class InputBox extends MessageBox {
         this.inputValue = input.value;
         this.okBtn.parentElement.parentElement.remove();
         isInputFocus = false;
+    }
+}
+class BooleanBox extends MessageBox {
+    constructor(message, title = "INPUT_BOX") {
+        super(message, title);
+    }
+    createWindow() {
+        document.body.insertAdjacentHTML("afterbegin", `
+         <div class="window messageBox" id="messageBox">
+            <div class="nav-top"><span class="title-window">${this.title}</span><div class="window-quit" id="messageBox-quit">X</div></div>
+
+            <p class="window-p">${this.message}</p>
+
+            <div class="confirmation-buttons">
+                <button id="messageBox-yes">Yes</button>
+                <button id="messageBox-no">No</button>
+            </div>
+        </div>
+ 
+        `);
+        isInputFocus = true;
+    }
+    yesBtnEvent() {
+        this.inputValue = "yes";
+        this.yesBtn.parentElement.parentElement.remove();
+        isInputFocus = false;
+    }
+    noBtnEvent() {
+        this.inputValue = "no";
+        this.noBtn.parentElement.parentElement.remove();
+        isInputFocus = false;
+    }
+    initWindowEvents() {
+        this.quitBtn = document.getElementById("messageBox-quit");
+        this.quitBtn.addEventListener("click", () => {
+            this.quitBtnEvent();
+            window.removeEventListener("keypress", enterToCloseTheWindow);
+        });
+        this.yesBtn = document.getElementById("messageBox-yes");
+        this.yesBtn.addEventListener("click", () => this.yesBtnEvent());
+        this.noBtn = document.getElementById("messageBox-no");
+        this.noBtn.addEventListener("click", () => this.noBtnEvent());
+        const enterToCloseTheWindow = (e) => {
+            if (e.key == 'Enter') {
+                this.okBtn.click();
+            }
+        };
+        window.addEventListener("keypress", enterToCloseTheWindow);
     }
 }
