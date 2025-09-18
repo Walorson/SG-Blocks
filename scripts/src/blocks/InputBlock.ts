@@ -58,6 +58,10 @@ class InputBlock extends Block {
             propertiesWindow.innerHTML = `
                 <p>Variable Name: <input type="text" value="${this.variableName}" class="property${this.id}"></p>
                 <p>Message: <textarea class="property${this.id}">${this.message}</textarea></p>
+                <p>Input Mode: <select class="property${this.id}">
+                    <option>Textarea</option>
+                    <option>Boolean</option>
+                </select></p>
             `;
 
             const property: any = propertiesWindow.querySelectorAll(".property"+this.id);

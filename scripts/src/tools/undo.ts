@@ -100,7 +100,7 @@ function convertConnectToToMap(blocks: Block[]): Block[]
             connectToMap.push(block.id);
         });
 
-        if(block instanceof ConditionBlock)
+        if(block instanceof ConditionBlock || block instanceof ProbalityBlock)
         {
             if(block.connectToTRUE != undefined)
                 block.connectToTRUE = block.connectToTRUE.id;
@@ -134,7 +134,7 @@ function convertMapToConnectTo(blocks: Block[]): void
             });
         }
 
-        if(blockStart instanceof ConditionBlock)
+        if(blockStart instanceof ConditionBlock || blockStart instanceof ProbalityBlock)
         {
             if(blockStart.connectToTRUE != undefined)
             {

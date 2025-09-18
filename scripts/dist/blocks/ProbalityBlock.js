@@ -13,12 +13,20 @@ class ProbalityBlock extends Block {
     }
     connectToExecute() {
         setTimeout(() => {
+            executeHistory.push(this);
             this.unsetActive();
             const rand = Math.ceil(Math.random() * 100);
-            if (rand > 100 - this.probality)
+            if (rand > 100 - this.probality && this.connectToTRUE != undefined)
                 this.connectToTRUE.execute();
-            else
+            else if (this.connectToFALSE != undefined)
                 this.connectToFALSE.execute();
+            else if (this.connectToTRUE == undefined && this.connectToFALSE == undefined) {
+                for (let i = 0; i < this.connectTo.length; i++) {
+                    this.connectTo[i].execute();
+                }
+            }
+            else
+                endRun();
         }, runSpeed);
     }
     properties() {
@@ -27,6 +35,8 @@ class ProbalityBlock extends Block {
                 return;
             propertiesWindow.innerHTML = `
                 <p>Probality (%): <input type="number" value="${this.probality}" class="property${this.id}" min=0 max=100></p>
+                <p>*Hold Z key and right mouse button to connect <b>SUCCESS</b> Line</p>
+                <p>*Hold X key and right mouse button to connect <b>FAILURE</b> Line</p>
             `;
             const property = propertiesWindow.querySelectorAll(".property" + this.id);
             property[0].oninput = () => {
