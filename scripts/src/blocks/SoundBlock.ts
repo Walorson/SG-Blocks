@@ -8,7 +8,7 @@ class SoundBlock extends Block
     otherCategory: string;
     drumCategory: string;
     guitarCategory: string;
-    constructor(x: number = 0, y: number = 0, sound: string = "C6", waitMode: string = "Run Speed time", waitTime: number = 0, category: string = "Keyboard") 
+    constructor(x: number = 0, y: number = 0, sound: string = "accept", waitMode: string = "Run Speed time", waitTime: number = 0, category: string = "Other") 
     {
         super(x, y);
         this.category = category;
@@ -28,37 +28,9 @@ class SoundBlock extends Block
     {
         this.keyboardCategory = `<option>D5</option><option>D#5</option><option>E5</option><option>F5</option><option>F#5</option><option>G5</option><option>G#5</option><option>A5</option><option>A#5</option><option>B5</option><option>C6</option><option>C#6</option><option>D6</option><option>D#6</option><option>E6</option><option>F6</option><option>F#6</option><option>G6</option><option>G#6</option><option>A6</option><option>A#6</option><option>B6</option><option>C7</option><option>C#7</option>
         `;
-        this.otherCategory = `<option>accept</option><option>beep</option><option>cheers</option><option>clock</option><option>ding</option><option>error</option><option>level up</option><option>press</option><option>reject</option><option>zap</option>`;
+        this.otherCategory = `<option>accept</option><option>beep</option><option>boo</option><option>cheers</option><option>clock</option><option>ding</option><option>error</option><option>level up</option><option>press</option><option>reject</option><option>zap</option>`;
         this.drumCategory = `<option>kick</option><option>snare</option><option>hat</option><option>hi hat</option><option>clap</option>`;
-        this.guitarCategory = `
-            <option>D3</option>
-            <option>D#3</option>
-            <option>E3</option>
-            <option>F3</option>
-            <option>F#3</option>
-            <option>G3</option>
-            <option>G#3</option>
-            <option>A3</option>
-            <option>A#3</option>
-            <option>B3</option>
-            <option>C4</option>
-            <option>C#4</option>
-            <option>D4</option>
-            <option>D#4</option>
-            <option>E4</option>
-            <option>F4</option>
-            <option>F#4</option>
-            <option>G4</option>
-            <option>G#4</option>
-            <option>A4</option>
-            <option>A#4</option>
-            <option>B4</option>
-            <option>C5</option>
-            <option>C5</option>
-            <option>C#5</option>
-            <option>D5</option>
-            <option>D#5</option>
-        `;
+        this.guitarCategory = `<option>E2</option><option>F2</option><option>F#2</option><option>G2</option><option>G#2</option><option>A2</option><option>A#2</option><option>B2</option><option>C3</option><option>C#3</option><option>D3</option><option>D#3</option><option>E3</option><option>F3</option><option>F#3</option><option>G3</option><option>G#3</option><option>A3</option><option>A#3</option><option>B3</option><option>C4</option><option>C#4</option><option>D4</option><option>D#4</option><option>E4</option><option>F4</option><option>F#4</option><option>G4</option><option>G#4</option><option>A4</option><option>A#4</option><option>B4</option><option>C5</option><option>C5</option><option>C#5</option><option>D5</option><option>D#5</option><option>E6</option><option>F6</option><option>F#6</option><option>G6</option><option>G#6</option><option>B6</option><option>C6</option><option>C#6</option><option>D6</option>`;
     }
 
     execute(): void 
@@ -150,6 +122,9 @@ class SoundBlock extends Block
             property[1].oninput = () => {
                 this.sound = property[1].value;
                 this.updateDiv();
+
+                const audio = new Audio(`sounds/${this.category.toLowerCase()}/${encodeURIComponent(this.sound)}.mp3`);
+                audio.play();
             }
             
             property[2].value = this.waitMode;
