@@ -3,10 +3,11 @@ body {
     justify-content: center;
     user-select: initial;
     font-size: 1rem;
+    overflow: auto;
 }
 .container {
     background-color: white;
-    width: 60%;
+    width: 65%;
     height: 100%;
 
     display: grid;
@@ -38,6 +39,7 @@ aside li {
 main {
     box-sizing: border-box;
     padding: 20px 50px;
+    background-color: white;
 }
 nav {
     display: flex;

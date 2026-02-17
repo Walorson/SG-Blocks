@@ -2,6 +2,7 @@ let lineController = connect();
 let connectStart = false;
 let blockStart;
 let defaultLineColor = "black";
+let currentLineColor = '';
 function connectBegin(e) {
     if (e.button != 2)
         return;
@@ -27,9 +28,11 @@ function connectBegin(e) {
             else {
                 if (keyPressed == 'Z') {
                     connectLineSimplex(String(blockStart.id), "cursor", "green", 3);
+                    currentLineColor = "green";
                 }
                 else if (keyPressed == 'X') {
                     connectLineSimplex(String(blockStart.id), "cursor", "orange", 3);
+                    currentLineColor = 'orange';
                 }
                 else {
                     connectLineSimplex(String(blockStart.id), "cursor");
@@ -74,17 +77,18 @@ function connectEnd(e) {
         if (isDeadLoop == true)
             return;
         saveBlockState();
-        if ((blockStart instanceof ConditionBlock || blockStart instanceof ProbalityBlock) && keyPressed != null) {
-            if (keyPressed == 'Z' && blockStart.connectToTRUE == undefined) {
+        if ((blockStart instanceof ConditionBlock || blockStart instanceof ProbalityBlock)) {
+            if (currentLineColor == 'green' && blockStart.connectToTRUE == undefined) {
                 connectLine(blockStart, blockEnd, "true");
             }
-            if (keyPressed == 'X' && blockStart.connectToFALSE == undefined) {
+            if (currentLineColor == 'orange' && blockStart.connectToFALSE == undefined) {
                 connectLine(blockStart, blockEnd, "false");
             }
         }
         else {
             connectLine(blockStart, blockEnd);
         }
+        currentLineColor = '';
     }
     connectStart = false;
 }
@@ -128,6 +132,7 @@ function connectLineSimplex(startId, endId, color = defaultLineColor, width = 2,
         left_node: startId,
         right_node: endId,
         col: color,
+        colOriginal: color,
         width: width,
         gtype: type
     });

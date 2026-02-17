@@ -2,6 +2,7 @@ let lineController: any = connect();
 let connectStart: boolean = false;
 let blockStart: Block;
 let defaultLineColor: string = "black";
+let currentLineColor = '';
 
 function connectBegin(e: MouseEvent): void
 {
@@ -41,9 +42,11 @@ function connectBegin(e: MouseEvent): void
             {
                 if(keyPressed == 'Z') {
                     connectLineSimplex(String(blockStart.id), "cursor", "green", 3);
+                    currentLineColor = "green";
                 }
                 else if(keyPressed == 'X') {
                     connectLineSimplex(String(blockStart.id), "cursor", "orange", 3);
+                    currentLineColor = 'orange';
                 }
                 else {
                     connectLineSimplex(String(blockStart.id), "cursor");
@@ -99,13 +102,13 @@ function connectEnd(e: MouseEvent)
 
         saveBlockState();
 
-        if((blockStart instanceof ConditionBlock || blockStart instanceof ProbalityBlock) && keyPressed != null)
+        if((blockStart instanceof ConditionBlock || blockStart instanceof ProbalityBlock))
         {
-            if(keyPressed == 'Z' && blockStart.connectToTRUE == undefined)
+            if(currentLineColor == 'green' && blockStart.connectToTRUE == undefined)
             {
                 connectLine(blockStart, blockEnd, "true")
             }
-            if(keyPressed == 'X' && blockStart.connectToFALSE == undefined)
+            if(currentLineColor == 'orange' && blockStart.connectToFALSE == undefined)
             {
                 connectLine(blockStart, blockEnd, "false")
             }
@@ -113,6 +116,8 @@ function connectEnd(e: MouseEvent)
         else {
             connectLine(blockStart, blockEnd);
         }
+
+        currentLineColor = '';
     }
 
     connectStart = false;
@@ -169,6 +174,7 @@ function connectLineSimplex(startId: string, endId: string, color: string = defa
         left_node: startId,
         right_node: endId,
         col: color,
+        colOriginal: color,
         width: width,
         gtype: type
     });

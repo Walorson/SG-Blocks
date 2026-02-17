@@ -31,7 +31,7 @@ class OperationBlock extends Block {
     }
 
     updateDiv(): void {
-        this.div.innerHTML = `<span><b>Operation: </b>${boldVariables(this.mathOperation)}</span>`;
+        this.div.innerHTML = `<span><b>${this.variableName} = </b>${boldVariables(this.mathOperation)}</span>`;
 
         super.updateDiv();
     }
@@ -101,6 +101,7 @@ class OperationBlock extends Block {
 
             property[3].oninput = () => {
                 this.variableName = property[3].value; 
+                this.updateDiv();
             };
 
             super.properties();

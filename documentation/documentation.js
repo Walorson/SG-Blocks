@@ -8,7 +8,7 @@ window.addEventListener("load", () => {
             <li><a href="output-block.html">Output Block</a></li>
             <li><a href="input-block.html">Input Block</a></li>
             <li><a href="condition-block.html">Condition Block</a></li>
-            <li><a href="opeartion-block.html">Operation Block</a></li>
+            <li><a href="operation-block.html">Operation Block</a></li>
             <li><a href="empty-block.html">Empty Block</a></li>
             <li><a href="end-block.html">End Block</a></li>
         </ul>

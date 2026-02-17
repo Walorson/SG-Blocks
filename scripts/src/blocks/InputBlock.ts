@@ -78,29 +78,29 @@ class InputBlock extends Block {
         this.div.addEventListener("mousedown", (e: MouseEvent) => {
             if(e.button == 1) return;
 
-            propertiesWindow.innerHTML = `
-                <p>Variable Name: <input type="text" value="${this.variableName}" class="property${this.id}"></p>
+            propertiesWindow.innerHTML = `             
                 <p>Message: <textarea class="property${this.id}">${this.message}</textarea></p>
                 <p>Input Mode: <select class="property${this.id}">
                     <option>textarea</option>
                     <option>boolean</option>
                 </select></p>
+                <p>Save to Variable: <input type="text" value="${this.variableName}" class="property${this.id}"></p>
             `;
 
             const property: any = propertiesWindow.querySelectorAll(".property"+this.id);
             
+            property[0].value = this.mode;
             property[0].oninput = () => {
-                this.variableName = property[0].value;
-                this.updateDiv();
+                this.mode = property[2].value;
             }
 
             property[1].oninput = () => {
                 this.message = property[1].value;
             };
 
-            property[2].value = this.mode;
             property[2].oninput = () => {
-                this.mode = property[2].value;
+                this.variableName = property[0].value;
+                this.updateDiv();
             }
 
             super.properties();
