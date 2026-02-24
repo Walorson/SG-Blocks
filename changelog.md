@@ -1,5 +1,5 @@
 # SG-Blocks Beta 1.6
-## th February 2026
+## 24th February 2026
 
 ***NEWS***
 - Added a new block "Sound Block"
