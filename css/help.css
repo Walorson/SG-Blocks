@@ -1,9 +1,15 @@
+* {
+    -webkit-user-drag: none;
+}
 body {
     display: flex;
     justify-content: center;
     user-select: initial;
     font-size: 1rem;
     overflow: auto;
+}
+.title {
+    user-select: none;
 }
 .container {
     background-color: white;
