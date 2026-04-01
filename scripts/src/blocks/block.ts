@@ -1,7 +1,7 @@
-const workspace: HTMLElement = document.getElementById("workspace");
+const workspace: HTMLElement = document.getElementById("workspace")!;
 let DEFAULT_BLOCK_X: number = 250;
 let DEFAULT_BLOCK_Y: number = 75;
-let blocksList = [];
+let blocksList: Block[] = [];
 
 abstract class Block {
     id: number;
@@ -56,7 +56,7 @@ abstract class Block {
     }
 
     getID(): void {
-        this.div = document.getElementById(this.id+"");
+        this.div = document.getElementById(this.id+"")!;
     }
     
     execute(): void { 
@@ -121,13 +121,13 @@ abstract class Block {
                 let elementClicked = e.target as HTMLElement;
 
                 if(elementClicked.tagName == 'B')
-                    elementClicked = elementClicked.parentElement;
+                    elementClicked = elementClicked.parentElement!;
 
                 if(elementClicked.tagName == 'I')
-                    elementClicked = elementClicked.parentElement;
+                    elementClicked = elementClicked.parentElement!;
 
                 if(elementClicked.tagName == 'SPAN')
-                    elementClicked = elementClicked.parentElement;
+                    elementClicked = elementClicked.parentElement!;
                 
                 if(this.isSelected() && elementClicked.classList.contains("selected"))    
                 {
@@ -146,8 +146,9 @@ abstract class Block {
 
         const mouseDown = (e: MouseEvent): void =>
         {   
-            if(e.button == 2 && this.connectTo.length < this.maxConnects) {
-                document.querySelectorAll(".block").forEach((block: HTMLElement) => block.style.cursor = 'cell');
+            if(e.button == 2 && this.connectTo.length < this.maxConnects) 
+            {
+                document.querySelectorAll<HTMLElement>(".block").forEach((block: HTMLElement) => block.style.cursor = 'cell');
                 _canvas.style.cursor = 'cell';
             }
             if(e.button != 0 || deleteLineMode == true) return;
@@ -189,7 +190,7 @@ abstract class Block {
 
         const mouseUp = (e: MouseEvent): void =>
         {
-            document.querySelectorAll(".block").forEach((block: HTMLElement) => block.style.cursor = 'grab');
+            document.querySelectorAll<HTMLElement>(".block").forEach((block: HTMLElement) => block.style.cursor = 'grab');
             _canvas.style.cursor = 'default';
             if(e.button != 0) return;
 
@@ -217,7 +218,7 @@ abstract class Block {
     }
 
     properties(): void {
-        document.querySelectorAll("input, textarea").forEach((input: HTMLElement) => {      
+        document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("input, textarea").forEach((input: HTMLElement) => {   
             input.onfocus = () => { isInputFocus = true; }
             input.onblur = () => { isInputFocus = false;  }
         });
@@ -332,7 +333,7 @@ abstract class Block {
     }
 
     getLines(): object[] {
-        const lines = [];
+        const lines: any = [];
 
         _lines.forEach((line: any) => {
             if(line.left_node_id == this.id) {

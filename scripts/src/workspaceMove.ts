@@ -45,7 +45,7 @@ window.addEventListener("mouseup", () => {
    }
 });
 
-const coords = document.getElementById("coords");
+const coords: HTMLElement = document.getElementById("coords")!;
 let cursorX: number;
 let cursorY: number;
 _canvas.addEventListener("mousemove", (e: MouseEvent) => {

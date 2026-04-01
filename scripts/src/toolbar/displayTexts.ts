@@ -3,7 +3,7 @@ const displayTexts: HTMLInputElement = document.getElementById("toolbar-display-
 displayTexts.onclick = () => {
     if(displayTexts.checked == false)
     {
-        document.querySelectorAll(".text").forEach((text: HTMLElement) => {
+        document.querySelectorAll<HTMLElement>(".text").forEach((text: HTMLElement) => {
             text.style.display = "none";
         });
 
@@ -11,7 +11,7 @@ displayTexts.onclick = () => {
     }
     else 
     {
-        document.querySelectorAll(".text").forEach((text: HTMLElement) => {
+        document.querySelectorAll<HTMLElement>(".text").forEach((text: HTMLElement) => {
             text.style.display = "";
         });
 

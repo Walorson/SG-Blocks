@@ -3,6 +3,7 @@ class ConditionBlock extends Block {
     connectToTRUE: Block | any;
     connectToFALSE: Block | any;
 
+    //@ts-ignore
     constructor(x: number = 0, y: number = 0, conditions: Condition[] = null) {
         super(x, y);
 
@@ -122,7 +123,7 @@ class ConditionBlock extends Block {
                 condition.add();
             });
 
-            const addCondition: HTMLElement = document.getElementById("add-condition-button");
+            const addCondition: HTMLElement = document.getElementById("add-condition-button")!;
 
             addCondition.onclick = () => {
                 this.conditions.push(new Condition(this.id));
@@ -201,11 +202,11 @@ class Condition {
     isValueVariable: boolean[];
     valueName: string[];
     result: boolean;
-    logicalOperator: string;
+    logicalOperator: string | undefined;
 
     constructor(idBlock: number, value: any[] = [0, 0], isValueVariable: boolean[] = [false, false], valueName: string[] = [], operator: string = "==", logicalOperator: string = 'AND') {
         this.idBlock = idBlock;
-        this.id = blocksList[idBlock].conditions.length;
+        this.id = (blocksList[idBlock] as ConditionBlock).conditions.length;
         this.value = value;
         this.isValueVariable = isValueVariable;
         this.operator = operator;
@@ -219,11 +220,11 @@ class Condition {
     }
 
     add() {
-        document.getElementById("conditions").innerHTML += `<div id="condition${this.id}" class="condition-setting"></div>`;
+        document.getElementById("conditions")!.innerHTML += `<div id="condition${this.id}" class="condition-setting"></div>`;
 
         if(this.id > 0)
         {
-            document.getElementById("condition"+this.id).innerHTML += `
+            document.getElementById("condition"+this.id)!.innerHTML += `
             <select id="logicalOperator${this.id}">
                 <option>AND</option>
                 <option>OR</option>
@@ -231,7 +232,7 @@ class Condition {
             `;
         }
 
-        document.getElementById("condition"+this.id).innerHTML += `
+        document.getElementById("condition"+this.id)!.innerHTML += `
             <p class="condition-section">
             <span class="value${this.id}"><input type="text" value="${this.value[0]}" class="property${this.id}"></span>
             <select class="property${this.id}">
@@ -342,23 +343,23 @@ class Condition {
             }
         }
 
-        document.getElementById(`remove-condition${this.id}`).onclick = () => 
+        document.getElementById(`remove-condition${this.id}`)!.onclick = () => 
         {
-            document.getElementById(`condition${this.id}`).remove();
-            delete blocksList[this.idBlock].conditions[this.id];
+            document.getElementById(`condition${this.id}`)!.remove();
+            delete (blocksList[this.idBlock] as ConditionBlock).conditions[this.id];
             blocksList[this.idBlock].updateDiv();
 
-            for(let i=0; i < blocksList[this.idBlock].conditions.length; i++)
+            for(let i=0; i < (blocksList[this.idBlock] as ConditionBlock).conditions.length; i++)
             {
-                if(blocksList[this.idBlock].conditions[i] != null) {
+                if((blocksList[this.idBlock] as ConditionBlock).conditions[i] != null) {
                     try {
-                        document.getElementById("logicalOperator"+blocksList[this.idBlock].conditions[i].id).remove();
+                        document.getElementById("logicalOperator"+(blocksList[this.idBlock] as ConditionBlock).conditions[i].id)!.remove();
                     } catch{};
                     return; //end the function if there aren't only emptys
                 }
             }
 
-            blocksList[this.idBlock].conditions = [];
+            (blocksList[this.idBlock] as ConditionBlock).conditions = [];
         }
 
         if(this.id > 0)

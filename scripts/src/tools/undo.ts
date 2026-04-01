@@ -35,8 +35,8 @@ function restoreBlocks(action: string = "undo"): void
     deleteAllBlocks();
 
     let list: Block[] = [];
-    if(action == "undo") list = lastBlocksList[last];
-    else if(action == "redo") list = restoredBlocksList[last];
+    if(action == "undo") list = lastBlocksList[last!];
+    else if(action == "redo") list = restoredBlocksList[last!];
 
     list.forEach((block: Block, index: number) => {
         if(block != undefined)
@@ -47,6 +47,7 @@ function restoreBlocks(action: string = "undo"): void
             blockToPaste.init();
         }
         else {
+            //@ts-ignore
             blocksList.push(undefined);
             delete blocksList[index];
         }
@@ -56,12 +57,12 @@ function restoreBlocks(action: string = "undo"): void
 
     if(action == "undo")
     {
-        delete lastBlocksList[last];
+        delete lastBlocksList[last!];
         lastBlocksList = lastBlocksList.filter((state: any) => state != undefined);
     }
     else if(action == "redo")
     {
-        delete restoredBlocksList[last];
+        delete restoredBlocksList[last!];
         restoredBlocksList = restoredBlocksList.filter((state: any) => state != undefined);
     }
 
@@ -90,12 +91,13 @@ function convertConnectToToMap(blocks: Block[]): Block[]
     for(let i=0; i<blocks.length; i++)
     {
         if(blocks[i] == undefined) {
+            //@ts-ignore
             blockState.push(undefined);
             continue;
         }
 
         let block: Block = Object.assign(Object.create(Object.getPrototypeOf(blocks[i])), blocks[i]);
-        let connectToMap = [];
+        let connectToMap: Number[] = [];
         block.connectTo.forEach((block: Block) => {
             connectToMap.push(block.id);
         });
@@ -108,6 +110,7 @@ function convertConnectToToMap(blocks: Block[]): Block[]
                 block.connectToFALSE = block.connectToFALSE.id;
         }
 
+        //@ts-ignore
         block.connectTo = connectToMap;
         blockState.push(block);
     }
@@ -118,7 +121,7 @@ function convertConnectToToMap(blocks: Block[]): Block[]
 function convertMapToConnectTo(blocks: Block[]): void
 {
     blocks.forEach((block: Block) => {
-        let realConnectTo = [];
+        let realConnectTo: Block[] = [];
         block.connectTo.forEach((id: any) => {
             realConnectTo.push(blocks[id]);
         });

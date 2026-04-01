@@ -134,7 +134,7 @@ settingsInput.defaultVariablePrefix.addEventListener("input", () => {
 window.addEventListener("load",() => {
     if(localStorage.getItem("settings") != null)
     {
-        settings = JSON.parse(localStorage.getItem("settings"));
+        settings = JSON.parse(localStorage.getItem("settings")!);
     }
 
     settingsBeforeChange = { ...settings };

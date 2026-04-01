@@ -40,6 +40,7 @@ function restoreBlocks(action = "undo") {
             blockToPaste.init();
         }
         else {
+            //@ts-ignore
             blocksList.push(undefined);
             delete blocksList[index];
         }
@@ -69,6 +70,7 @@ function convertConnectToToMap(blocks) {
     let blockState = [];
     for (let i = 0; i < blocks.length; i++) {
         if (blocks[i] == undefined) {
+            //@ts-ignore
             blockState.push(undefined);
             continue;
         }
@@ -83,6 +85,7 @@ function convertConnectToToMap(blocks) {
             if (block.connectToFALSE != undefined)
                 block.connectToFALSE = block.connectToFALSE.id;
         }
+        //@ts-ignore
         block.connectTo = connectToMap;
         blockState.push(block);
     }

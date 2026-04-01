@@ -20,7 +20,7 @@ class DelayBlock extends Block {
 
         runSpeed = this.delay;
         this.executeNextBlock();
-        runSpeed = blocksList[0].runSpeed;
+        runSpeed = (blocksList[0] as StartBlock).runSpeed;
     }
 
     properties(): void {

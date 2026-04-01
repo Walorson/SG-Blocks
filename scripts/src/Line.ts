@@ -55,7 +55,7 @@ var _error =false;
 	var connect = function() {
 
 		
-		
+		//@ts-ignore
 		var _me = this;
 	
 
@@ -69,7 +69,7 @@ var _error =false;
 
 		_ctx = _canvas.getContext('2d');
 			 
-
+		//@ts-ignore
 		this.drawLine = function(option) {
 			//It will push line to array.
 			linemap[`${option.left_node}${option.right_node}`] = _lines.length;
@@ -77,7 +77,7 @@ var _error =false;
 			this.connect(option);
 			
 		};
-
+		//@ts-ignore
 		this.drawGrid = function()
 		{
 			_ctx.strokeStyle = "gray";
@@ -87,7 +87,7 @@ var _error =false;
 			_ctx.stroke();
 		}
 		
-
+//@ts-ignore
 this.kruskalize =function (_cl = "rgb(0,0,0,0.08)")  {
 
 
@@ -98,7 +98,7 @@ this.kruskalize =function (_cl = "rgb(0,0,0,0.08)")  {
 	}
 
 }
-
+		//@ts-ignore
 		this.changecolor = function (starting , ending , assignedcolor) {
 
 	if (linemap[`${starting}${ending}`] != undefined)  {
@@ -128,7 +128,7 @@ this.kruskalize =function (_cl = "rgb(0,0,0,0.08)")  {
 
 		}
 
-
+		//@ts-ignore
 		this.dl = function(one , two) {
 		
 		
@@ -147,6 +147,7 @@ this.kruskalize =function (_cl = "rgb(0,0,0,0.08)")  {
 
 
 		//This Function is used to connect two different div with a dotted line.
+		//@ts-ignore
 	 this.connect = async function(option) {
 			
 			
@@ -269,6 +270,7 @@ f = 0;
 
 		})
 
+		//@ts-ignore
 		this.redrawLines = async function() {
 			if (_lines.length == 0) return;	
 			_ctx.clearRect(0, 0,  10000, 4300);	
@@ -281,6 +283,7 @@ f = 0;
 				  
 		};
 
+		//@ts-ignore
 		return this;
 	};
 

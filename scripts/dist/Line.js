@@ -54,6 +54,7 @@ var leftx;
 var lefty;
 var _error = false;
 var connect = function () {
+    //@ts-ignore
     var _me = this;
     //Initialize Canvas object
     _canvas.id = "cav1";
@@ -61,12 +62,14 @@ var connect = function () {
     _canvas.height = document.body.clientHeight;
     document.body.appendChild(_canvas);
     _ctx = _canvas.getContext('2d');
+    //@ts-ignore
     this.drawLine = function (option) {
         //It will push line to array.
         linemap[`${option.left_node}${option.right_node}`] = _lines.length;
         _lines.push(option);
         this.connect(option);
     };
+    //@ts-ignore
     this.drawGrid = function () {
         _ctx.strokeStyle = "gray";
         _ctx.beginPath();
@@ -74,11 +77,13 @@ var connect = function () {
         _ctx.lineTo(_canvas.width, _canvas.height / 2);
         _ctx.stroke();
     };
+    //@ts-ignore
     this.kruskalize = function (_cl = "rgb(0,0,0,0.08)") {
         for (let line of _lines) {
             line.col = _cl;
         }
     };
+    //@ts-ignore
     this.changecolor = function (starting, ending, assignedcolor) {
         if (linemap[`${starting}${ending}`] != undefined) {
             let targg = parseInt(linemap[`${starting}${ending}`]);
@@ -92,6 +97,7 @@ var connect = function () {
         }
         this.redrawLines();
     };
+    //@ts-ignore
     this.dl = function (one, two) {
         for (var y = 0; y < _lines.length; ++y) {
             if ((_lines[y].left_node) == one && (_lines[y].right_node) == two) {
@@ -100,6 +106,7 @@ var connect = function () {
         }
     };
     //This Function is used to connect two different div with a dotted line.
+    //@ts-ignore
     this.connect = function (option) {
         return __awaiter(this, void 0, void 0, function* () {
             if (option.left_node == undefined || option.left_node == "null" || option.right_node == undefined || option.right_node == "null") {
@@ -182,6 +189,7 @@ var connect = function () {
         //_me.Blines();
         //  _me.Listlines();
     });
+    //@ts-ignore
     this.redrawLines = function () {
         return __awaiter(this, void 0, void 0, function* () {
             if (_lines.length == 0)
@@ -192,6 +200,7 @@ var connect = function () {
             }
         });
     };
+    //@ts-ignore
     return this;
 };
 window.addEventListener("resize", () => {

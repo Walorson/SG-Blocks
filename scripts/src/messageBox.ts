@@ -28,8 +28,8 @@ class MessageBox {
     }
 
     initWindowEvents(): void {
-        this.quitBtn = document.getElementById("messageBox-quit");
-        this.okBtn = document.getElementById("messageBox-OK");
+        this.quitBtn = document.getElementById("messageBox-quit")!;
+        this.okBtn = document.getElementById("messageBox-OK")!;
         this.okBtn.addEventListener("click", () => {
             this.okBtnEvent();
             window.removeEventListener("keypress", enterToCloseTheWindow);
@@ -49,11 +49,11 @@ class MessageBox {
     }
 
     okBtnEvent(): void {
-        this.okBtn.parentElement.parentElement.remove();
+        this.okBtn.parentElement!.parentElement!.remove();
     }
     
     quitBtnEvent(): void {
-        this.quitBtn.parentElement.parentElement.remove()
+        this.quitBtn.parentElement!.parentElement!.remove()
         endRun();
     }
 }
@@ -79,7 +79,7 @@ class InputBox extends MessageBox {
  
         `);
 
-        document.getElementById("messageBox-input").focus();
+        document.getElementById("messageBox-input")!.focus();
         isInputFocus = true;
     }
 
@@ -87,7 +87,7 @@ class InputBox extends MessageBox {
         const input: any = document.getElementById("messageBox-input");
         this.inputValue = input.value;
 
-        this.okBtn.parentElement.parentElement.remove();
+        this.okBtn.parentElement!.parentElement!.remove();
         isInputFocus = false;
     }
 }
@@ -121,27 +121,27 @@ class BooleanBox extends MessageBox {
     yesBtnEvent(): void {
         this.inputValue = "yes";
 
-        this.yesBtn.parentElement.parentElement.remove();
+        this.yesBtn.parentElement!.parentElement!.remove();
         isInputFocus = false;
     }
 
     noBtnEvent(): void {
         this.inputValue = "no";
 
-        this.noBtn.parentElement.parentElement.remove();
+        this.noBtn.parentElement!.parentElement!.remove();
         isInputFocus = false;
     }
 
     initWindowEvents(): void {
-        this.quitBtn = document.getElementById("messageBox-quit");
+        this.quitBtn = document.getElementById("messageBox-quit")!;
         this.quitBtn.addEventListener("click", () => {
             this.quitBtnEvent();
             window.removeEventListener("keypress", enterToCloseTheWindow);
         });
 
-        this.yesBtn = document.getElementById("messageBox-yes");
+        this.yesBtn = document.getElementById("messageBox-yes")!;
         this.yesBtn.addEventListener("click", () => this.yesBtnEvent());
-        this.noBtn = document.getElementById("messageBox-no");
+        this.noBtn = document.getElementById("messageBox-no")!;
         this.noBtn.addEventListener("click", () => this.noBtnEvent());
 
         const enterToCloseTheWindow = (e: KeyboardEvent) => {

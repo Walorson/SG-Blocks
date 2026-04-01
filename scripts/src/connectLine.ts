@@ -9,20 +9,20 @@ function connectBegin(e: MouseEvent): void
     if(e.button != 2) return;
 
     e.preventDefault();
-    let block: Element = document.elementFromPoint(e.clientX, e.clientY);
+    let block: Element = document.elementFromPoint(e.clientX, e.clientY)!;
 
     if(block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P' || block.tagName == 'SPAN') 
     {
-        block = block.parentElement;
+        block = block.parentElement!;
 
         if(block.tagName == 'I')
-            block = block.parentElement;
+            block = block.parentElement!;
 
         if(block.tagName == 'P')
-            block = block.parentElement;
+            block = block.parentElement!;
 
         if(block.tagName == 'SPAN')
-            block = block.parentElement;
+            block = block.parentElement!;
     }
 
     let id: number = Number(block.getAttribute("id"));
@@ -65,19 +65,19 @@ function connectEnd(e: MouseEvent)
     _lines = _lines.filter(line => line != undefined);
     _ctx.clearRect(0, 0,  10000, 4300);	
 
-    let block: Element = document.elementFromPoint(e.clientX, e.clientY);
+    let block: Element = document.elementFromPoint(e.clientX, e.clientY)!;
     if(block.tagName == 'B' || block.tagName == 'I' || block.tagName == 'P' || block.tagName == 'SPAN')
     {
-        block = block.parentElement;
+        block = block.parentElement!;
 
         if(block.tagName == 'I')
-            block = block.parentElement;
+            block = block.parentElement!;
 
         if(block.tagName == 'P')
-            block = block.parentElement;
+            block = block.parentElement!;
 
         if(block.tagName == 'SPAN')
-            block = block.parentElement;
+            block = block.parentElement!;
          
     }
 

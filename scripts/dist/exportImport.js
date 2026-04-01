@@ -100,6 +100,7 @@ function JSONtoBlocks(json) {
             return Object.assign(new ProbalityBlock(value.x, value.y, value.probality), value);
         }
         if (value === null) {
+            //@ts-ignore
             blocksList.push(null);
             delete blocksList[blocksList.length - 1];
         }

@@ -2,7 +2,7 @@ let deleteLineMode: boolean = false;
 let executeHistory: Block[] = [];
 let globalVariables: Map<string, any> = new Map();
 let isInputFocus: boolean = false;
-const theme: HTMLElement = document.getElementById("theme");
+const theme: HTMLElement = document.getElementById("theme")!;
 
 new StartBlock(0, 0);
 new OutputBlock(-50, 300, "Hello!");
@@ -18,14 +18,14 @@ function globalVariablesUpdate(): void
     {
         if(blocksList[i] instanceof InputBlock || blocksList[i] instanceof OperationBlock || blocksList[i] instanceof RandomBlock)
         {
-            globalVariables.set(blocksList[i].variableName, null);
+            globalVariables.set((blocksList[i] as InputBlock | OperationBlock | RandomBlock).variableName, null);
         }
     }
     for(let i=0; i<blocksList.length; i++)
     {
         if(blocksList[i] instanceof VariableBlock)
         {
-            globalVariables.set(blocksList[i].variableName, blocksList[i].variableValue);
+            globalVariables.set((blocksList[i] as VariableBlock).variableName, (blocksList[i] as VariableBlock).variableValue);
         }
     }
 }
@@ -52,7 +52,7 @@ function createSelectVariables(id: string = "property0", exclude: any = undefine
 
 function fakeCursorToRealCursor(e: MouseEvent): void
 {
-    const cursor: HTMLElement = document.getElementById("cursor");
+    const cursor: HTMLElement = document.getElementById("cursor")!;
     cursor.style.top = e.clientY+"px";
     cursor.style.left = e.clientX+"px";
 }
@@ -63,7 +63,7 @@ function reverseDirection(direction: string): string {
         case "s": return "n";
         case "e": return "w";
         case "w": return "e";
-        default: return undefined;
+        default: return undefined!;
     }
 }
 

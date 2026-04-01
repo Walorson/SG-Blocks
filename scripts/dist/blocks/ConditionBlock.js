@@ -1,4 +1,5 @@
 class ConditionBlock extends Block {
+    //@ts-ignore
     constructor(x = 0, y = 0, conditions = null) {
         super(x, y);
         this.conditions = [];

@@ -1,4 +1,4 @@
-let keyPressed: string = null;
+let keyPressed: string | null = null;
 let shiftPressed: boolean = false;
 
 window.addEventListener("load", () => {    
@@ -56,7 +56,7 @@ window.addEventListener("load", () => {
             _lines[i].col = _lines[i].colOriginal;
         }
         _canvas.style.cursor = "default";
-        document.querySelectorAll(".block").forEach((block: HTMLElement) => {
+        document.querySelectorAll<HTMLElement>(".block").forEach((block: HTMLElement) => {
             block.style.cursor = "";
             block.style.border = "";
         });

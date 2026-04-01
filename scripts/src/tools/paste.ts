@@ -25,8 +25,8 @@ function pasteBlocks()
 
         if(blocksList[i] instanceof ConditionBlock)
         {
-            blocksList[i].connectToFALSE = undefined;
-            blocksList[i].connectToTRUE = undefined;
+            (blocksList[i] as ConditionBlock).connectToFALSE = undefined;
+            (blocksList[i] as ConditionBlock).connectToTRUE = undefined;
         }
     }
 

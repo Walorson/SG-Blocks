@@ -40,7 +40,7 @@ class SoundBlock extends Block
         else if(this.waitMode == "Custom") {
             runSpeed = this.waitTime;
             this.executeNextBlock();
-            runSpeed = blocksList[0].runSpeed;
+            runSpeed = (blocksList[0] as StartBlock).runSpeed;
             
         }
         else

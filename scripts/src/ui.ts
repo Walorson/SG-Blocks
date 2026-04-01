@@ -1,22 +1,22 @@
-const ui: HTMLElement = document.getElementById("ui");
-const propertiesWindow: HTMLElement = document.getElementById("properties");
+const ui: HTMLElement = document.getElementById("ui")!;
+const propertiesWindow: HTMLElement = document.getElementById("properties")!;
 
 const buttons = {
-    output: document.getElementById("output-block-button"),
-    input: document.getElementById("input-block-button"),
-    condition: document.getElementById("condition-block-button"),
-    operation: document.getElementById("operation-block-button"),
-    empty: document.getElementById("empty-block-button"),
-    end: document.getElementById("end-block-button"),
-    random: document.getElementById("random-block-button"),
-    sound: document.getElementById("sound-block-button"),
-    delay: document.getElementById("delay-block-button"),
-    probality: document.getElementById("probality-block-button"),
-    text: document.getElementById("text-misc-button"),
-    variable: document.getElementById("variable-misc-button"),
-    run: document.getElementById("run-button"),
+    output: document.getElementById("output-block-button") as HTMLButtonElement,
+    input: document.getElementById("input-block-button") as HTMLButtonElement,
+    condition: document.getElementById("condition-block-button") as HTMLButtonElement,
+    operation: document.getElementById("operation-block-button") as HTMLButtonElement,
+    empty: document.getElementById("empty-block-button") as HTMLButtonElement,
+    end: document.getElementById("end-block-button") as HTMLButtonElement,
+    random: document.getElementById("random-block-button") as HTMLButtonElement,
+    sound: document.getElementById("sound-block-button") as HTMLButtonElement,
+    delay: document.getElementById("delay-block-button") as HTMLButtonElement,
+    probality: document.getElementById("probality-block-button") as HTMLButtonElement,
+    text: document.getElementById("text-misc-button") as HTMLButtonElement,
+    variable: document.getElementById("variable-misc-button") as HTMLButtonElement,
+    run: document.getElementById("run-button") as HTMLButtonElement,
     autorun: document.getElementById("autorun-checkbox") as HTMLInputElement
-}
+} as const;
 
 const nav = {
     file: document.getElementById("nav-file-button") as HTMLElement,
@@ -87,7 +87,7 @@ buttons.autorun.addEventListener("input", () => {
     if(buttons.autorun.checked)
     {
         autorun = true;
-        runSpeed = blocksList[0].runSpeed;
+        runSpeed = (blocksList[0] as StartBlock).runSpeed;
     }
     else
     {
@@ -96,10 +96,10 @@ buttons.autorun.addEventListener("input", () => {
     }
 });
 nav.help.addEventListener("mouseenter", () => {
-    document.getElementById("controls").style.display = 'block';
+    document.getElementById("controls")!.style.display = 'block';
 });
 nav.help.addEventListener("mouseleave", () => {
-    document.getElementById("controls").style.display = '';
+    document.getElementById("controls")!.style.display = '';
 });
 
 {
@@ -128,7 +128,7 @@ nav.help.addEventListener("mouseleave", () => {
     option[0].onclick = () => { settingsWindow.show(); }
 }
 
-document.querySelectorAll(".sub-menu").forEach((subMenu: HTMLElement) => {
+document.querySelectorAll<HTMLElement>(".sub-menu").forEach((subMenu: HTMLElement) => {
     subMenu.onclick = () => { 
         subMenu.style.display = 'none'; 
         setTimeout(() => { subMenu.style.display = ''; },1);
@@ -137,19 +137,19 @@ document.querySelectorAll(".sub-menu").forEach((subMenu: HTMLElement) => {
 
 function changeBlocksCategory(category: string)
 {
-    document.querySelectorAll(".block-box").forEach((blockBox: HTMLElement) => {
+    document.querySelectorAll<HTMLElement>(".block-box").forEach((blockBox: HTMLElement) => {
         blockBox.style.display = 'none';
     });
 
-    document.getElementById("block-box-"+category).style.display = '';
+    document.getElementById("block-box-"+category)!.style.display = '';
 }
 
-blocksCategories.basic.onclick = () => {
+blocksCategories.basic!.onclick = () => {
     changeBlocksCategory("basic");
 }
-blocksCategories.special.onclick = () => {
+blocksCategories.special!.onclick = () => {
     changeBlocksCategory("special");
 }
-blocksCategories.misc.onclick = () => {
+blocksCategories.misc!.onclick = () => {
     changeBlocksCategory("misc");
 }

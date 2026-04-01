@@ -20,7 +20,7 @@ function importBlocks() {
     let input = document.createElement('input');
     input.type = 'file';
     input.onchange = _ => {
-        let file = Array.from(input.files)[0];
+        let file = Array.from(input.files!)[0];
         let fileReader = new FileReader();
         fileReader.onload = () => {
             let json = fileReader.result;
@@ -118,6 +118,7 @@ function JSONtoBlocks(json: string) {
         return Object.assign(new ProbalityBlock(value.x, value.y, value.probality), value);
       }
       if(value === null) {
+          //@ts-ignore
           blocksList.push(null);
           delete blocksList[blocksList.length-1];
       }

@@ -1,5 +1,5 @@
 let removeLine: any;
-let lineHoverID: number = null;
+let lineHoverID: number | null = null;
 let deletedBlocks: Block[] = [];
 
 window.addEventListener("load",() => {
@@ -17,8 +17,8 @@ window.addEventListener("load",() => {
         delete left_node.connectTo[leftPos];
         delete right_node.connectTo[rightPos];
 
-        if(_lines[id].colOriginal == 'green') blocksList[_lines[id].left_node_id].connectToTRUE = undefined;
-        else if(_lines[id].colOriginal == 'orange') blocksList[_lines[id].left_node_id].connectToFALSE = undefined;
+        if(_lines[id].colOriginal == 'green') (blocksList[_lines[id].left_node_id] as ConditionBlock).connectToTRUE = undefined;
+        else if(_lines[id].colOriginal == 'orange') (blocksList[_lines[id].left_node_id] as ConditionBlock).connectToFALSE = undefined;
 
         delete _lines[id];
         _lines = _lines.filter(item => item != undefined);
@@ -34,7 +34,7 @@ window.addEventListener("load",() => {
 
 function showDeletePossibilities(e: MouseEvent)
 {
-        const id = document.elementFromPoint(e.clientX, e.clientY).getAttribute("id");
+        const id = document.elementFromPoint(e.clientX, e.clientY)!.getAttribute("id");
 
         if(connectStart == true) return;
 

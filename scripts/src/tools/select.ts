@@ -1,9 +1,9 @@
 const select = {
-    startX: 0 as number,
-    startY: 0 as number,
-    width: 0 as number,
-    height: 0 as number,
-    div: null as HTMLElement,
+    startX: 0 as number | null,
+    startY: 0 as number | null,
+    width: 0 as number | null,
+    height: 0 as number | null,
+    div: null as HTMLElement | null,
     start: false as boolean
 }
 
@@ -31,26 +31,26 @@ function selectResize(e: MouseEvent): void {
     const clientX = e.clientX - workspaceMove.translateX;
     const clientY = e.clientY - workspaceMove.translateY;
 
-    select.width = clientX - select.startX;
-    select.height = clientY - select.startY;
+    select.width = clientX - select.startX!;
+    select.height = clientY - select.startY!;
 
-    select.div.style.height = Math.abs(select.height)+"px";
-    select.div.style.width = Math.abs(select.width)+"px";
+    select.div!.style.height = Math.abs(select.height)+"px";
+    select.div!.style.width = Math.abs(select.width)+"px";
 
     if(select.width < 0)
     {
-        select.div.style.left = clientX+"px";
+        select.div!.style.left = clientX+"px";
     }
     if(select.height < 0)
     {
-        select.div.style.top = clientY+"px";
+        select.div!.style.top = clientY+"px";
     }
 }
 
 function selectEnd(e: MouseEvent): void {
     select.div = document.getElementById("select");
 
-    workspace.removeChild(select.div);
+    workspace.removeChild(select.div!);
 
     select.start = false;
 
@@ -58,42 +58,42 @@ function selectEnd(e: MouseEvent): void {
         let inSelectY: boolean = false;
         let inSelectX: boolean = false;
 
-        if(select.width >= 0)
+        if(select.width! >= 0)
         {
-            if(block.x > select.startX && block.x < select.startX + select.width)
+            if(block.x > select.startX! && block.x < select.startX! + select.width!)
             {
                 inSelectX = true;
             }
         }
         else
         {
-            if(block.x < select.startX && block.x > select.startX + select.width)
+            if(block.x < select.startX! && block.x > select.startX! + select.width!)
             {
                 inSelectX = true;
             }
         }
 
-        if(select.height >= 0)
+        if(select.height! >= 0)
         {
-            if(block.y > select.startY && block.y < select.startY + select.height)
+            if(block.y > select.startY! && block.y < select.startY! + select.height!)
             {
                 inSelectY = true;
             }
         }
         else
         {
-            if(block.y < select.startY && block.y > select.startY + select.height)
+            if(block.y < select.startY! && block.y > select.startY! + select.height!)
             {
                 inSelectY = true;
             }
         }
 
-        if((select.startX > block.x && select.startX < block.x + block.div.offsetWidth) || (select.startX + select.width > block.x && select.startX + select.width < block.x + block.div.offsetWidth))
+        if((select.startX! > block.x && select.startX! < block.x + block.div.offsetWidth) || (select.startX! + select.width! > block.x && select.startX! + select.width! < block.x + block.div.offsetWidth))
         {
             inSelectX = true;
         }
 
-        if((select.startY > block.y && select.startY < block.y + block.div.offsetHeight) || (select.startY + select.height > block.y && select.startY + select.height < block.y + block.div.offsetHeight))
+        if((select.startY! > block.y && select.startY! < block.y + block.div.offsetHeight) || (select.startY! + select.height! > block.y && select.startY! + select.height! < block.y + block.div.offsetHeight))
         {
             inSelectY = true;
         }
@@ -140,7 +140,7 @@ function unselectAllBlocks(): void
 
 function invertSelection(): void 
 {
-    const selectedBlocks = [];
+    const selectedBlocks: Block[] = [];
     blocksList.forEach((block: Block) => {
         if(block.isSelected()) selectedBlocks.push(block);
     });
